@@ -42,18 +42,18 @@ public class Gui extends JFrame implements Printer {
 	private JButton addvid;
 	private JScrollPane scrollPane_1;
 	private JTable vidtable;
-	
-	VidImpl vidImpl;//=new VidImpl();
-	WeiboImpl weiboCookie;//=new WeiboImpl();
+
+	VidImpl vidImpl;// =new VidImpl();
+	WeiboImpl weiboCookie;// =new WeiboImpl();
 	WeiboImpl weiboId;// =new WeiboImpl();
-	
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		//加载窗体。
+		// 加载窗体。
 		frame.setVisible(true);
-		//导入ip文件。
+		// 导入ip文件。
 		Controller.getInstance().load();
 	}
 
@@ -95,9 +95,9 @@ public class Gui extends JFrame implements Printer {
 		loadId = new JButton("导入id");
 		loadId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				weiboId=Controller.getInstance().loadWeibo(filename.getText());
-				Controller.getInstance().loadTable(table, (MutiList)weiboId.getlist());
+
+				weiboId = Controller.getInstance().loadWeibo(filename.getText());
+				Controller.getInstance().loadTable(table, (MutiList) weiboId.getlist());
 			}
 		});
 		loadId.setBounds(6, 43, 117, 29);
@@ -106,55 +106,53 @@ public class Gui extends JFrame implements Printer {
 		LoadCookie = new JButton("导入cookie");
 		LoadCookie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				weiboCookie=Controller.getInstance().loadWeibo(filename.getText());
-				Controller.getInstance().loadTable(table, (MutiList)weiboCookie.getlist());
-			
+
+				weiboCookie = Controller.getInstance().loadWeibo(filename.getText());
+				Controller.getInstance().loadTable(table, (MutiList) weiboCookie.getlist());
+
 			}
 		});
 		LoadCookie.setBounds(6, 74, 117, 29);
 		panel.add(LoadCookie);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 131, 357, 250);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
+
 		loadvid = new JButton("导入vid");
 		loadvid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				vidImpl=Controller.getInstance().loadVid(filename.getText());
-				
-				Controller.getInstance().loadTable(vidtable, (MutiList)vidImpl.getList());
+
+				vidImpl = Controller.getInstance().loadVid(filename.getText());
+
+				Controller.getInstance().loadTable(vidtable, (MutiList) vidImpl.getList());
 			}
 		});
 		loadvid.setBounds(133, 45, 92, 26);
 		panel.add(loadvid);
-		
+
 		addvid = new JButton("加入vid");
 		addvid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//vidImpl.add(filename.getText());
+				// vidImpl.add(filename.getText());
 				Controller.getInstance().addVid(vidImpl, filename.getText());
-				Controller.getInstance().loadTable(vidtable, (MutiList)vidImpl.getList());
+				Controller.getInstance().loadTable(vidtable, (MutiList) vidImpl.getList());
 			}
 		});
 		addvid.setBounds(133, 77, 93, 23);
 		panel.add(addvid);
-		
+
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(403, 131, 332, 245);
 		panel.add(scrollPane_1);
-		
+
 		vidtable = new JTable();
 		scrollPane_1.setViewportView(vidtable);
 
 	}
-	
 
 	/**
 	 * 实现打印操作。
