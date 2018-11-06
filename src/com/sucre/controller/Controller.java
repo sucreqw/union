@@ -1,7 +1,13 @@
 package com.sucre.controller;
 
 
+import javax.swing.JTable;
+
 import com.sucre.factor.Factor;
+import com.sucre.listUtil.MutiList;
+import com.sucre.service.VidImpl;
+import com.sucre.service.WeiboImpl;
+import com.sucre.utils.GuiUtil;
 import com.sucre.utils.Info;
 import com.sucre.utils.MyUtil;
 
@@ -31,12 +37,38 @@ public class Controller {
 	}
 	
 	/**
-	 * 加载指定文件。
+	 * 加载指定文件到账号列表
 	 * @param fileName
 	 */
-	public void loadList(String fileName){
-		Factor.getDao().loadList(fileName);
+     public WeiboImpl loadWeibo(String fileName) {
+    	 WeiboImpl weiboImpl=new WeiboImpl();
+    	 weiboImpl.loadList(fileName);
+    	 return weiboImpl;
+     }
+     
+     /**
+      * 加载指定文件到vid列表
+      * @param fileName
+      * @return
+      */
+     public VidImpl loadVid(String fileName) {
+    	 VidImpl vidImpl=new VidImpl();
+    	 vidImpl.loadVid(fileName);
+    	 return vidImpl;
+     }
+     
+     public void addVid(VidImpl v,String data) {
+    	 v.add(data);
+     }
+	/**
+	 * 加载list到列表
+	 * @param table
+	 * @param list
+	 */
+	public void loadTable(JTable table, MutiList list) {
+		GuiUtil.loadTable(table, list);
 	}
+	
 	/**
 	 * 拿到controller的对象实例。
 	 * @return

@@ -11,6 +11,7 @@ import javax.swing.table.TableColumn;
 
 import com.sucre.controller.Controller;
 import com.sucre.listUtil.MutiList;
+import com.sucre.service.VidImpl;
 import com.sucre.service.WeiboImpl;
 import com.sucre.utils.GuiUtil;
 import com.sucre.utils.Printer;
@@ -37,7 +38,15 @@ public class Gui extends JFrame implements Printer {
 	private JButton LoadCookie;
 	public static Gui frame = new Gui();
 	private JTable table;
-
+	private JButton loadvid;
+	private JButton addvid;
+	private JScrollPane scrollPane_1;
+	private JTable vidtable;
+	
+	VidImpl vidImpl;//=new VidImpl();
+	WeiboImpl weiboCookie;//=new WeiboImpl();
+	WeiboImpl weiboId;// =new WeiboImpl();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -65,7 +74,8 @@ public class Gui extends JFrame implements Printer {
 		panel.setLayout(null);
 
 		filename = new JTextField();
-		filename.setBounds(135, 43, 147, 26);
+		filename.setText("id.txt");
+		filename.setBounds(254, 45, 147, 26);
 		panel.add(filename);
 		filename.setColumns(10);
 
@@ -85,8 +95,9 @@ public class Gui extends JFrame implements Printer {
 		loadId = new JButton("导入id");
 		loadId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WeiboImpl weiboId =new WeiboImpl();
-				weiboId.loadList(filename.getText());
+				
+				weiboId=Controller.getInstance().loadWeibo(filename.getText());
+				Controller.getInstance().loadTable(table, (MutiList)weiboId.getlist());
 			}
 		});
 		loadId.setBounds(6, 43, 117, 29);
@@ -95,10 +106,10 @@ public class Gui extends JFrame implements Printer {
 		LoadCookie = new JButton("导入cookie");
 		LoadCookie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				WeiboImpl weiboCookie=new WeiboImpl();
 				
-				weiboCookie.loadList(filename.getText());
-				GuiUtil.loadTable(table, (MutiList)weiboCookie.getlist());
+				
+				weiboCookie=Controller.getInstance().loadWeibo(filename.getText());
+				Controller.getInstance().loadTable(table, (MutiList)weiboCookie.getlist());
 			
 			}
 		});
@@ -106,11 +117,41 @@ public class Gui extends JFrame implements Printer {
 		panel.add(LoadCookie);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 126, 357, 250);
+		scrollPane.setBounds(20, 131, 357, 250);
 		panel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		loadvid = new JButton("导入vid");
+		loadvid.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				vidImpl=Controller.getInstance().loadVid(filename.getText());
+				
+				Controller.getInstance().loadTable(vidtable, (MutiList)vidImpl.getList());
+			}
+		});
+		loadvid.setBounds(133, 45, 92, 26);
+		panel.add(loadvid);
+		
+		addvid = new JButton("加入vid");
+		addvid.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//vidImpl.add(filename.getText());
+				Controller.getInstance().addVid(vidImpl, filename.getText());
+				Controller.getInstance().loadTable(vidtable, (MutiList)vidImpl.getList());
+			}
+		});
+		addvid.setBounds(133, 77, 93, 23);
+		panel.add(addvid);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(403, 131, 332, 245);
+		panel.add(scrollPane_1);
+		
+		vidtable = new JTable();
+		scrollPane_1.setViewportView(vidtable);
 
 	}
 	

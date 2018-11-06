@@ -3,7 +3,11 @@ package com.sucre.dao;
 import java.util.List;
 
 import com.sucre.entity.Weibo;
-
+/**
+ * 微博账号数据dao层接口
+ * @author 90650
+ *
+ */
 public interface weiboDao {
 	//从文件加载数据
 	public void loadList(String fileName);

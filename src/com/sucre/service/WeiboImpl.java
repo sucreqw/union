@@ -8,6 +8,11 @@ import com.sucre.factor.Factor;
 import com.sucre.listUtil.MutiList;
 import com.sucre.utils.MyUtil;
 
+/**
+ * service层，微博dao层的实现类。
+ * @author 90650
+ *
+ */
 public class WeiboImpl implements weiboDao {
     
 	//public static weiboDao dao=new WeiboImpl();
