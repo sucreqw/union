@@ -1,5 +1,6 @@
 package com.sucre.entity;
 
+import com.sucre.factor.Factor;
 import com.sucre.utils.MyUtil;
 
 abstract public class Weibo {
@@ -61,7 +62,7 @@ abstract public class Weibo {
 		this.pass = temp[4];
 		this.s=temp[5];
 		}catch (Exception e) {
-			MyUtil.print("导入weibo数据出错!", null);
+			MyUtil.print("导入weibo数据出错!", Factor.getGui());
 		}
 	}
 	

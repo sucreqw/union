@@ -10,12 +10,13 @@ import com.sucre.utils.MyUtil;
 
 public class WeiboImpl implements weiboDao {
     
-	public static weiboDao dao=new WeiboImpl();
+	//public static weiboDao dao=new WeiboImpl();
 	private MutiList list=new MutiList();
-	private WeiboImpl() {
+	
+	/*private WeiboImpl() {
 		
 	}
-
+*/
 	@Override
 	public void loadList(String fileName) {
 		try {
@@ -26,23 +27,34 @@ public class WeiboImpl implements weiboDao {
 			MyUtil.print("导入错误：" + e.getMessage(), Factor.getGui());
 		}
 	}
-
+	public List getlist() {
+		return this.list;
+	}
 	@Override
 	public Weibo get(int index) {
-
-		return null;
+		//String[] temp =list.get(index).split("[^@.-_\\w]");
+		String[] temp =list.get(index).split("\\|");
+		switch (temp.length) {
+		case 2:
+			return load(temp[0],temp[1]);
+			//break;
+        
+		default:
+			return load(list.get(index));
+			//break;
+		}
+		//return null;
 	}
 
 	@Override
 	public Weibo load(String id, String pass) {
-
-		return null;
+		//Weibo w =new Weibo(id,pass) {} ;
+		return new Weibo(id,pass){};
 	}
 
 	@Override
-	public Weibo load(String inputData) {
-
-		return null;
+	public Weibo load (String inputData) {
+        return new Weibo(inputData){};
 	}
 
 	@Override
@@ -51,7 +63,7 @@ public class WeiboImpl implements weiboDao {
 		return null;
 	}
 	
-	public static weiboDao getInstance(){
+	/*public static weiboDao getInstance(){
 		return dao;
-	}
+	}*/
 }
