@@ -8,4 +8,5 @@ public interface Info {
 	String getADSLname();
 	String getADSLpass();
 	
+	
 }

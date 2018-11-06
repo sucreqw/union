@@ -40,6 +40,7 @@ public class accounts implements Info{
 		return ADSLpassword;
 	}
 	
+	
 	public static Info getInstance() {
 		return acc;
 	}

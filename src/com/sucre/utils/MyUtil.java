@@ -24,7 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 /**
- * 常用工具�?.
+ * 常用工具?.
  * 
  * @author sucre
  *
@@ -457,8 +457,9 @@ public class MyUtil {
     /**
      * 导入宽带账号密码名称等信息
      * @param filename
+     * @throws Exception 
      */
-    public static void loadADSL(String filename,Info info) {
+    public static void loadADSL(String filename,Info info) throws Exception  {
     	Properties properties =new Properties();
     	
     	try {
@@ -467,9 +468,11 @@ public class MyUtil {
 			info.setADSLName(properties.getProperty("id"));
 			info.setADSLPass(properties.getProperty("pass"));
 		} catch (FileNotFoundException e) {
-			System.out.println("导入ip文件错误：" + e.getMessage());
+			//System.out.println("导入ip文件错误：" + e.getMessage());
+			throw new Exception( e.getMessage());
 		} catch (IOException e) {
-			System.out.println("导入ip文件错误：" + e.getMessage());
+			//System.out.println("导入ip文件错误：" + e.getMessage());
+			throw new Exception(e.getMessage());
 		}
 		
 	}

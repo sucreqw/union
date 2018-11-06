@@ -18,5 +18,6 @@ public class SinaUtils {
 		temp+=md5.substring(25, 26);
 		temp+=md5.substring(27, 28);
 		return temp; 
+		
 	}
 }

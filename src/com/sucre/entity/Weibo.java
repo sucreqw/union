@@ -9,8 +9,6 @@ abstract public class Weibo {
 	private String uid;
 	private String s;
 	
-	// 抽象方法,要求子类必须覆盖.
-	//abstract public int doWork(int index);
 		
 	public String getId() {
 		return id;
@@ -63,7 +61,7 @@ abstract public class Weibo {
 		this.pass = temp[4];
 		this.s=temp[5];
 		}catch (Exception e) {
-			MyUtil.print("导入weibo数据出错", null);
+			MyUtil.print("导入weibo数据出错!", null);
 		}
 	}
 	
