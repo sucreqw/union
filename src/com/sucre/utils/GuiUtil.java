@@ -2,6 +2,7 @@ package com.sucre.utils;
 
 import javax.swing.table.DefaultTableModel;
 
+import com.sucre.factor.Factor;
 import com.sucre.listUtil.MutiList;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class GuiUtil {
 		}
         
 		String[][] data = new String[list.getSize()][temp.length];
-		System.out.println(list.getSize());
+		MyUtil.print(String.valueOf(list.getSize()), Factor.getGui());
 		for (int i = 0; i < list.getSize(); i++) {
 			temp = list.get(i).split("\\|");
 

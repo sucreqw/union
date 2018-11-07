@@ -34,7 +34,7 @@ public class VidImpl implements vidDao{
 		}
 		
 	}
-	public List getList() {
+	public List getlist() {
 		return list;
 	}
 

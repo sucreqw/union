@@ -52,20 +52,27 @@ public class WeiboImpl implements weiboDao {
 	}
 
 	@Override
-	public Weibo load(String id, String pass) {
-		//Weibo w =new Weibo(id,pass) {} ;
-		return new Weibo(id,pass){};
+	public weiboLogin load(String id, String pass) {
+		return new weiboLogin(id,pass){};
 	}
 
 	@Override
-	public Weibo load (String inputData) {
-        return new Weibo(inputData){};
+	public weiboLogin load (String inputData) {
+        return new weiboLogin(inputData){};
 	}
 
 	@Override
 	public List<Weibo> getPage(int page) {
 		
 		return null;
+	}
+	@Override
+	public int getsize() {
+		return list.getSize();
+	}
+	@Override
+	public void add(Weibo weibo) {
+		list.add(weibo.toString());
 	}
 	
 	/*public static weiboDao getInstance(){
