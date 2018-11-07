@@ -54,7 +54,7 @@ public class weiboLogin extends Weibo {
 		data = data.append("POST /sso/login HTTP/1.1\r\n");
 		data = data.append("Host: passport.sina.cn\r\n");
 		data = data.append("Connection: keep-alive\r\n");
-		data = data.append("Content-Length: 131\r\n");
+		data = data.append("Content-Length: "+ temp.length() +"\r\n");
 		data = data.append("Origin: http://my.sina.cn\r\n");
 		data = data.append(
 				"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36\r\n");
