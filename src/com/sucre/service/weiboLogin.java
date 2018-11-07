@@ -1,6 +1,7 @@
 package com.sucre.service;
 
 import com.sucre.entity.Weibo;
+import com.sucre.factor.Factor;
 import com.sucre.utils.MyUtil;
 import com.sucre.myNet.Nets;
 
@@ -28,14 +29,14 @@ public class weiboLogin extends Weibo {
 				super.setUid(MyUtil.midWord("uid\":\"", "\",\"", ret));
 				MyUtil.outPutData("cookie.txt",
 						super.getCookie() + "|" + super.getUid() + "|" + super.getId() + "|" + super.getPass());
-				MyUtil.print("登录成功！" + (index + 1), null);
+				MyUtil.print("登录成功！" + (index + 1), Factor.getGui());
 				// return 1;
 				rets=1;
 			} else {
-				MyUtil.print("登录失败！" + (index + 1), null);
-				MyUtil.print(ret, null);
+				MyUtil.print("登录失败！" + (index + 1), Factor.getGui());
+				//MyUtil.print(ret, null);
 			}
-			if ((index + 1) % 3 == 0) {
+			if ((index + 1) % 20 == 0 && "ip".equals(Thread.currentThread().getName())) {
 				MyUtil.changIp();
 
 			}

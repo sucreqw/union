@@ -123,7 +123,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(LoadCookie);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 131, 357, 250);
+		scrollPane.setBounds(10, 131, 364, 250);
 		panel.add(scrollPane);
 
 		table = new JTable();

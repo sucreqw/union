@@ -108,6 +108,7 @@ public class Controller {
 		for (int i = 1; i <= thread; i++) {
 			Login login = new Login(limit, isCircle,weiboImplId);
 			Thread t = new Thread(login);
+			if(i==1) {t.setName("ip");}
 			t.start();
 		}
 	}
@@ -117,6 +118,7 @@ public class Controller {
 		for (int i = 1; i <= thread; i++) {
 			Guess guess = new Guess(limit, isCircle,weiboImplCookie);
 			Thread t = new Thread(guess);
+			if(i==1) {t.setName("ip");}
 			t.start();
 		}
    }

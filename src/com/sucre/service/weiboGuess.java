@@ -43,7 +43,7 @@ public class weiboGuess extends Weibo {
 					MyUtil.print("成功猜到S：" + gets(sIndex) +"<>"+ (index +1), Factor.getGui());
 					MyUtil.outPutData("cookies.txt", super.toString());
 					
-					if((index +1) % 50 ==0){
+					if((index +1) % 50 ==0 && "ip".equals(Thread.currentThread().getName())){
 						MyUtil.changIp();
 					}
 					return 1;
