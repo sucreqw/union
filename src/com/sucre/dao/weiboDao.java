@@ -12,11 +12,11 @@ public interface weiboDao {
 	//从文件加载数据
 	public void loadList(String fileName);
 	//根据索引取一条数据
-	public Weibo get(int index);
+	public Weibo get(int index,Weibo weibo);
 	//根据id,pass加载一个类
-	public Weibo load(String id,String pass);
+	public Weibo load(String id,String pass,Weibo weibo);
 	//把文件的数据加载到类
-	public Weibo load(String inputData);
+	public Weibo load(String inputData,Weibo weibo);
 	//取一页的数据
 	public List<Weibo> getPage(int page);
 	//取数据总数

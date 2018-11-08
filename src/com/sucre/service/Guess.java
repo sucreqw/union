@@ -15,7 +15,8 @@ public class Guess extends Thread4Net{
 
 	@Override
 	public int doWork(int index) {
-		w=(weiboGuess) weibo.get(index);
+		w=new weiboGuess();
+		w=(weiboGuess) weibo.get(index,w);
 		int ret=w.Actions(index);
 		while(Controller.getInstance().isStop()){
 			MyUtil.sleeps(1000);

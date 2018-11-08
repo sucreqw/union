@@ -16,7 +16,8 @@ public class Login extends Thread4Net{
 
 	@Override
 	public int doWork(int index) {
-		w=(weiboLogin)weibo.get(index);
+		w=new weiboLogin();
+		w=(weiboLogin)weibo.get(index,w);
 		int ret=w.Actions(index);
 		//登录成功
 		if(ret==1){ 
