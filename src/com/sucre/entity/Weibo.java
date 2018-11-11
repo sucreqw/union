@@ -10,7 +10,7 @@ abstract public class Weibo {
 	private String uid;
 	private String s;
 
-	abstract public int Actions(int index);
+	abstract public int Actions(int index,String mission);
 
 	public String getId() {
 		return id;
@@ -53,7 +53,7 @@ abstract public class Weibo {
 	}
 
 	public String toString() {
-		return id + "|" + pass + "|" + cookie + "|" + uid + "|" + s;
+		return  cookie + "|" + uid + "|" + id + "|" + pass + "|" + s;
 	}
 
 	public Weibo() {
@@ -67,16 +67,18 @@ abstract public class Weibo {
 
 	// 从文件数据里加载数据！
 	public Weibo(String inputdata) {
-		try {
+		load(inputdata);
+	}
+    public void load(String inputdata){
+    	try {
 			String[] temp = inputdata.split("\\|");
 			this.cookie = temp[0];
 			this.uid = temp[1];
-			this.id = temp[3];
-			this.pass = temp[4];
-			this.s = temp[5];
+			this.id = temp[2];
+			this.pass = temp[3];
+			this.s = temp.length >= 5 ? temp[4]:"";
 		} catch (Exception e) {
 			MyUtil.print("导入weibo数据出错!", Factor.getGui());
 		}
-	}
-
+    }
 }

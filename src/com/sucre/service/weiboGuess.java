@@ -20,7 +20,7 @@ public class weiboGuess extends Weibo {
 	}
 
 	@Override
-	public int Actions(int index) {
+	public int Actions(int index,String mission) {
 		return Guess(index);
 	}
 	public int Guess(int index){

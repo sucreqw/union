@@ -1,6 +1,9 @@
 package com.sucre.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,20 +13,36 @@ import com.sucre.controller.Controller;
 
 import com.sucre.service.VidImpl;
 import com.sucre.service.WeiboImpl;
-
+import com.sucre.utils.JsUtil;
 import com.sucre.utils.Printer;
+import com.sucre.utils.SinaCapchaUtil;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-
+import java.awt.image.BufferedImage;
+import java.awt.image.CropImageFilter;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 
 public class Gui extends JFrame implements Printer {
@@ -48,6 +67,7 @@ public class Gui extends JFrame implements Printer {
 	private JTable cookietable;
 	private JTextField thread;
 	private JButton resume;
+	private JTextField ipcount;
 
 	/**
 	 * Launch the application.
@@ -57,6 +77,89 @@ public class Gui extends JFrame implements Printer {
 		frame.setVisible(true);
 		// 导入ip文件。
 		Controller.getInstance().load();
+      
+		/*byte[] t=SinaCapchaUtil.getPic("5_5_24_5_22_15_1_18_19_8_0_11_6_17_16_3_2_12_13_10_7_4_23_9_21_14_20", "R0lGODdhoACgAIQAAJSSlNTS1KyurOzq7KSipMTCxOTi5Pz6/JyanLS2tNza3PTy9KyqrJSWlNTW1LSytOzu7KSmpMTGxOTm5Pz+/JyenLy6vAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAoACgAAAF/iAljmRpnmiqqgpgrXAsr+0733iun22y/7secEgk1opIlivJbKaETic0SmUqGrYq8prVen/TLzAsLsuOZvAyzaYBfO0cOU6ncOu3Ox4/36P6fmVogUpdhGaAhyKJilQODQ+Nf1iSZgkACJUmjJpICw0ADQ6dI4OkURYAqhUHp5ynQKqgABKdE3aUsFGzoQ0Lmgx2b7pRsqoAkZIBAMKGxFvDsK/PctGua9RJetdw2dDdpNveRtjh1uND036m6GC53O3k4J3i8Trsmur2f+f05ZoWLASQ8s7cvEqrBlrpl69gvgL/yDmrpG/foQUJQDWwyFHFBAbMYCgYSbKkyZMo/kt2NKNwRQONMHvJfDkzJk1QKxVZSLCzJ8+fPoMCHbozp9GjSJMqXcq0qdOnUKNKnUq1qtWrWLNq3cq1q9evYMOKHUu2rNmzaNOqXcu27ZCecHnGDSi3Lt27Rd2mOMa3r9+/f/U+SUm4sErBaeohjoLPqeHHhKtUXHnTpuWamHFSadxUqGeioIVKZri4ieLSCw+i1hZx9TfXjB3CLjJ5tsjWttWozh1ENu8gpH9XmygcR+3iJU4jn3F8+SLczm/vjk7DN3U306/zI66dX/buya2D3xR8fHLo5kuVT79IvO2WzNfPbsDgVnzu7PPr38+/v///AAYo4IAEFmjggQgmsqjgggw26OCDEEYo4YQUOjXXhXZhiNd3bQHm4Yd9zQbZiCbZdgWHTmhkwS9kKVCAe3JAxksDCTxGzAAKUAFKBfARUVlmgF1GEzGpUJFAAj0S8ZlQGvUiwE9Q7sQTMQGgmM0xFYzy30sStAJgAixWKOaYZJZp5plopqnmmmy26eabcMb5FUYBHiCBZv4pUIEs2m244QMI9KUhXFTiJwmIfDWJaEiwFPnMYw5kdIwoNuqCYwgAOw==");
+	
+		try {
+			OutputStream out=new FileOutputStream(new File("q.gif"));
+			out.write(t);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}*/
+		
+	/*	try {
+			InputStream inputStream=new FileInputStream(new File("t3142.gif"));
+			InputStream inputStream1=new FileInputStream(new File("3124.gif"));
+			try {
+			byte[] buffer=new byte[inputStream.available()];
+			byte[] buffer1= new byte[inputStream1.available()];
+		
+				int read=inputStream.read(buffer);
+				
+				int read1=inputStream1.read(buffer1);
+				inputStream.close();
+				inputStream1.close();
+				System.out.println(SinaCapchaUtil.compareImage(buffer, buffer1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Base64.Encoder encoder=Base64 .getEncoder();
+			
+			String ret=encoder.encodeToString(buffer);
+			
+			
+			//System.out.println(ret);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		File file=new File("img/");
+		//for (File temp : file.listFiles()) {
+			String f=file.getName().replaceAll(".gif", "");
+			System.out.print("maps.put(\"" +f +"\",\"");
+			
+			try {
+				InputStream inputStream=new FileInputStream(new File("img/3241.gif"));
+				//InputStream inputStream1=new FileInputStream(new File("3124.gif"));
+				try {
+				byte[] buffer=new byte[inputStream.available()];
+				//byte[] buffer1= new byte[inputStream1.available()];
+			
+					int read=inputStream.read(buffer);
+					
+					//int read1=inputStream1.read(buffer1);
+					inputStream.close();
+					//inputStream1.close();
+					//System.out.println(SinaCapchaUtil.compareImage(buffer, buffer1));
+					Base64.Encoder encoder=Base64 .getEncoder();
+					
+					String ret=encoder.encodeToString(buffer);
+					System.out.println(ret +"\");");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				//System.out.println(ret);
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		//}
+/*	JsUtil.loadJs("js.txt");
+	JsUtil.runJS("path_enc","1234","e52d6b5fc16ffed41deaef7a302a225211a302a22521");
+	JsUtil.runJS("data_enc",System.currentTimeMillis()-1000);*/
+	//System.out.println(JsUtil.runJS("data_enc", 1423,System.currentTimeMillis()));
 	}
 
 	/**
@@ -186,6 +289,7 @@ public class Gui extends JFrame implements Printer {
 					Controller.getInstance().guess(Integer.parseInt(thread.getText()), false);
 					break;
 				case "checkIn":
+					Controller.getInstance().getPic(Integer.parseInt(thread.getText()), false);
 					print("checkIn!!!");
 
 					break;
@@ -217,6 +321,12 @@ public class Gui extends JFrame implements Printer {
 		});
 		resume.setBounds(663, 74, 103, 29);
 		panel.add(resume);
+		
+		ipcount = new JTextField();
+		ipcount.setText("20");
+		ipcount.setBounds(484, 19, 66, 21);
+		panel.add(ipcount);
+		ipcount.setColumns(10);
 
 	}
 
@@ -234,7 +344,13 @@ public class Gui extends JFrame implements Printer {
 	public void refresh() {
 		Controller.getInstance().refresh(cookietable);
 	}
-
+	/**
+	 * 取换ip的数量。
+	 * @return
+	 */
+    public int getIPcount() {
+    	return Integer.parseInt(ipcount.getText());
+    }
 	/**
 	 * 取窗体实例
 	 * 

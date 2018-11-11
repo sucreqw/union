@@ -5,27 +5,45 @@ import com.sucre.dao.weiboDao;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.myThread.Thread4Net;
+import com.sucre.utils.MyUtil;
 
-public class Login extends Thread4Net{
+public class Login extends Thread4Net {
 	private weiboDao weibo;
 	private weiboLogin w;
-	public Login(int u, boolean isCircle ,weiboDao weibo) {
+	private WeiboCapcha c;
+
+	public Login(int u, boolean isCircle, weiboDao weibo) {
 		super(u, isCircle);
-		this.weibo=weibo;
+		this.weibo = weibo;
 	}
 
 	@Override
 	public int doWork(int index) {
-		w=(weiboLogin)weibo.get(index);
-		int ret=w.Actions(index);
-		//登录成功
-		if(ret==1){ 
-			Controller.getInstance().addCookie(w);
-			Controller.getInstance().refresh();
+		w = new weiboLogin();
+		w = (weiboLogin) weibo.get(index, w);
+		int ret = 0;
+		while (true) {
+			ret = w.Actions(index, "");
+			// 登录成功
+			if (ret == 1) {
+				Controller.getInstance().addCookie(w);
+				Controller.getInstance().refresh();
+				break;
+			} else if (ret == -1) {
+
+				c = new WeiboCapcha();
+				c = (WeiboCapcha) weibo.get(index, c);
+				c.Actions(index, "getpic");
+				w.setVid(c.getVid());
+			}else {
+				break;
+			}
 		}
-		
+		if ((index + 1) % Controller.getInstance().changeIPcount() == 0 && "ip".equals(Thread.currentThread().getName())) {
+			MyUtil.changIp();
+
+		}
 		return 0;
 	}
-	
 
 }

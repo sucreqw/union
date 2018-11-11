@@ -269,6 +269,31 @@ public class MyUtil {
 
 	}
 	/**
+	 * 追加数据到文�?!文件默认位置为当前目�?
+	 * 
+	 * @param fileName 要保存的文件�?,请带上后�?
+	 * @param data     要追加保存的数据,默认会自动加上换行符!.
+	 */
+	public static void outPutData(String fileName, byte[] data) {
+		if ("".equals(data)) {
+			return;
+		}
+		// 定义文件
+		File file = new File(fileName);
+		try (
+				// 创建文件�?
+				OutputStream out = new FileOutputStream(file, true);) {
+			// 写入文件!
+			out.flush();
+			out.write(data);
+			out.close();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+
+	}
+	/**
 	 * 判断字符是否为空!
 	 * @param data
 	 * @return 为空返回true.

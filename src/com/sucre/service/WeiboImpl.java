@@ -36,29 +36,32 @@ public class WeiboImpl implements weiboDao {
 		return this.list;
 	}
 	@Override
-	public Weibo get(int index) {
+	public Weibo get(int index,Weibo weibo) {
 		//String[] temp =list.get(index).split("[^@.-_\\w]");
 		String[] temp =list.get(index).split("\\|");
 		switch (temp.length) {
 		case 2:
-			return load(temp[0],temp[1]);
+			return load(temp[0],temp[1],weibo);
 			//break;
         
 		default:
-			return load(list.get(index));
+			return load(list.get(index),weibo);
 			//break;
 		}
 		//return null;
 	}
 
 	@Override
-	public weiboLogin load(String id, String pass) {
-		return new weiboLogin(id,pass){};
+	public Weibo load(String id, String pass ,Weibo weibo) {
+		weibo.setId(id);
+		weibo.setPass(pass);
+		return weibo;
 	}
 
 	@Override
-	public weiboLogin load (String inputData) {
-        return new weiboLogin(inputData){};
+	public Weibo load (String inputData,Weibo weibo) {
+		weibo.load(inputData);
+        return weibo;
 	}
 
 	@Override

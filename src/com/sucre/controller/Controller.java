@@ -4,12 +4,14 @@ import javax.swing.JTable;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.listUtil.MutiList;
+import com.sucre.service.Capcha;
 import com.sucre.service.Guess;
 import com.sucre.service.Login;
 import com.sucre.service.VidImpl;
 import com.sucre.service.WeiboImpl;
 import com.sucre.utils.GuiUtil;
 import com.sucre.utils.Info;
+import com.sucre.utils.JsUtil;
 import com.sucre.utils.MyUtil;
 import com.sucre.utils.accounts;
 
@@ -32,7 +34,8 @@ public class Controller {
 			Info info = accounts.getInstance();
 			MyUtil.loadADSL("adsl.properties", accounts.getInstance());
 			MyUtil.print(info.getADSL() + "<>" + info.getADSLname() + "<>" + info.getADSLpass(), Factor.getGui());
-
+            //加载js
+			JsUtil.loadJs("js.js");
 		} catch (Exception e) {
 			MyUtil.print("导入文件出错：" + e.getMessage(), Factor.getGui());
 		}
@@ -121,6 +124,21 @@ public class Controller {
 			if(i==1) {t.setName("ip");}
 			t.start();
 		}
+   }
+   
+   public void getPic(int thread,  boolean isCircle) {
+	   int limit =weiboImplId==null? 0: weiboImplId.getsize();
+	    if(limit==0){MyUtil.print("Id未导入！", Factor.getGui());}
+		for (int i = 1; i <= thread; i++) {
+			Capcha capcha=new Capcha(limit,isCircle,weiboImplId);
+			Thread t = new Thread(capcha);
+			if(i==1) {t.setName("ip");}
+			t.start();
+		}
+   }
+   
+   public int changeIPcount() {
+	   return Factor.getGuiFrame().getIPcount();
    }
 	/**
 	 * 拿到controller的对象实例。
