@@ -81,8 +81,8 @@ abstract public class Weibo {
 			MyUtil.print("导入weibo数据出错!", Factor.getGui());
 		}
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 8986d425d1ab2cf4d0284dfd7dabdea6c0815c4c
+
+
+
