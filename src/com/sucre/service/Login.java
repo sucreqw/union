@@ -19,6 +19,7 @@ public class Login extends Thread4Net {
 
 	@Override
 	public int doWork(int index) {
+<<<<<<< HEAD
 		w = new weiboLogin();
 		w = (weiboLogin) weibo.get(index, w);
 		int ret = 0;
@@ -42,6 +43,15 @@ public class Login extends Thread4Net {
 		if ((index + 1) % Controller.getInstance().changeIPcount() == 0 && "ip".equals(Thread.currentThread().getName())) {
 			MyUtil.changIp();
 
+=======
+		w=new weiboLogin();
+		w=(weiboLogin)weibo.get(index,w);
+		int ret=w.Actions(index);
+		//登录成功
+		if(ret==1){ 
+			Controller.getInstance().addCookie(w);
+			Controller.getInstance().refresh();
+>>>>>>> 8986d425d1ab2cf4d0284dfd7dabdea6c0815c4c
 		}
 		return 0;
 	}
