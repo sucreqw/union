@@ -11,9 +11,10 @@ import com.sucre.utils.MyUtil;
 public class VidImpl implements vidDao{
 	MutiList list=new MutiList();
 	@Override
-	public Vid getvid(int index) {
-		Vid vid=new Vid(list.get(index));
-		return vid;
+	public Vid getVid(int index,Vid v) {
+		//Vid vid=new Vid(list.get(index));
+		v.setVids(list.get(index));
+		return v;
 	}
 
 	@Override
@@ -36,6 +37,11 @@ public class VidImpl implements vidDao{
 	}
 	public List getlist() {
 		return list;
+	}
+
+	@Override
+	public int getSize() {
+		return list.getSize();
 	}
 
 }

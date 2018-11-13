@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  */
 abstract public class Thread4Net implements Runnable { 
-	// 抽象方法,要求子类必须覆盖.
+	// 抽象方法,要求子类必须覆盖.定义目前id索引，任务名称。
 	abstract public int doWork(int index);
 
 	// 定义锁
@@ -23,10 +23,13 @@ abstract public class Thread4Net implements Runnable {
     private boolean isCircle=false;
     //定义线程上否继续工作
     private boolean isWork=true;
-	// 构造器传递索引上限
-	protected Thread4Net(int u,boolean isCircle) {
+    private String mission="";
+	// 构造器传递索引,起始数，上限，是否循环
+	public Thread4Net(int l ,int u,boolean isCircle) {
 		uIndex = u;
 		this.isCircle=isCircle;
+		this.index=l;
+		//this.mission=mission;
 	}
 	// 线程主方法
 	public void run() {

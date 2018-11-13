@@ -24,5 +24,6 @@ public class Vid {
 		super();
 		this.vids = vids;
 	}
-	
+	public Vid() {
+	}
 }

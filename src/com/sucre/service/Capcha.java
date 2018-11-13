@@ -15,8 +15,8 @@ public class Capcha extends Thread4Net {
 	private weiboDao weibo;
 	private WeiboCapcha w;
 	private String result="";
-	public Capcha(int u, boolean isCircle,weiboDao weibo) {
-		super(u, isCircle);
+	public Capcha(int l,int u, boolean isCircle,weiboDao weibo) {
+		super(l,u, isCircle);
 		this.weibo=weibo;
 	}
 

@@ -8,8 +8,9 @@ import com.sucre.entity.Vid;
  *
  */
 public interface vidDao {
-	public Vid getvid(int index);
+	public Vid getVid(int index,Vid v);
 	public void add(String vid);
 	public void remove(int index);
 	public void loadVid(String fileName);
+	public int getSize(); 
 }

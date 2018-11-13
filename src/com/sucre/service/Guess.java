@@ -8,8 +8,8 @@ import com.sucre.utils.MyUtil;
 public class Guess extends Thread4Net{
 	private weiboDao weibo;
 	private weiboGuess w;
-	public Guess(int u, boolean isCircle,weiboDao weibo) {
-		super(u, isCircle);
+	public Guess(int l,int u, boolean isCircle,weiboDao weibo) {
+		super(l,u, isCircle);
 		this.weibo=weibo;
 	}
 

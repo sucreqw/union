@@ -12,8 +12,8 @@ public class Login extends Thread4Net {
 	private weiboLogin w;
 	private WeiboCapcha c;
 
-	public Login(int u, boolean isCircle, weiboDao weibo) {
-		super(u, isCircle);
+	public Login(int l,int u, boolean isCircle, weiboDao weibo) {
+		super(l,u, isCircle);
 		this.weibo = weibo;
 	}
 

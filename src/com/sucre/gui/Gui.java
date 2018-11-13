@@ -282,14 +282,15 @@ public class Gui extends JFrame implements Printer {
 		begin = new JButton("开始");
 		begin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				switch ((String) mission.getSelectedItem()) {
+				String m=(String)mission.getSelectedItem();
+				switch (m) {
 				case "guess":
 					print("guess!!!");
 					Controller.getInstance().guess(Integer.parseInt(thread.getText()), false);
 					break;
-				case "checkIn":
-					Controller.getInstance().getPic(Integer.parseInt(thread.getText()), false);
+				case "checkin":
+					//Controller.getInstance().getPic(Integer.parseInt(thread.getText()), false);
+					Controller.getInstance().doMission(m, 0, Integer.parseInt(thread.getText()), false);
 					print("checkIn!!!");
 
 					break;
@@ -302,7 +303,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(begin);
 
 		mission = new JComboBox();
-		mission.setModel(new DefaultComboBoxModel(new String[] { "guess", "checkIn" }));
+		mission.setModel(new DefaultComboBoxModel(new String[] {"guess", "checkin"}));
 		mission.setBounds(560, 46, 103, 27);
 		panel.add(mission);
 
