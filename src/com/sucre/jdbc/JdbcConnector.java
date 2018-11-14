@@ -1,9 +1,15 @@
 package com.sucre.jdbc;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.jmx.LoadBalanceConnectionGroupManager;
 import com.sucre.factor.Factor;
 import com.sucre.utils.MyUtil;
 
@@ -18,7 +24,7 @@ public class JdbcConnector {
 	// 数据库账号密码
 	private static String pass = "";
 	// 数据库表名
-	private static String table = "";
+	public static String table = "";
 
 	public JdbcConnector() {
 	}
@@ -40,5 +46,23 @@ public class JdbcConnector {
 		}
 
 		return con;
+	}
+
+	public static void Load(String filename) throws Exception {
+		Properties properties = new Properties();
+
+		try {
+			properties.load(new FileInputStream(new File(filename)));
+			jdbcip = (properties.getProperty("if"));
+			id = (properties.getProperty("id"));
+			pass = (properties.getProperty("pass"));
+			table = (properties.getProperty("table"));
+		} catch (FileNotFoundException e) {
+			// System.out.println("导入ip文件错误：" + e.getMessage());
+			throw new Exception(e.getMessage());
+		} catch (IOException e) {
+			// System.out.println("导入ip文件错误：" + e.getMessage());
+			throw new Exception(e.getMessage());
+		}
 	}
 }

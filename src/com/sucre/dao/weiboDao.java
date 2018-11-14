@@ -23,5 +23,7 @@ public interface weiboDao {
 	public int getsize();
 	//添加一条数据
 	public void add(Weibo weibo);
+	//更新一条数据
+	public void update(Weibo weibo);
 	
 }

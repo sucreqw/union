@@ -5,6 +5,7 @@ import javax.swing.JTable;
 import com.sucre.dao.vidDao;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
+import com.sucre.jdbc.JdbcConnector;
 import com.sucre.listUtil.MutiList;
 import com.sucre.service.Capcha;
 import com.sucre.service.CheckIn;
@@ -40,6 +41,7 @@ public class Controller {
 			MyUtil.print(info.getADSL() + "<>" + info.getADSLname() + "<>" + info.getADSLpass(), Factor.getGui());
 			// 加载js
 			JsUtil.loadJs("js.js");
+			JdbcConnector.Load("jdbc.properties");
 		} catch (Exception e) {
 			MyUtil.print("导入文件出错：" + e.getMessage(), Factor.getGui());
 		}
@@ -109,12 +111,9 @@ public class Controller {
 	/**
 	 * 调用批量登录功能
 	 * 
-	 * @param thread
-	 *            线程数量
-	 * @param limit
-	 *            账号总数
-	 * @param isCircle
-	 *            是否循环
+	 * @param thread   线程数量
+	 * @param limit    账号总数
+	 * @param isCircle 是否循环
 	 */
 	public void login(int thread, boolean isCircle) {
 		int limit = weiboImplId == null ? 0 : weiboImplId.getsize();
@@ -179,7 +178,7 @@ public class Controller {
 				MyUtil.print("Cookie未导入！", Factor.getGui());
 			}
 			for (int i = 1; i <= thread; i++) {
-				CheckIn checkin = new CheckIn(l, limit, isCircle, weiboImplCookie,mission);
+				CheckIn checkin = new CheckIn(l, limit, isCircle, weiboImplCookie, mission);
 				Thread t = new Thread(checkin);
 				if (i == 1) {
 					t.setName("ip");

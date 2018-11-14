@@ -49,7 +49,7 @@ public class Gui extends JFrame implements Printer {
 
 	private JPanel contentPane;
 	private JTextField filename;
-	private JLabel Label;
+	private JLabel lblUnion;
 	private JButton loadId;
 	private JButton LoadCookie;
 	public static Gui frame = new Gui();
@@ -119,7 +119,7 @@ public class Gui extends JFrame implements Printer {
 			e.printStackTrace();
 		}*/
 		
-		File file=new File("img/");
+	/*	File file=new File("img/");
 		//for (File temp : file.listFiles()) {
 			String f=file.getName().replaceAll(".gif", "");
 			System.out.print("maps.put(\"" +f +"\",\"");
@@ -154,7 +154,7 @@ public class Gui extends JFrame implements Printer {
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 		//}
 /*	JsUtil.loadJs("js.txt");
 	JsUtil.runJS("path_enc","1234","e52d6b5fc16ffed41deaef7a302a225211a302a22521");
@@ -168,7 +168,7 @@ public class Gui extends JFrame implements Printer {
 	private Gui() {
 		setTitle("main from");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 819, 450);
+		setBounds(100, 100, 819, 474);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -184,9 +184,9 @@ public class Gui extends JFrame implements Printer {
 		panel.add(filename);
 		filename.setColumns(10);
 
-		Label = new JLabel("");
-		Label.setBounds(6, 6, 645, 26);
-		panel.add(Label);
+		lblUnion = new JLabel("");
+		lblUnion.setBounds(6, 6, 468, 26);
+		panel.add(lblUnion);
 
 		JButton login = new JButton("登录");
 		login.addActionListener(new ActionListener() {
@@ -226,6 +226,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(LoadCookie);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setToolTipText("");
 		scrollPane.setBounds(10, 131, 364, 250);
 		panel.add(scrollPane);
 
@@ -328,6 +329,16 @@ public class Gui extends JFrame implements Printer {
 		ipcount.setBounds(484, 19, 66, 21);
 		panel.add(ipcount);
 		ipcount.setColumns(10);
+		
+		JButton 关于 = new JButton("关于（readme）");
+		关于.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				About about=new About();
+				
+			}
+		});
+		关于.setBounds(6, 391, 119, 23);
+		panel.add(关于);
 
 	}
 
@@ -336,7 +347,7 @@ public class Gui extends JFrame implements Printer {
 	 */
 	@Override
 	public void print(String data) {
-		Label.setText(data);
+		lblUnion.setText(data);
 	}
 
 	/**
