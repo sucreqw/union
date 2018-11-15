@@ -52,9 +52,10 @@ public class Controller {
 	 * 
 	 * @param fileName
 	 */
-	public void loadWeiboId(String fileName, JTable table) {
+	public void loadWeiboId(String fileName, JTable table,String mission) {
 		weiboImplId = new WeiboImpl();
-		weiboImplId.loadList(fileName);
+		//weiboImplId.loadList(fileName);
+		weiboImplId.getCounts(Integer.parseInt(fileName), mission);
 		loadTable(table, (MutiList) weiboImplId.getlist());
 	}
 
@@ -78,13 +79,13 @@ public class Controller {
 	public void loadVid(String fileName, JTable table) {
 		vidImpl = new VidImpl();
 		vidImpl.loadVid(fileName);
-		loadTable(table, (MutiList) vidImpl.getlist());
+		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 
 	}
 
 	public void addVid(String data, JTable table) {
 		vidImpl.add(data);
-		loadTable(table, (MutiList) vidImpl.getlist());
+		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 	}
 
 	public vidDao getVidImpl() {

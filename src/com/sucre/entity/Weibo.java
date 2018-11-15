@@ -4,11 +4,55 @@ import com.sucre.factor.Factor;
 import com.sucre.utils.MyUtil;
 
 abstract public class Weibo {
+	private int NO;
 	private String id;
 	private String pass;
+	private String name;
 	private String cookie;
 	private String uid;
 	private String s;
+	private int level;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	private int status;
+	private String events;
+	
+	public int getNO() {
+		return NO;
+	}
+
+	public void setNO(int nO) {
+		NO = nO;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getEvents() {
+		return events;
+	}
+
+	public void setEvents(String events) {
+		this.events = events;
+	}
 
 	abstract public int Actions(int index,String mission);
 
@@ -52,8 +96,14 @@ abstract public class Weibo {
 		this.s = s;
 	}
 
+	
+
+	
+
+	@Override
 	public String toString() {
-		return  cookie + "|" + uid + "|" + id + "|" + pass + "|" + s;
+		return "Weibo [NO=" + NO + ", id=" + id + ", pass=" + pass + ", name=" + name + ", cookie=" + cookie + ", uid="
+				+ uid + ", s=" + s + ", level=" + level + ", status=" + status + ", events=" + events + "]";
 	}
 
 	public Weibo() {

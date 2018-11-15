@@ -69,18 +69,41 @@ public class WeiboImpl implements weiboDao {
 	}
 
 	@Override
-	public List<Weibo> getPage(int page) {
-		String SQL="Select * from "+ JdbcConnector.table + "where id=?" ;
+	public List<Weibo> getCounts(int counts,String mission) {
+		
+		
+		String SQL="select * from weibo";//weibo limit 0,?" ;
+		Weibo w=null;
+		switch (mission) {
+		case "login":
+			//SQL+="weibo ";//where COOKIE1=null or COOKIE1=\"\" limit 0,?";
+			w=new weiboLogin();
+			break;
+		case "guess":
+			
+			break;
+		}
+		
 		PreparedStatement pstmt;
 		
 		try {
 			pstmt = (PreparedStatement) JdbcConnector.getConnection().prepareStatement(SQL);
-			pstmt.setString(1, "1");
+			//pstmt.setInt(1, counts);
 			
 			ResultSet result=pstmt.executeQuery();
-			
+			int c=result.getFetchSize();
 			while(result.next()) {
-				result.getString(1);
+				w.setNO(result.getInt("NO"));
+				w.setId(result.getNString("ID"));
+				w.setPass(result.getNString("PSW"));
+				w.setUid(result.getNString("UID"));
+				w.setName(result.getNString("NAME"));
+				w.setCookie(result.getNString("COOKIE1"));
+				w.setS(result.getNString("S_PARM"));
+				w.setStatus(result.getInt("STATUS"));
+				w.setLevel(result.getInt("LEVEL"));
+				w.setEvents(result.getNString("EVENTS"));
+				list.add(w);
 			}
 			
 			pstmt.close();
@@ -105,7 +128,11 @@ public class WeiboImpl implements weiboDao {
 	public void update(Weibo weibo) {
 		
 	}
-	
+	@Override
+	public List<Weibo> getPage(int page) {
+		return null;
+	}
+
 	/*public static weiboDao getInstance(){
 		return dao;
 	}*/

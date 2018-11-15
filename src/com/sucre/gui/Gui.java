@@ -47,6 +47,10 @@ import javax.swing.DefaultComboBoxModel;
 
 public class Gui extends JFrame implements Printer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField filename;
 	private JLabel lblUnion;
@@ -189,6 +193,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(lblUnion);
 
 		JButton login = new JButton("登录");
+		login.setEnabled(false);
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controller.getInstance().login(Integer.parseInt(thread.getText()), false);
@@ -197,7 +202,7 @@ public class Gui extends JFrame implements Printer {
 		login.setBounds(663, 16, 103, 26);
 		panel.add(login);
 
-		loadId = new JButton("导入id");
+		loadId = new JButton("导入");
 		loadId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -205,13 +210,15 @@ public class Gui extends JFrame implements Printer {
 				// Controller.getInstance().loadWeibo(filename.getText());
 				// Controller.getInstance().loadTable(table, (MutiList)
 				// weiboId.getlist());
-				Controller.getInstance().loadWeiboId(filename.getText(), table);
+				String m=(String)mission.getSelectedItem();
+				Controller.getInstance().loadWeiboId(filename.getText(), table,m);
 			}
 		});
 		loadId.setBounds(6, 43, 117, 29);
 		panel.add(loadId);
 
 		LoadCookie = new JButton("导入cookie");
+		LoadCookie.setEnabled(false);
 		LoadCookie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -304,7 +311,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(begin);
 
 		mission = new JComboBox();
-		mission.setModel(new DefaultComboBoxModel(new String[] {"guess", "checkin"}));
+		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin"}));
 		mission.setBounds(560, 46, 103, 27);
 		panel.add(mission);
 
@@ -330,7 +337,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(ipcount);
 		ipcount.setColumns(10);
 		
-		JButton 关于 = new JButton("关于（readme）");
+		JButton 关于 = new JButton("关于");
 		关于.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				About about=new About();

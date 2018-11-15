@@ -19,6 +19,8 @@ public interface weiboDao {
 	public Weibo load(String inputData,Weibo weibo);
 	//取一页的数据
 	public List<Weibo> getPage(int page);
+	//取指定数量数据
+	public List<Weibo> getCounts(int counts,String mission);
 	//取数据总数
 	public int getsize();
 	//添加一条数据

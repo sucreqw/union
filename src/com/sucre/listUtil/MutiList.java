@@ -16,8 +16,12 @@ import java.util.List;
 /**
  * 作为账号,密码,或者其它cookie,vid 存储之用的列表类 
  */
-public class MutiList extends ArrayList<String>  {
-	private ArrayList<String> myList = null;
+public class MutiList extends ArrayList<Object>  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Object> myList = null;
     private int size=0;
 	//private final Lock lock=new ReentrantLock();
 	public MutiList() {
@@ -65,7 +69,14 @@ public class MutiList extends ArrayList<String>  {
 	public String get(int index) {
 		
 		if(index>-1 && index<=size) {
-			return myList.get(index);
+			return (String) myList.get(index);
+		}
+		return "";
+	}
+	public Object gets(int index) {
+		
+		if(index>-1 && index<=size) {
+			return (Object) myList.get(index);
 		}
 		return "";
 	}
@@ -81,12 +92,18 @@ public class MutiList extends ArrayList<String>  {
     /**
      *   加入元素到数组
      */
-    @Override
+   
 	public boolean add(String e) {
     	myList.add(e);
     	size++;
 		return true;
 	}
+   
+    public boolean add(Object e) {
+    	myList.add(e);
+    	size++;
+    	return true;
+    }
 
    /**
     * 覆盖remove方法,

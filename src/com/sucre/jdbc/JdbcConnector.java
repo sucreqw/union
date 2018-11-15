@@ -24,7 +24,7 @@ public class JdbcConnector {
 	// 数据库账号密码
 	private static String pass = "";
 	// 数据库表名
-	public static String table = "";
+	public static String source = "";
 
 	public JdbcConnector() {
 	}
@@ -32,7 +32,7 @@ public class JdbcConnector {
 	public static Connection getConnection() throws Exception// 连接数据库的函数
 	{
 		String DBDRIVER = "org.gjt.mm.mysql.Driver";
-		String DBURL = "jdbc:mysql://" + jdbcip + ":3306/" + table;// 这里的world是你的具体数据库的名字，定义数据库的url
+		String DBURL = "jdbc:mysql://" + jdbcip + ":3306/" + source + "?useSSL=false&serverTimezone=GMT%2B8";// 这里的world是你的具体数据库的名字，定义数据库的url
 		String username = id;
 		String password = pass;// 这里填写你自己的密码
 		try {
@@ -53,10 +53,10 @@ public class JdbcConnector {
 
 		try {
 			properties.load(new FileInputStream(new File(filename)));
-			jdbcip = (properties.getProperty("if"));
+			jdbcip = (properties.getProperty("ip"));
 			id = (properties.getProperty("id"));
 			pass = (properties.getProperty("pass"));
-			table = (properties.getProperty("table"));
+			source = (properties.getProperty("source"));
 		} catch (FileNotFoundException e) {
 			// System.out.println("导入ip文件错误：" + e.getMessage());
 			throw new Exception(e.getMessage());
