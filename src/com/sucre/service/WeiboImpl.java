@@ -77,7 +77,7 @@ public class WeiboImpl implements weiboDao {
 		switch (mission) {
 		case "login":
 			//SQL+="weibo ";//where COOKIE1=null or COOKIE1=\"\" limit 0,?";
-			w=new weiboLogin();
+			//w=new weiboLogin();
 			break;
 		case "guess":
 			
@@ -93,6 +93,7 @@ public class WeiboImpl implements weiboDao {
 			ResultSet result=pstmt.executeQuery();
 			int c=result.getFetchSize();
 			while(result.next()) {
+				getWeibo(mission, w);
 				w.setNO(result.getInt("NO"));
 				w.setId(result.getNString("ID"));
 				w.setPass(result.getNString("PSW"));
@@ -115,6 +116,18 @@ public class WeiboImpl implements weiboDao {
 		}
 		
 		return null;
+	}
+	private void getWeibo(String mission ,Weibo w ) {
+		switch (mission) {
+		case "login":
+			//SQL+="weibo ";//where COOKIE1=null or COOKIE1=\"\" limit 0,?";
+			w=new weiboLogin();
+			break;
+		case "guess":
+			
+			break;
+		}
+		
 	}
 	@Override
 	public int getsize() {
