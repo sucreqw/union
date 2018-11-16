@@ -14,6 +14,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.imageio.ImageIO;
 
@@ -66,6 +67,35 @@ public class SinaCapchaUtil {
 		// System.out.println(g);
 		return drawImage(ret, l, m, g);// cut(ret, 0, 32, 32, 32);
 
+	}
+	
+	/**
+	 * 拖动的图片还原
+	 * @param index
+	 * @param Image
+	 * @return
+	 */
+	public static byte[] recombineShadow (String index, byte Image) {
+		String temp[] = index.split("|");
+	
+		/*for (var t, _, a, i, n, r = e[0], s = e[1], o = e.slice(2), h = 0; h < o[length]; h++){
+            
+            _ = 360 / 8;
+            a = 180 / 5;
+            i = "-" + (o[h] % r * _ )+ "px" +"-" + (o[h] / r * a) + "px";*/
+		int g = 360 / 8;
+		int  a = 180 / 5;
+		int r=8;
+		int[] ret=new int[80];
+		int p=0;
+		for(int h=0;h<=40;h++) {
+			ret[p]=Integer.parseInt(temp[h]) % r * g ;
+			ret[p+1]=Integer.parseInt(temp[h]) / r * a;
+			p=p+2;
+		}
+		
+		
+		return null;
 	}
 	/**
 	 * 把base64转为图片byte[]
