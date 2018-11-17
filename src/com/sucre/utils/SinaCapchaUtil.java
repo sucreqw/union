@@ -88,7 +88,7 @@ public class SinaCapchaUtil {
 		int r=8;
 		int[] ret=new int[80];
 		int p=0;
-		for(int h=0;h<=40;h++) {
+		for(int h=0;h<40;h++) {
 			ret[p]=Integer.parseInt(temp[h]) % r * g ;
 			ret[p+1]=Integer.parseInt(temp[h]) / r * a;
 			p=p+2;
