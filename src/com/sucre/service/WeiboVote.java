@@ -44,7 +44,7 @@ public class WeiboVote extends Weibo {
 	// 加油卡，点亮
 	private byte[] incrspt(String cookie, String vid) {
 		String[] tempCookie=cookie.split("\\^");
-		cookie=tempCookie[2];
+		cookie=tempCookie.length>2?tempCookie[2]:"";
 		StringBuilder data = new StringBuilder(900);
 		String temp = "eid=10270&suid=" + vid
 				+ "&spt=1&send_wb=&send_text=&follow_uid=&page_type=tvenergy_index_star\r\n";
