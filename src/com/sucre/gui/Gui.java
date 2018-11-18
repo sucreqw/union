@@ -44,6 +44,8 @@ import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
+import javax.swing.DropMode;
 
 public class Gui extends JFrame implements Printer {
 
@@ -64,7 +66,8 @@ public class Gui extends JFrame implements Printer {
 	private JTable vidtable;
 	private JComboBox mission;
 	private JButton begin;
-
+    private JCheckBox IsCircle;
+    
 	VidImpl vidImpl;// =new VidImpl();
 	WeiboImpl weiboCookie;// =new WeiboImpl();
 	WeiboImpl weiboId;// =new WeiboImpl();
@@ -72,6 +75,7 @@ public class Gui extends JFrame implements Printer {
 	private JTextField thread;
 	private JButton resume;
 	private JTextField ipcount;
+	private JTextField startpoint;
 
 	/**
 	 * Launch the application.
@@ -189,11 +193,10 @@ public class Gui extends JFrame implements Printer {
 		filename.setColumns(10);
 
 		lblUnion = new JLabel("");
-		lblUnion.setBounds(6, 6, 468, 26);
+		lblUnion.setBounds(6, 6, 364, 26);
 		panel.add(lblUnion);
 
 		JButton login = new JButton("登录");
-		login.setEnabled(false);
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controller.getInstance().login(Integer.parseInt(thread.getText()), false);
@@ -218,7 +221,6 @@ public class Gui extends JFrame implements Printer {
 		panel.add(loadId);
 
 		LoadCookie = new JButton("导入cookie");
-		LoadCookie.setEnabled(false);
 		LoadCookie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -300,7 +302,13 @@ public class Gui extends JFrame implements Printer {
 					//Controller.getInstance().getPic(Integer.parseInt(thread.getText()), false);
 					Controller.getInstance().doMission(m, 0, Integer.parseInt(thread.getText()), false);
 					print("checkIn!!!");
-
+					break;
+				case "加油":
+				    Controller.getInstance().vote(Integer.parseInt(startpoint.getText()), Integer.parseInt( thread.getText()), IsCircle.isSelected(), m);
+					break;
+				case "搜索s.com":
+					 Controller.getInstance().vote(Integer.parseInt(startpoint.getText()), Integer.parseInt( thread.getText()), IsCircle.isSelected(), m);
+						
 					break;
 
 				}
@@ -311,7 +319,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(begin);
 
 		mission = new JComboBox();
-		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin"}));
+		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "加油", "搜索s.com"}));
 		mission.setBounds(560, 46, 103, 27);
 		panel.add(mission);
 
@@ -332,7 +340,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(resume);
 		
 		ipcount = new JTextField();
-		ipcount.setText("20");
+		ipcount.setText("0");
 		ipcount.setBounds(484, 19, 66, 21);
 		panel.add(ipcount);
 		ipcount.setColumns(10);
@@ -346,6 +354,24 @@ public class Gui extends JFrame implements Printer {
 		});
 		关于.setBounds(6, 391, 119, 23);
 		panel.add(关于);
+		
+		IsCircle = new JCheckBox("循环");
+		IsCircle.setBounds(560, 77, 103, 23);
+		panel.add(IsCircle);
+		
+		JLabel lblNewLabel = new JLabel("多少账号更换ip:");
+		lblNewLabel.setBounds(378, 16, 101, 26);
+		panel.add(lblNewLabel);
+		
+		startpoint = new JTextField();
+		startpoint.setText("0");
+		startpoint.setBounds(484, 47, 66, 21);
+		panel.add(startpoint);
+		startpoint.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("开始位置：");
+		lblNewLabel_1.setBounds(381, 50, 75, 15);
+		panel.add(lblNewLabel_1);
 
 	}
 

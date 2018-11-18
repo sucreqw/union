@@ -102,8 +102,10 @@ abstract public class Weibo {
 
 	@Override
 	public String toString() {
-		return "Weibo [NO=" + NO + ", id=" + id + ", pass=" + pass + ", name=" + name + ", cookie=" + cookie + ", uid="
-				+ uid + ", s=" + s + ", level=" + level + ", status=" + status + ", events=" + events + "]";
+		//return "Weibo [NO=" + NO + ", id=" + id + ", pass=" + pass + ", name=" + name + ", cookie=" + cookie + ", uid="
+			//	+ uid + ", s=" + s + ", level=" + level + ", status=" + status + ", events=" + events + "]";
+		
+		return cookie + "|"+uid + "|" + id + "|"+ pass + "|" + s ;
 	}
 
 	public Weibo() {

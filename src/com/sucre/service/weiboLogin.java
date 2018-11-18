@@ -36,16 +36,19 @@ public class weiboLogin extends Weibo {
 		ret = net.goPost("passport.weibo.cn", 443, login(super.getId(), super.getPass()));
 		if (!MyUtil.isEmpty(ret)) {
 			if (ret.indexOf("20000000") != -1) {
-
+                String uid=MyUtil.midWord("uid\":\"", "\"", ret);
 				// MyUtil.outPutData("cookie.txt",
 				// super.getCookie() + "|" + super.getUid() + "|" +
 				// super.getId() + "|" + super.getPass());
 				// MyUtil.print("登录成功！" + (index + 1), Factor.getGui());
-				String url = MyUtil.midWord("crossdomain", "\",\"", ret);
+				String url = MyUtil.midWord("crossdomain?", "\",\"", ret);
 				ret = net.goPost("passport.weibo.com", 443, loginsso(url));
 				if (ret.indexOf("20000000") != -1) {
 					super.setCookie(MyUtil.getAllCookie(ret));
-					super.setUid(MyUtil.midWord("uid\":\"", "\",\"", ret));
+					if(uid==null || "null".equals(uid)) {
+						uid=MyUtil.midWord("uid\":\"", "\"", ret);
+					}
+					super.setUid(uid);
 					MyUtil.outPutData("cookie.txt", super.toString());
 					// return 1;
 					rets = 1;
@@ -97,7 +100,7 @@ public class weiboLogin extends Weibo {
 	// 第二级接口
 	private byte[] loginsso(String url) {
 		StringBuilder data = new StringBuilder(900);
-		data.append("GET https://passport.weibo.com/sso/crossdomain" + url + " HTTP/1.1\r\n");
+		data.append("GET https://passport.weibo.com/sso/crossdomain?" + url + " HTTP/1.1\r\n");
 		data.append("Host: passport.weibo.com\r\n");
 		data.append("Connection: keep-alive\r\n");
 		data.append("Origin: https://passport.weibo.com\r\n");

@@ -40,9 +40,11 @@ public class Login extends Thread4Net {
 				break;
 			}
 		}
+		if(Controller.getInstance().changeIPcount()!=0) {
 		if ((index + 1) % Controller.getInstance().changeIPcount() == 0
 				&& "ip".equals(Thread.currentThread().getName())) {
 			MyUtil.changIp();
+		}
 		}
 		return 0;
 	}

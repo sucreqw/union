@@ -11,6 +11,7 @@ import com.sucre.service.Capcha;
 import com.sucre.service.CheckIn;
 import com.sucre.service.Guess;
 import com.sucre.service.Login;
+import com.sucre.service.SinaVote;
 import com.sucre.service.VidImpl;
 import com.sucre.service.WeiboImpl;
 import com.sucre.utils.GuiUtil;
@@ -54,9 +55,9 @@ public class Controller {
 	 */
 	public void loadWeiboId(String fileName, JTable table,String mission) {
 		weiboImplId = new WeiboImpl();
-		//weiboImplId.loadList(fileName);
-		weiboImplId.getCounts(Integer.parseInt(fileName), mission);
-		loadTable(table, (MutiList) weiboImplId.getlist());
+		weiboImplId.loadList(fileName);
+		//weiboImplId.getCounts(Integer.parseInt(fileName), mission);
+		GuiUtil.loadTableVid(table, (MutiList) weiboImplId.getlist());
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class Controller {
 	public void loadWeiboCookie(String fileName, JTable table) {
 		weiboImplCookie = new WeiboImpl();
 		weiboImplCookie.loadList(fileName);
-		loadTable(table, (MutiList) weiboImplCookie.getlist());
+		GuiUtil.loadTableVid(table, (MutiList) weiboImplCookie.getlist());
 	}
 
 	/**
@@ -82,16 +83,23 @@ public class Controller {
 		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 
 	}
-
+    /**
+     * 添加一个vid
+     * @param data
+     * @param table
+     */
 	public void addVid(String data, JTable table) {
 		vidImpl.add(data);
 		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 	}
-
+    /**
+     * 取vid的列表对象
+     * @return
+     */
 	public vidDao getVidImpl() {
 		return vidImpl;
 	}
-
+   
 	/**
 	 * 加载list到列表
 	 * 
@@ -122,7 +130,7 @@ public class Controller {
 			MyUtil.print("ID未导入！", Factor.getGui());
 		}
 		for (int i = 1; i <= thread; i++) {
-			Login login = new Login(0, limit, isCircle, weiboImplId);
+			Login login = new Login(0, limit-1, isCircle, weiboImplId);
 			Thread t = new Thread(login);
 			if (i == 1) {
 				t.setName("ip");
@@ -145,7 +153,12 @@ public class Controller {
 			t.start();
 		}
 	}
-
+   
+	/**
+	 * 取九宫格验证码
+	 * @param thread
+	 * @param isCircle
+	 */
 	public void getPic(int thread, boolean isCircle) {
 		int limit = weiboImplId == null ? 0 : weiboImplId.getsize();
 		if (limit == 0) {
@@ -160,7 +173,31 @@ public class Controller {
 			t.start();
 		}
 	}
+    
 
+	/**
+	 * 新浪投票类
+	 * @param start 起始位置
+	 * @param thread 线程数
+	 * @param isCircle 是否循环
+	 * @param mission 任务名称
+	 */
+	public void vote(int start , int thread, boolean isCircle,String mission) {
+		int limit = weiboImplCookie == null ? 0 : weiboImplCookie.getsize();
+		if (limit == 0 || getVidImpl()==null) {
+			MyUtil.print("Cookie未导入！", Factor.getGui());
+			return ;
+		}
+		for (int i = 1; i <= thread; i++) {
+			SinaVote vote = new SinaVote(start, limit, isCircle, weiboImplCookie,mission);
+			Thread t = new Thread(vote);
+			if (i == 1) {
+				t.setName("ip");
+			}
+			t.start();
+		}
+	}
+	
 	/**
 	 * 取用户定义的多少账号换一次ip
 	 * 
@@ -212,7 +249,7 @@ public class Controller {
 		if (weiboImplCookie == null) {
 			return;
 		}
-		loadTable(table, (MutiList) weiboImplCookie.getlist());
+		GuiUtil.loadTableVid(table, (MutiList) weiboImplCookie.getlist());
 	}
 
 	/**

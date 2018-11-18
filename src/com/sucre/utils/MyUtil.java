@@ -293,6 +293,29 @@ public class MyUtil {
 		}
 
 	}
+	
+	public static byte[] loadByte(String fileName) {
+		byte[] ret =null;
+		try {
+			InputStream in=new FileInputStream(fileName);
+			
+			int len=0;
+			ret=new byte[in.available()];
+			
+			while ((len=in.read(ret))!=-1) {
+				
+			}
+			in.close();
+			
+		} catch (Exception e) {
+			System.out.println("导入文件出错");
+			e.printStackTrace();
+		}
+		
+		
+		
+		return ret;
+	}
 	/**
 	 * 判断字符是否为空!
 	 * @param data

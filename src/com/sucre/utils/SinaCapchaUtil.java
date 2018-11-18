@@ -9,7 +9,9 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 import javax.imageio.ImageIO;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 public class SinaCapchaUtil {
     private static  Map<String,String> maps=new HashMap<String,String>();
@@ -71,13 +75,13 @@ public class SinaCapchaUtil {
 	
 	/**
 	 * 拖动的图片还原
-	 * @param index
-	 * @param Image
+	 * @param index 还原的索引
+	 * @param Image 乱的图片byte[]
 	 * @return
 	 */
-	public static byte[] recombineShadow (String index, byte Image) {
-		String temp[] = index.split("|");
-	
+	public static byte[] recombineShadow (String index, byte[] image) {
+		String temp[] = index.split("\\|");
+		
 		/*for (var t, _, a, i, n, r = e[0], s = e[1], o = e.slice(2), h = 0; h < o[length]; h++){
             
             _ = 360 / 8;
@@ -94,9 +98,52 @@ public class SinaCapchaUtil {
 			p=p+2;
 		}
 		
+		//System.out.println(Arrays.toString(ret));
 		
+		return drawImage2(image,180,360,ret);
+	}
+	
+	/**
+	 * 拖动的图片还原
+	 * 
+	 * @param srcImage 打乱的图
+	 * @param height 总图的高
+	 * @param width 总图的宽
+	 * @param index 还原的索引
+	 * @return
+	 */
+	public static byte[] drawImage2(byte[] srcImage, int height, int width, int[] index) {
+
+		BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics g = tag.getGraphics();
+		int p = 0;
+		try {
+
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 8; j++) {
+					int x = index[p];
+					int y = index[p + 1];
+					p = p + 2;
+					ByteArrayInputStream in = new ByteArrayInputStream(cut(srcImage, x, y, 45, 36)); // 将b作为输入流；
+					BufferedImage img = ImageIO.read(in);// ImageIO.read(new File(srcImageFile));
+					g.drawImage(img, j * 45, i * 36, 45, 36, null); // 绘制切割后的图
+				}
+			}
+
+			g.dispose();
+			OutputStream out = new ByteArrayOutputStream();
+			ImageIO.write(tag, "jpg", out);
+			return ((ByteArrayOutputStream) out).toByteArray();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 		return null;
 	}
+	
+	
 	/**
 	 * 把base64转为图片byte[]
 	 * @param base64Image
@@ -109,8 +156,12 @@ public class SinaCapchaUtil {
 
 	}
 	/**
-	 * 图像切割(按指定起点坐标和宽高切割) * @param srcImageFile 源图像byte数组 切片后的图像地址 * @param x
-	 * 目标切片起点坐标X * @param y 目标切片起点坐标Y * @param width 目标切片宽度
+	 * 图像切割(按指定起点坐标和宽高切割) *
+	 *  @param srcImageFile 源图像byte数组 切片后的图像地址 * 
+	 *  @param x
+	 * 目标切片起点坐标X * 
+	 * @param y 目标切片起点坐标Y *
+	 *  @param width 目标切片宽度
 	 * 
 	 * @param height 目标切片高度
 	 */
@@ -119,8 +170,8 @@ public class SinaCapchaUtil {
 			// 读取源图像
 			ByteArrayInputStream in = new ByteArrayInputStream(srcImage); // 将b作为输入流；
 			BufferedImage bi = ImageIO.read(in);// ImageIO.read(new File(srcImageFile));
-			int srcWidth = bi.getHeight(); // 源图宽度
-			int srcHeight = bi.getWidth(); // 源图高度
+			int srcHeight = bi.getHeight(); // 源图宽度
+			int srcWidth= bi.getWidth(); // 源图高度
 			if (srcWidth > 0 && srcHeight > 0) {
 				Image image = bi.getScaledInstance(srcWidth, srcHeight, Image.SCALE_DEFAULT);
 				// 四个参数分别为图像起点坐标和宽高
@@ -135,6 +186,7 @@ public class SinaCapchaUtil {
 				// 输出为文件
 				OutputStream out = new ByteArrayOutputStream();
 				ImageIO.write(tag, "GIF", out);
+				//ImageIO.write(tag, "GIF", new File(MyUtil.makeNonce(3)+".jpg"));
 				return ((ByteArrayOutputStream) out).toByteArray();
 			}
 		} catch (Exception e) {
