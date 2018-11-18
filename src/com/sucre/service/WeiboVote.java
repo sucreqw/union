@@ -26,8 +26,8 @@ public class WeiboVote extends Weibo {
 				
 				ret=nets.goPost("energy.tv.weibo.cn", 443, incrspt(super.getCookie(), vid));
 				String p=MyUtil.midWord("msg\":\"", "\",\"", ret);
-                MyUtil.outPutData("log.txt", p);
-                MyUtil.print(p, Factor.getGui());
+                MyUtil.outPutData("log.txt", p+(index+1));
+                MyUtil.print(p+ (index+1), Factor.getGui());
 				break;
 
 			case "搜索s.com":
@@ -43,6 +43,8 @@ public class WeiboVote extends Weibo {
 
 	// 加油卡，点亮
 	private byte[] incrspt(String cookie, String vid) {
+		String[] tempCookie=cookie.split("\\^");
+		cookie=tempCookie[2];
 		StringBuilder data = new StringBuilder(900);
 		String temp = "eid=10270&suid=" + vid
 				+ "&spt=1&send_wb=&send_text=&follow_uid=&page_type=tvenergy_index_star\r\n";

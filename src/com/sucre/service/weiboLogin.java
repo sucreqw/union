@@ -1,5 +1,10 @@
 package com.sucre.service;
 
+import java.awt.List;
+import java.util.ArrayList;
+
+import javax.net.ssl.HostnameVerifier;
+
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.utils.MyUtil;
@@ -32,27 +37,33 @@ public class weiboLogin extends Weibo {
 		int rets = 0;
 		Nets net = new Nets();
 		String ret = "";
-
+		String cookie="";
 		ret = net.goPost("passport.weibo.cn", 443, login(super.getId(), super.getPass()));
 		if (!MyUtil.isEmpty(ret)) {
 			if (ret.indexOf("20000000") != -1) {
-                String uid=MyUtil.midWord("uid\":\"", "\"", ret);
+				String uid = MyUtil.midWord("uid\":\"", "\"", ret);
 				// MyUtil.outPutData("cookie.txt",
 				// super.getCookie() + "|" + super.getUid() + "|" +
 				// super.getId() + "|" + super.getPass());
 				// MyUtil.print("登录成功！" + (index + 1), Factor.getGui());
-				String url = MyUtil.midWord("crossdomain?", "\",\"", ret);
-				ret = net.goPost("passport.weibo.com", 443, loginsso(url));
-				if (ret.indexOf("20000000") != -1) {
-					super.setCookie(MyUtil.getAllCookie(ret));
-					if(uid==null || "null".equals(uid)) {
-						uid=MyUtil.midWord("uid\":\"", "\"", ret);
+				ArrayList<String> url = MyUtil.midWordAll("crossdomain?", "\"", ret);
+				String[] host = { "passport.weibo.com", "login.sina.com.cn", "passport.weibo.cn" };
+
+				for (int i = 0; i < host.length; i++) {
+					ret = net.goPost(host[i], 443, loginsso(url.get(i), host[i]));
+					if (ret.indexOf("20000000") != -1) {
+						cookie += MyUtil.getAllCookie(ret) +"^";
+						if (uid == null || "null".equals(uid)) {
+							uid = MyUtil.midWord("uid\":\"", "\"", ret);
+						}
+                        
+						// return 1;
+						rets = 1;
 					}
-					super.setUid(uid);
-					MyUtil.outPutData("cookie.txt", super.toString());
-					// return 1;
-					rets = 1;
 				}
+				super.setCookie(cookie);
+				super.setUid(uid);
+				MyUtil.outPutData("cookie.txt", super.toString());
 			} else {
 				// 请输入验证码
 				if (ret.indexOf("50011005") != -1) {
@@ -98,12 +109,12 @@ public class weiboLogin extends Weibo {
 	}
 
 	// 第二级接口
-	private byte[] loginsso(String url) {
+	private byte[] loginsso(String url, String host) {
 		StringBuilder data = new StringBuilder(900);
-		data.append("GET https://passport.weibo.com/sso/crossdomain?" + url + " HTTP/1.1\r\n");
-		data.append("Host: passport.weibo.com\r\n");
+		data.append("GET /sso/crossdomain?" + url + " HTTP/1.1\r\n");
+		data.append("Host: " + host + "\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("Origin: https://passport.weibo.com\r\n");
+		data.append("Origin: https://" + host + "\r\n");
 		data.append(
 				"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
 		data.append("Content-Type: application/x-www-form-urlencoded\r\n");

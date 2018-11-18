@@ -89,6 +89,7 @@ public class Controller {
      * @param table
      */
 	public void addVid(String data, JTable table) {
+		if (null==vidImpl) {vidImpl = new VidImpl();}
 		vidImpl.add(data);
 		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 	}
@@ -189,7 +190,7 @@ public class Controller {
 			return ;
 		}
 		for (int i = 1; i <= thread; i++) {
-			SinaVote vote = new SinaVote(start, limit, isCircle, weiboImplCookie,mission);
+			SinaVote vote = new SinaVote(start, limit-1, isCircle, weiboImplCookie,mission);
 			Thread t = new Thread(vote);
 			if (i == 1) {
 				t.setName("ip");
@@ -213,7 +214,7 @@ public class Controller {
 		case "checkin":
 			int limit = weiboImplCookie == null ? 0 : weiboImplCookie.getsize();
 			if (limit == 0) {
-				MyUtil.print("Cookie未导入！", Factor.getGui());
+				MyUtil.print("Cookie或者vid未导入！", Factor.getGui());
 			}
 			for (int i = 1; i <= thread; i++) {
 				CheckIn checkin = new CheckIn(l, limit, isCircle, weiboImplCookie, mission);

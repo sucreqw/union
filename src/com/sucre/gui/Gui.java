@@ -10,10 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.sucre.controller.Controller;
-
+import com.sucre.factor.Factor;
 import com.sucre.service.VidImpl;
 import com.sucre.service.WeiboImpl;
 import com.sucre.utils.JsUtil;
+import com.sucre.utils.MyUtil;
 import com.sucre.utils.Printer;
 import com.sucre.utils.SinaCapchaUtil;
 
@@ -35,8 +36,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Base64.Encoder;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollPane;
@@ -76,6 +79,8 @@ public class Gui extends JFrame implements Printer {
 	private JButton resume;
 	private JTextField ipcount;
 	private JTextField startpoint;
+	private JButton setTime;
+	private JTextField Times;
 
 	/**
 	 * Launch the application.
@@ -326,12 +331,12 @@ public class Gui extends JFrame implements Printer {
 		resume = new JButton("暂停");
 		resume.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ("暂停".equals(begin.getText())) {
-					begin.setText("继续");
+				if ("暂停".equals(resume.getText())) {
+					resume.setText("继续");
 					Controller.getInstance().stop();
 				} else {
 					Controller.getInstance().resume();
-					begin.setText("暂停");
+					resume.setText("暂停");
 
 				}
 			}
@@ -372,6 +377,40 @@ public class Gui extends JFrame implements Printer {
 		JLabel lblNewLabel_1 = new JLabel("开始位置：");
 		lblNewLabel_1.setBounds(381, 50, 75, 15);
 		panel.add(lblNewLabel_1);
+		
+		setTime = new JButton("定时");
+		setTime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				MyUtil.print("开始计时！", Factor.getGui());
+				//lblUnion.setText(t);
+				Thread thread=new Thread() {
+					SimpleDateFormat sdf=new SimpleDateFormat("HH:mm:ss");
+					String t="";
+					 public void run() {
+						 while(true) {
+						 t=sdf.format(new Date());
+						 //MyUtil.print(t, Factor.getGui());
+						 
+						 if(t.equals(Factor.getGuiFrame().Times.getText())) {
+							 Factor.getGuiFrame().begin.doClick();
+						 }
+						 MyUtil.sleeps(1000);
+						 }
+					 }
+				};
+				thread.start();
+			}
+		});
+		setTime.setBounds(133, 391, 93, 23);
+		panel.add(setTime);
+		
+		Times = new JTextField();
+		Times.setText("10:00:00");
+		Times.setBounds(236, 392, 66, 21);
+		panel.add(Times);
+		Times.setColumns(10);
 
 	}
 
