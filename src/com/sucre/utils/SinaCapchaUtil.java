@@ -270,7 +270,56 @@ public class SinaCapchaUtil {
 
 		return null;
 	}
+	/**
+	 * 设定阀值二值化图片
+	 * @param srcImage 原图
+	 * @return
+	 */
+	public static String grayImage2(byte[] srcImage, int R,int G, int B) {
+		int[] rgb = new int[3];
+		ByteArrayInputStream in = new ByteArrayInputStream(srcImage); 
+		
+		try {
+			BufferedImage bi = ImageIO.read(in);// ImageIO.read(new File(srcImageFile));
 
+			int width = bi.getWidth();
+			int height = bi.getHeight();
+			int minx = bi.getMinX();
+			int miny = bi.getMinY();
+			//byte[] ret = new byte[width * height];
+			//// System.out.println("width=" + width + ",height=" + height + ".");
+			// System.out.println("minx=" + minx + ",miniy=" + miny + ".");
+			String ret="";
+			for (int i = minx; i < width; i++) {
+				for (int j = miny; j < height; j++) {
+					int pixel = bi.getRGB(i, j); // 下面三行代码将一个数字转换为RGB数字
+					rgb[0] = (pixel & 0xff0000) >> 16;
+					rgb[1] = (pixel & 0xff00) >> 8;
+					rgb[2] = (pixel & 0xff);
+					if(i==53) {
+					if (rgb[0] > R && rgb[1] > G && rgb[2] > B) {
+						//ret[i * j] = 1;
+						ret+="1";
+						//ret+="("+rgb[0]+","+rgb[1]+","+ rgb[2]+")";
+					} else {
+						//ret[i * j] = 0;
+						ret+="0";
+						//ret+="("+rgb[0]+","+rgb[1]+","+ rgb[2]+")";
+					}
+					
+					//ret+="("+rgb[0]+","+rgb[1]+","+ rgb[2]+")";	
+					}
+				}
+				ret+="\r\n";
+			}
+			return ret;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 	public static boolean compareImage(byte[] image1, byte[] image2) {
         byte[] ret1=grayImage(image1);
         byte[] ret2=grayImage(image2);
