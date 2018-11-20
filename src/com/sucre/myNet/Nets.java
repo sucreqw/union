@@ -1,8 +1,8 @@
 package com.sucre.myNet;
 
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +10,7 @@ import java.io.InputStreamReader;
 
 import java.net.Socket;
 
-
-import javax.net.SocketFactory; 
+import javax.net.SocketFactory;
 
 import javax.net.ssl.SSLSocketFactory;
 
@@ -21,7 +20,7 @@ import javax.net.ssl.SSLSocketFactory;
  * @author sucre
  *
  */
-public class Nets { 
+public class Nets {
 
 	/**
 	 * https数据包发�?.get/post通用.
@@ -48,7 +47,7 @@ public class Nets {
 			out.flush();
 			// 接收数据,为了解决乱码的情�?,要用inputstreamreader,用bufferedreader 包装后会更高效些.
 			BufferedReader in = new BufferedReader(new InputStreamReader(sslsocket.getInputStream(), "UTF-8"));
-			//String str = null;
+			// String str = null;
 			char[] rev = new char[1024];
 			int len = -1;
 			while ((len = in.read(rev)) != -1) {
@@ -65,16 +64,17 @@ public class Nets {
 			out.close();
 
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.err.println("网络错误：" + e.getMessage());
 		}
 
 		return ret.toString();
 	}
-    
+
 	/**
 	 * 普通数据包,非https
-	 * @param host 
+	 * 
+	 * @param host
 	 * @param port
 	 * @param data
 	 * @return
@@ -116,16 +116,18 @@ public class Nets {
 
 		return ret.toString();
 	}
-	
+
 	/**
 	 * http数据包返回文件
+	 * 
 	 * @param host
 	 * @param port
 	 * @param data
 	 * @return
 	 */
-	public String goPostByte(String host, int port, byte[] data) {
-		StringBuilder ret = new StringBuilder(data.length);
+	public byte[] goPostByte(String host, int port, byte[] data) {
+		// StringBuilder ret = new StringBuilder(data.length);
+		byte[] ret = null;
 		// 创建sslsocket工厂
 		SocketFactory factory = SSLSocketFactory.getDefault();
 		try (
@@ -140,30 +142,58 @@ public class Nets {
 			out.write(data);
 			out.flush();
 			// 接收数据,为了解决乱码的情�?,要用inputstreamreader,用bufferedreader 包装后会更高效些.
-			//BufferedReader in = new BufferedReader(new InputStreamReader(sslsocket.getInputStream(), "UTF-8"));
-			//String str = null;
-			InputStream in=new DataInputStream(sslsocket.getInputStream());
-			byte[] rev = new byte[in.available()];
+			// BufferedReader in = new BufferedReader(new
+			// InputStreamReader(sslsocket.getInputStream(), "UTF-8"));
+			// String str = null;
+			InputStream in = new DataInputStream(sslsocket.getInputStream());
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			byte[] rev = new byte[1024];
 			int len = -1;
+			int start = 0;
 			while ((len = in.read(rev)) != -1) {
-				ret.append(new String(rev, 0, len));
+				// ret.append(new String(rev, 0, len));
 				// 由于socket会阻�?,当装不满缓冲区时,当作是结�?,
-				if (len < 1024) {
+				start = serachB(rev, new byte[] { 13, 10, 13, 10 });
+				start=start==-1?0:start+4;
+				output.write(rev, start, len-start);
+				
+				/*if (len < 1024) {
 					break;
-				}
+				}*/
 			}
 
+			ret = output.toByteArray();
 			// 安全起见还是关闭�?下资�?.
 			in.close();
 			sslsocket.close();
 			out.close();
 
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.err.println("网络错误：" + e.getMessage());
 		}
 
-		return ret.toString();
+		return ret;
 	}
 
+	private int serachB(byte[] source, byte[] target) {
+		int ret = -1;
+		for (int i = 0; i < source.length; i++) {
+			if (source[i] == target[0]) {
+				for (int j = 1; j < target.length; j++) {
+					if (target[j] == source[i + j]) {
+						ret = i;
+					} else {
+						ret = -1;
+						break;
+					}
+
+				}
+				if (ret != -1) {
+					return ret;
+				}
+			}
+		}
+		return ret;
+	}
 }

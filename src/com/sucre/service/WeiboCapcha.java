@@ -69,13 +69,26 @@ public class WeiboCapcha extends Weibo {
 			// return 1;
 			// 取拖动的难码 并验证！
 		case "getpicD":
-			ret=net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
-			if(!MyUtil.isEmpty(ret)){
-				String picUrl=MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
-				String vid=MyUtil.midWord("id\":\"", "\",\"", ret);
-				String Hash=MyUtil.midWord("x\":\"", "\",\"", ret);		
-						
-				
+			super.setUid("6828954865");
+			ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
+			if (!MyUtil.isEmpty(ret)) {
+				String picUrl = MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
+				String vid = MyUtil.midWord("id\":\"", "\",\"", ret);
+				String Hash = MyUtil.midWord("x\":\"", "\",\"", ret);
+				Base64.Decoder decoder = Base64.getDecoder();
+				Hash = new String(decoder.decode(Hash));
+				String indexP = MyUtil.midWord("seqo8,", "", Hash);
+				String startP = MyUtil.midWord("pos", "end", Hash + "end").substring(1);
+				String[] startPs = startP.split(",");
+				byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
+				if (pic != null && indexP!=null) {
+					// MyUtil.outPutData("temp.jpg", pic);
+					byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
+					// MyUtil.outPutData("temp.jpg", rets);
+					String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
+					MyUtil.outPutData(result + "a.jpg", rets);
+					System.out.println(result);
+				}
 			}
 			break;
 
@@ -165,6 +178,22 @@ public class WeiboCapcha extends Weibo {
 		data.append(
 				"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
 		data.append("Accept: */*\r\n");
+		data.append("Accept-Language: zh-CN,zh;q=0.9\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+
+	// 取拖动的图片byte[]
+	private byte[] getImage(String url) {
+		StringBuilder data = new StringBuilder(900);
+
+		data.append("GET https://captcha.weibo.com/" + url + " HTTP/1.1\r\n");
+		data.append("Host: captcha.weibo.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
+		data.append("Accept: image/webp,image/apng,image/*,*/*;q=0.8\r\n");
 		data.append("Accept-Language: zh-CN,zh;q=0.9\r\n");
 		data.append("\r\n");
 		data.append("\r\n");

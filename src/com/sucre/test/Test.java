@@ -2,6 +2,7 @@ package com.sucre.test;
 
 import static org.junit.Assert.*;
 
+import com.sucre.service.WeiboCapcha;
 import com.sucre.utils.MyUtil;
 import com.sucre.utils.SinaCapchaUtil;
 
@@ -13,12 +14,12 @@ public class Test {
 //	    MyUtil.outPutData("ret.jpg", ret);
 //		
 		//ret=88 ret1=53 ret2=54
-		String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"), 54);
-		System.out.println(ret);
-		
-		/*String temp="1122^2222^3333";
-		String[] tem=temp.split("\\^");
-		System.out.println(tem[1]);*/
+		/*String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"), 54);
+		System.out.println(ret);*/
+		for(int i=0;i<10;i++) {
+        WeiboCapcha capcha=new WeiboCapcha();
+        capcha.Actions(0, "getpicD");
+		}
 	}
 
 }

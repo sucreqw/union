@@ -362,6 +362,7 @@ public class SinaCapchaUtil {
 						}
 						if (rgbret == 1) {
 							ret+=String.valueOf(i) + ",";
+							i=i+45;
 						}
 						// ret+="("+rgb[0]+","+rgb[1]+","+ rgb[2]+")";
 					}
