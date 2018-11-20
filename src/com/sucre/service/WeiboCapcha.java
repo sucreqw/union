@@ -20,10 +20,11 @@ public class WeiboCapcha extends Weibo {
 
 	@Override
 	public int Actions(int index, String mission) {
+		Nets net = new Nets();
 		String ret = "";
 		switch (mission) {
 		case "getpic":
-			Nets net = new Nets();
+
 			String code = "";
 			String t = "";
 			while (true) {
@@ -40,7 +41,8 @@ public class WeiboCapcha extends Weibo {
 							Base64Image = Base64Image.replaceAll("\\\\", "");
 							picIndex = picIndex.replaceAll("\\\\", "");
 							retb = SinaCapchaUtil.getPic(picIndex, Base64Image);
-							// MyUtil.outPutData(MyUtil.getTime() +".gif", retb);
+							// MyUtil.outPutData(MyUtil.getTime() +".gif",
+							// retb);
 
 							// 对比验证码
 						}
@@ -49,7 +51,8 @@ public class WeiboCapcha extends Weibo {
 					if (null != retb) {
 						code = SinaCapchaUtil.compareAll(retb);
 						if ("".equals(code)) {
-							//MyUtil.outPutData(MyUtil.getTime() + ".gif", retb);
+							// MyUtil.outPutData(MyUtil.getTime() + ".gif",
+							// retb);
 						}
 					}
 				} while ("".equals(code));
@@ -64,6 +67,17 @@ public class WeiboCapcha extends Weibo {
 				}
 			}
 			// return 1;
+			// 取拖动的难码 并验证！
+		case "getpicD":
+			ret=net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
+			if(!MyUtil.isEmpty(ret)){
+				String picUrl=MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
+				String vid=MyUtil.midWord("id\":\"", "\",\"", ret);
+				String Hash=MyUtil.midWord("x\":\"", "\",\"", ret);		
+						
+				
+			}
+			break;
 
 		}
 		return 0;
@@ -81,6 +95,7 @@ public class WeiboCapcha extends Weibo {
 		return this.picId;
 	}
 
+	// 取九宫格图片
 	private byte[] getPic(String id) {
 		StringBuilder data = new StringBuilder(900);
 		data.append(
@@ -101,6 +116,7 @@ public class WeiboCapcha extends Weibo {
 		return data.toString().getBytes();
 	}
 
+	// 验证九宫格图片
 	private byte[] verify(String vid, String data_enc, String path_enc, String id) {
 		StringBuilder data = new StringBuilder(900);
 
@@ -119,4 +135,40 @@ public class WeiboCapcha extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
+
+	// 取拖动的图片
+	private byte[] getPicD(String uid) {
+		StringBuilder data = new StringBuilder(900);
+		data.append("GET //api/jigsaw/get?ver=1.0.0&source=topic&usrname=" + uid + "&_rnd=0." + MyUtil.makeNumber(16)
+				+ "&callback=pl_cb HTTP/1.1\r\n");
+		data.append("Host: captcha.weibo.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
+		data.append("Accept: */*\r\n");
+
+		data.append("Accept-Language: zh-CN,zh;q=0.9\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+
+	// 验证拖动图片
+	private byte[] verifyD(String vid, String uid, String p, String s) {
+		StringBuilder data = new StringBuilder(900);
+
+		data.append("GET //api/jigsaw/verify?ver=1.0.0&id=" + vid + "&usrname=" + uid + "&source=topic&p=" + p + "&s="
+				+ s + "&callback=pl_cb HTTP/1.1\r\n");
+		data.append("Host: captcha.weibo.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
+		data.append("Accept: */*\r\n");
+		data.append("Accept-Language: zh-CN,zh;q=0.9\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+
 }
