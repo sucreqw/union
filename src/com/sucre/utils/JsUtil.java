@@ -32,7 +32,11 @@ public class JsUtil {
 		}
 
 	}
-
+    
+	//动态添加js代码。
+	public static void AddJs(String js){
+		JS+=js;
+	}
 	/**
 	 * 运行js的方法
 	 * 

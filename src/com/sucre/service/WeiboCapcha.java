@@ -87,7 +87,9 @@ public class WeiboCapcha extends Weibo {
 					// MyUtil.outPutData("temp.jpg", rets);
 					String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
 					MyUtil.outPutData(result + "a.jpg", rets);
-					System.out.println(result);
+					//System.out.println(result);
+					
+					
 				}
 			}
 			break;
