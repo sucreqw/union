@@ -109,7 +109,16 @@ public class WeiboCapcha extends Weibo {
 	public String getVid() {
 		return this.picId;
 	}
-
+	public static String simulate(String start,String end ) {
+		int i=0;
+		String r=MyUtil.getRand(48, 35);
+		int st=Integer.parseInt(start)+Integer.parseInt(r);
+		String ret="";
+		while(true) {
+			
+			if(i==Integer.parseInt(end)) {return "";}
+		}
+	}
 	// 取九宫格图片
 	private byte[] getPic(String id) {
 		StringBuilder data = new StringBuilder(900);
