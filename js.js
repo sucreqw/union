@@ -1,5 +1,6 @@
-
+﻿
 var seed= "()*,-./0123456789:?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnop~$^!|";
+var seeds="()*,-./0123456789:?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnop~$^!|";
 
 function path_enc(code,id){
 return encodes(code,id);
@@ -1179,4 +1180,34 @@ function arrTransfer(a) {
                 b.push(d)
             }
             return b
+        }
+
+//********************************************************************************拖动代码区
+//调用方法 returnValue=(x97a57645a3f0e1518f8c9f4d340d4c4f([22,33,44]));
+
+ function numberTransfer1(x) {
+            for (var e = seeds, t = e.substr(0, e.length - 3), _ = t.length, a = e.substr(-2, 1), i = e.substr(-3, 1), n = x < 0 ? i : "", r = (x = Math.abs(x),
+            parseInt(x / _)), s = [x % _]; r; )
+                n += a,
+                s.push(r % _),
+                r = parseInt(r / _);
+            for (var o = s.length - 1; 0 <= o; o--)
+                n += 0 == o ? t.charAt(s[o]) : t.charAt(s[o] - 1);
+            return x < 0 && (n = i + n),
+            n
+        }
+         function arrTransfer1(x) {
+            for (var e = [x[0]], t = 0; t < x.length - 1; t++) {
+                for (var _ = [], a = 0; a < x[t].length; a++)
+                    _.push(x[t + 1][a] - x[t][a]);
+                e.push(_)
+            }
+            return e
+        }
+       function  x97a57645a3f0e1518f8c9f4d340d4c4f(x) {
+            for (var e = seeds.substr(-1), t = arrTransfer1(x), _ = [], a = [], i = [], n = 0; n < t.length; n++)
+                _.push(numberTransfer1(t[n][0])),
+                a.push(numberTransfer1(t[n][1])),
+                i.push(numberTransfer1(t[n][2]));
+            return _.join("") + e + a.join("") + e + i.join("")
         }

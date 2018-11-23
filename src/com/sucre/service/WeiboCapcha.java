@@ -86,10 +86,21 @@ public class WeiboCapcha extends Weibo {
 					byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
 					// MyUtil.outPutData("temp.jpg", rets);
 					String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
-					MyUtil.outPutData(result + "a.jpg", rets);
+					//MyUtil.outPutData(result + "a.jpg", rets);
 					//System.out.println(result);
-					
-					
+					if(!"".equals(result)) {
+						
+						String[] p=result.split(",");
+						
+						for(int i=0;i<p.length ;i++) {
+							if(!"".equals(p[i])) {
+								ret=net.goPost("captcha.weibo.com", 443, verifyD(vid, super.getUid(), getjs(simulate(startPs[0], p[i])), "i00uAnVhbE1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdPVzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzEuMC4zNTczLjAgU2FmYXJpLzUzNy4zNgRwbGF0BVdpbjMyBGxhbmcFemgtQ04Gc2NyZWVuCDc2OCoxMzY2AmZwCjQxMjk1NDA0NTkFc2NhbGUBMQJsdA0xNTQyODk4ODA0MzY4AmN0DTE1NDI4OTg4MTMyODUCc3QNMTU0Mjg5ODgwNTkzNQ=="));
+							    if(!MyUtil.isEmpty(ret)) {
+							    	System.out.println(ret);
+							    }
+							}
+						}
+					}
 				}
 			}
 			break;
@@ -110,15 +121,63 @@ public class WeiboCapcha extends Weibo {
 		return this.picId;
 	}
 	public static String simulate(String start,String end ) {
-		int i=0;
+		//int i=0;
 		String r=MyUtil.getRand(48, 35);
-		int st=Integer.parseInt(start)+Integer.parseInt(r);
-		String ret="";
-		while(true) {
+		int counts=0;
+		int st=0;
+		int ends=0;
+		if(Integer.parseInt(start)>Integer.parseInt(end)) {
 			
-			if(i==Integer.parseInt(end)) {return "";}
+			st=Integer.parseInt(start)+Integer.parseInt(r);
+			
+		    counts=Integer.parseInt(start)-Integer.parseInt(end);
+		    ends=st-counts;
+			
+		}else {
+			st=Integer.parseInt(start)+Integer.parseInt(r);
+			
+			counts=Integer.parseInt(end)-Integer.parseInt(start);
+			ends=st+counts;
+			
+		}
+		int Times=0;
+		String ret="var trace=[["+ st +", 250, "+ Times +"]];\r\n";
+		
+		
+		while(true) {
+			int temp=Integer.parseInt(MyUtil.getRand(5, 0));
+			Times += Integer.parseInt(MyUtil.getRand(50, 20));
+			
+			if(Integer.parseInt(start)<Integer.parseInt(end)) {
+				
+				st+=temp;
+				if(st>ends) {st=ends;}
+			}else {
+				st-=temp;
+				if(st<ends) {st=ends;}
+			}
+			
+			
+			ret+="trace.push(["+ st +", 250, "+ Times +"]);\r\n";
+			
+			if(st==ends) {return ret;}
+			//i+=temp;
+			
 		}
 	}
+	
+	
+	public static String getjs(String js) {
+		String nJS="function getit() {";
+		nJS+=js;
+		nJS+="return x97a57645a3f0e1518f8c9f4d340d4c4f(trace);";
+		nJS+="}";
+		
+		JsUtil.AddJs(nJS);
+		
+		return JsUtil.runJS("getit");
+	}
+	
 	// 取九宫格图片
 	private byte[] getPic(String id) {
 		StringBuilder data = new StringBuilder(900);
