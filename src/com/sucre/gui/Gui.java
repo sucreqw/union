@@ -315,7 +315,9 @@ public class Gui extends JFrame implements Printer {
 					 Controller.getInstance().vote(Integer.parseInt(startpoint.getText()), Integer.parseInt( thread.getText()), IsCircle.isSelected(), m);
 						
 					break;
-
+                default:
+                	Controller.getInstance().vote(Integer.parseInt(startpoint.getText()), Integer.parseInt( thread.getText()), IsCircle.isSelected(), m);
+                	break;
 				}
 
 			}
@@ -324,7 +326,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(begin);
 
 		mission = new JComboBox();
-		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "加油", "搜索s.com"}));
+		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜", "加油", "搜索s.com"}));
 		mission.setBounds(560, 46, 103, 27);
 		panel.add(mission);
 

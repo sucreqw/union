@@ -1,0 +1,49 @@
+POST /aj/super/picktop HTTP/1.1
+Host: huati.weibo.cn
+Connection: keep-alive
+Content-Length: 163
+Accept: application/json, text/plain, */*
+Origin: https://huati.weibo.cn
+X-Requested-With: XMLHttpRequest
+x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml
+User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)
+Content-Type: application/x-www-form-urlencoded
+Referer: https://huati.weibo.cn/super/pick?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&page_id=1008086de98a1a1a398df9761c706bfaac6b00
+Accept-Encoding: gzip,deflate
+Accept-Language: zh-CN,en-US;q=0.8
+Cookie: HUATI_CODE_FROM=1086395010; HUATI-PHP7-YF=ed872dc267d1392f01270352664209e1; HUATI-PHP54=2707f4b8121712ce36f575b4a30b6e13; SUB=_2A2527-SjDeRhGeBG6VoY9SrEzTmIHXVSYpbrrDV6PUJbitAKLUSlkWtNRg8h8pTaETtwo7ppwI0vHTLQs1AGRUdW; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhRVhzVUcvL7wIN-C29pA-S5NHD95Qc1hzR1K-X1hqfWs4DqcjOi--Ri-isiK.4i--fiKy8i-iFi--fi-zRiKnRi--ciK.fi-2Ei--ciK.RiKLsi--fiK.7iK.pwgUD9rqt; SCF=AtKXTXY4LGVNBoz5QYll97SBLVkcooNsfMBQtGQPFjE6K2r8-5brY3uCWzJnvf4PQg..; SUHB=0oUosY3EsdXL1h
+
+topic_name=%E5%90%B4%E7%A3%8A&page_id=1008086de98a1a1a398df9761c706bfaac6b00&score=5&is_pub=0&cur_rank=21&ctg_id=2&topic_score=1176938&index=select256&user_score=5
+
+
+
+POST /aj/super/captchareverify HTTP/1.1
+Host: huati.weibo.cn
+Connection: keep-alive
+Content-Length: 83
+Origin: https://huati.weibo.cn
+X-Requested-With: XMLHttpRequest
+x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml
+User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)
+Content-type: application/x-www-form-urlencoded
+Accept: */*
+Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00
+Accept-Encoding: gzip,deflate
+Accept-Language: zh-CN,en-US;q=0.8
+Cookie: HUATI_CODE_FROM=1086395010; HUATI-PHP7-YF=ed872dc267d1392f01270352664209e1; HUATI-PHP54=2707f4b8121712ce36f575b4a30b6e13; SUB=_2A2527-SjDeRhGeBG6VoY9SrEzTmIHXVSYpbrrDV6PUJbitAKLUSlkWtNRg8h8pTaETtwo7ppwI0vHTLQs1AGRUdW; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhRVhzVUcvL7wIN-C29pA-S5NHD95Qc1hzR1K-X1hqfWs4DqcjOi--Ri-isiK.4i--fiKy8i-iFi--fi-zRiKnRi--ciK.fi-2Ei--ciK.RiKLsi--fiK.7iK.pwgUD9rqt; SCF=AtKXTXY4LGVNBoz5QYll97SBLVkcooNsfMBQtGQPFjE6K2r8-5brY3uCWzJnvf4PQg..; SUHB=0oUosY3EsdXL1h
+
+id=a2b5316b30c768bd5950184dc7741315&oid=1022:1008086de98a1a1a398df9761c706bfaac6b00
+
+
+GET /aj/super/getscore?page_id=1008086de98a1a1a398df9761c706bfaac6b00 HTTP/1.1
+Host: huati.weibo.cn
+Connection: keep-alive
+Accept: application/json, text/plain, */*
+X-Requested-With: XMLHttpRequest
+x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml
+User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)
+Referer: https://huati.weibo.cn/super/pick?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&page_id=1008086de98a1a1a398df9761c706bfaac6b00
+Accept-Encoding: gzip,deflate
+Accept-Language: zh-CN,en-US;q=0.8
+Cookie: HUATI_CODE_FROM=1086395010; HUATI-PHP7-YF=ed872dc267d1392f01270352664209e1; HUATI-PHP54=2707f4b8121712ce36f575b4a30b6e13; SUB=_2A2527-SjDeRhGeBG6VoY9SrEzTmIHXVSYpbrrDV6PUJbitAKLUSlkWtNRg8h8pTaETtwo7ppwI0vHTLQs1AGRUdW; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhRVhzVUcvL7wIN-C29pA-S5NHD95Qc1hzR1K-X1hqfWs4DqcjOi--Ri-isiK.4i--fiKy8i-iFi--fi-zRiKnRi--ciK.fi-2Ei--ciK.RiKLsi--fiK.7iK.pwgUD9rqt; SCF=AtKXTXY4LGVNBoz5QYll97SBLVkcooNsfMBQtGQPFjE6K2r8-5brY3uCWzJnvf4PQg..; SUHB=0oUosY3EsdXL1h
+
