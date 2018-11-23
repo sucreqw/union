@@ -22,6 +22,7 @@ public class Login extends Thread4Net {
 
 		w = new weiboLogin();
 		w = (weiboLogin) weibo.get(index, w);
+		int counts=0;
 		int ret = 0;
 		while (true) {
 			ret = w.Actions(index, "");
@@ -39,6 +40,9 @@ public class Login extends Thread4Net {
 			} else {
 				break;
 			}
+			counts++;
+			if(counts==5) {break;}
+			
 		}
 		if(Controller.getInstance().changeIPcount()!=0) {
 		if ((index + 1) % Controller.getInstance().changeIPcount() == 0

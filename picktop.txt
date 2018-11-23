@@ -15,6 +15,10 @@ Cookie: HUATI_CODE_FROM=1086395010; HUATI-PHP7-YF=ed872dc267d1392f01270352664209
 
 topic_name=%E5%90%B4%E7%A3%8A&page_id=1008086de98a1a1a398df9761c706bfaac6b00&score=5&is_pub=0&cur_rank=21&ctg_id=2&topic_score=1176938&index=select256&user_score=5
 
+{"code":100000,"msg":"打榜成功，经验值+8","data":{"user_score":0,"top":1177007,"rank":21,"desc":"还差106252影响力超越上一名","start":"还差","end":"影响力超越上一名","number":106252,"is_followed":1}}
+
+{"code":382023,"msg":"你的账号存在异常，暂时无法打榜，请先验证身份解除异常。","data":{"captcha":"sinaweibo:\/\/browser?url=https%3A%2F%2Fhuati.weibo.cn%2Fsuper%2Fcaptcha%2F%3Ftype%3Dpick%26page_id%3D1008086de98a1a1a398df9761c706bfaac6b00"}}
+
 
 
 POST /aj/super/captchareverify HTTP/1.1
@@ -35,6 +39,9 @@ Cookie: HUATI_CODE_FROM=1086395010; HUATI-PHP7-YF=ed872dc267d1392f01270352664209
 id=a2b5316b30c768bd5950184dc7741315&oid=1022:1008086de98a1a1a398df9761c706bfaac6b00
 
 
+{"code":10000,"msg":"succ","data":{"code":100000,"msg":"成功"}}
+
+
 GET /aj/super/getscore?page_id=1008086de98a1a1a398df9761c706bfaac6b00 HTTP/1.1
 Host: huati.weibo.cn
 Connection: keep-alive
@@ -49,4 +56,19 @@ Cookie: HUATI_CODE_FROM=1086395010; HUATI-PHP7-YF=ed872dc267d1392f01270352664209
 
 
 
-88888
+HTTP/1.1 200 OK
+Server: nginx/1.6.1
+Date: Wed, 14 Nov 2018 03:32:08 GMT
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Vary: Accept-Encoding
+Cache-Control: no-cache, must-revalidate
+X-Frame-Options: Deny
+DPOOL_HEADER: weibo_huati160_a5_56
+Content-Encoding: gzip
+LB_HEADER: wbtngx.188.yf.lb.sinanode.com
+Connection: keep-alive
+
+{"code":100000,"msg":"ok","data":{"score":1176938,"rank":21,"gap":105898,"can_get_score":107,"href":"sinaweibo:\/\/browser?url=https%3A%2F%2Fhuati.weibo.cn%2Fsuper%2Ftaskcenter","head_href":"sinaweibo:\/\/browser?url=https%3A%2F%2Fhuati.weibo.cn%2Fdiscovery%2Fsuper%3Fextparam%3Dctg1_2%7Cscorll_1","user_total_score":5,"pic":"https:\/\/wx2.sinaimg.cn\/thumb180\/005Vyssfgy1fuzne8ryicj30m80m8tci.jpg","oid":"1022:1008086de98a1a1a398df9761c706bfaac6b00","topic_name":"吴磊","ctg_id":"2","is_low":0,"is_relation":1,"is_followed":1}}
+
+

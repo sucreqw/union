@@ -1,5 +1,11 @@
 package com.sucre.service;
 
+import java.net.CookieHandler;
+import java.net.URLEncoder;
+import java.util.Base64.Encoder;
+
+import javax.swing.text.TabStop;
+
 import com.sucre.controller.Controller;
 import com.sucre.entity.Vid;
 import com.sucre.entity.Weibo;
@@ -38,12 +44,32 @@ public class WeiboVote extends Weibo {
 				break;
 
 			case "打榜":
-				ret = nets.goPost("s.weibo.com", 443, Sserach(super.getCookie(), vid));
-				// String p=MyUtil.midWord("msg\":\"", "\",\"", ret);
-				// MyUtil.outPutData("log.txt", p);
-				MyUtil.print(ret, Factor.getGui());
+				ret = nets.goPost("huati.weibo.cn", 443, getscore(super.getCookie(), vid));
+				if(!MyUtil.isEmpty(ret)) {
+					String allScore=MyUtil.midWord("score\":", ",\"", ret);
+					String rank=MyUtil.midWord("rank\":", ",\"", ret);
+					String userScore=MyUtil.midWord("user_total_score\":", ",\"", ret);
+					String name=MyUtil.midWord("topic_name\":\"", "\",\"", ret);
+					while(true) {
+						ret=nets.goPost("huati.weibo.cn", 443, picktop(super.getCookie(), vid, userScore, name, rank, allScore));
+						if(!MyUtil.isEmpty(ret)) {
+							if(ret.indexOf("100000")!=-1) {
+								MyUtil.print("打榜成功！", Factor.getGui());
+								
+								break;
+							}else if(ret.indexOf("382023")!=-1){
+								//要拖码
+								
+							}else {
+								//失败，原因不明。
+								MyUtil.print("打榜失败，原因不明！", Factor.getGui());
+								break;
+							}
+						}
+					}
+				}
+				//MyUtil.print(ret, Factor.getGui());
 				break;
-
 			}
 		}
 		return 0;
@@ -96,26 +122,72 @@ public class WeiboVote extends Weibo {
 	}
 
 	// 打榜送分
-	private byte[] picktop(String cookie, String vid,String score) {
+	private byte[] picktop(String cookie, String vid,String score,String name ,String rank,String topic_score) {
 		StringBuilder data = new StringBuilder(900);
-		String temp = "topic_name=%E5%90%B4%E7%A3%8A&page_id=1008086de98a1a1a398df9761c706bfaac6b00&score=5&is_pub=0&cur_rank=21&ctg_id=2&topic_score=1176938&index=select256&user_score=5";
+		name=URLEncoder.encode(name);
+		String temp = "topic_name="+ name +"&page_id="+ vid +"&score="+ score +"&is_pub=0&cur_rank="+ rank +"&ctg_id=2&topic_score="+ topic_score+"&index=select256&user_score="+ score +"\r\n";
 		data.append("POST /aj/super/picktop HTTP/1.1\r\n");
 		data.append("Host: huati.weibo.cn\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("Content-Length: 163\r\n");
+		data.append("Content-Length: "+ temp.length() +"\r\n");
 		data.append("Accept: application/json, text/plain, */*\r\n");
 		data.append("Origin: https://huati.weibo.cn\r\n");
 		data.append("X-Requested-With: XMLHttpRequest\r\n");
 		data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
-		data.append(
-				"User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
 		data.append("Content-Type: application/x-www-form-urlencoded\r\n");
-		data.append("Referer: https://huati.weibo.cn/super/pick\r\n");
+		data.append("Referer: https://huati.weibo.cn/super/pick?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
-		data.append("Cookie: " + cookie + "\r\n");
+		data.append("Cookie: "+ cookie +"\r\n");
+		data.append("\r\n");
+		data.append( temp );
 		data.append("\r\n");
 		data.append("\r\n");
 
+		return data.toString().getBytes();
+	}
+	
+	//打榜取分
+	private byte[] getscore(String cookie,String vid) {
+		StringBuilder data = new StringBuilder(900);
+	
+		data.append("GET /aj/super/getscore?page_id="+ vid +" HTTP/1.1\r\n");
+		data.append("Host: huati.weibo.cn\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("Accept: application/json, text/plain, */*\r\n");
+		data.append("X-Requested-With: XMLHttpRequest\r\n");
+		data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
+		data.append("Referer: https://huati.weibo.cn/super/pick?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+		data.append("Cookie: "+ cookie +"\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+	
+	//打榜验证码
+	private byte[] captchareverify(String cookie,String vid,String pid) {
+		StringBuilder data = new StringBuilder(900);
+		String temp = "id="+ pid +"&oid="+ vid +"\\r\\n";
+		data.append("POST /aj/super/captchareverify HTTP/1.1\r\n");
+		data.append("Host: huati.weibo.cn\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("Content-Length: 83\r\n");
+		data.append("Origin: https://huati.weibo.cn\r\n");
+		data.append("X-Requested-With: XMLHttpRequest\r\n");
+		data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
+		data.append("Content-type: application/x-www-form-urlencoded\r\n");
+		data.append("Accept: */*\r\n");
+		data.append("Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
+		data.append("Accept-Encoding: gzip,deflate\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+		data.append("Cookie: "+ cookie +"\r\n");
+		data.append("\r\n");
+		data.append(temp);
+		data.append("\r\n");
+		data.append("\r\n");
 		return data.toString().getBytes();
 	}
 }
