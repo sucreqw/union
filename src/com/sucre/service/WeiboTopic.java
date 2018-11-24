@@ -33,7 +33,7 @@ public class WeiboTopic extends Weibo {
 				v = Controller.getInstance().getVidImpl().getVid(i, v);
 				String vid = v.getVids();
 
-				MyUtil.print("正在关注话题。。" + i + "<>" + index,Factor.getGui());
+				MyUtil.print("正在关注话题。。" + i + "<>" + (index+1),Factor.getGui());
 
 				ret = nets.goPost("api.weibo.cn", 443,
 						follow(midCookie(allCookie), super.getUid(), vid, super.getS()));

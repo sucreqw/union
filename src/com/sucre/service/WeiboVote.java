@@ -45,14 +45,15 @@ public class WeiboVote extends Weibo {
 				break;
 
 			case "打榜":
-				ret = nets.goPost("huati.weibo.cn", 443, getscore(super.getCookie(), vid));
+				cookie=super.getCookie().split("^")[0];
+				ret = nets.goPost("huati.weibo.cn", 443, getscore(cookie, vid));
 				if(!MyUtil.isEmpty(ret)) {
 					String allScore=MyUtil.midWord("score\":", ",\"", ret);
 					String rank=MyUtil.midWord("rank\":", ",\"", ret);
 					String userScore=MyUtil.midWord("user_total_score\":", ",\"", ret);
 					String name=MyUtil.midWord("topic_name\":\"", "\",\"", ret);
 					while(true) {
-						ret=nets.goPost("huati.weibo.cn", 443, picktop(super.getCookie(), vid, userScore, name, rank, allScore));
+						ret=nets.goPost("huati.weibo.cn", 443, picktop(cookie, vid, userScore, name, rank, allScore));
 						if(!MyUtil.isEmpty(ret)) {
 							if(ret.indexOf("100000")!=-1) {
 								MyUtil.print("打榜成功！"+super.getId()+"|" + super.getPass()+"|" + userScore, Factor.getGui());

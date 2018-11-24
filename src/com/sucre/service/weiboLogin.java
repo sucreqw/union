@@ -37,46 +37,49 @@ public class weiboLogin extends Weibo {
 		int rets = 0;
 		Nets net = new Nets();
 		String ret = "";
-		String cookie="";
-		ret = net.goPost("passport.weibo.cn", 443, login(super.getId(), super.getPass()));
-		if (!MyUtil.isEmpty(ret)) {
-			if (ret.indexOf("20000000") != -1) {
-				String uid = MyUtil.midWord("uid\":\"", "\"", ret);
-				// MyUtil.outPutData("cookie.txt",
-				// super.getCookie() + "|" + super.getUid() + "|" +
-				// super.getId() + "|" + super.getPass());
-				// MyUtil.print("登录成功！" + (index + 1), Factor.getGui());
-				ArrayList<String> url = MyUtil.midWordAll("crossdomain?", "\"", ret);
-				String[] host = { "passport.weibo.com", "login.sina.com.cn", "passport.weibo.cn" };
+		String cookie = "";
+		try {
+			ret = net.goPost("passport.weibo.cn", 443, login(super.getId(), super.getPass()));
+			if (!MyUtil.isEmpty(ret)) {
+				if (ret.indexOf("20000000") != -1) {
+					String uid = MyUtil.midWord("uid\":\"", "\"", ret);
+					// MyUtil.outPutData("cookie.txt",
+					// super.getCookie() + "|" + super.getUid() + "|" +
+					// super.getId() + "|" + super.getPass());
+					// MyUtil.print("登录成功！" + (index + 1), Factor.getGui());
+					ArrayList<String> url = MyUtil.midWordAll("crossdomain?", "\"", ret);
+					String[] host = { "passport.weibo.com", "login.sina.com.cn", "passport.weibo.cn" };
 
-				for (int i = 0; i < host.length; i++) {
-					ret = net.goPost(host[i], 443, loginsso(url.get(i), host[i]));
-					if (ret.indexOf("20000000") != -1) {
-						cookie += MyUtil.getAllCookie(ret) +"^";
-						if (uid == null || "null".equals(uid)) {
-							uid = MyUtil.midWord("uid\":\"", "\"", ret);
+					for (int i = 0; i < host.length; i++) {
+						ret = net.goPost(host[i], 443, loginsso(url.get(i), host[i]));
+						if (ret.indexOf("20000000") != -1) {
+							cookie += MyUtil.getAllCookie(ret) + "^";
+							if (uid == null || "null".equals(uid)) {
+								uid = MyUtil.midWord("uid\":\"", "\"", ret);
+							}
+
+							// return 1;
+							rets = 1;
 						}
-                        
-						// return 1;
-						rets = 1;
+					}
+					super.setCookie(cookie);
+					super.setUid(uid);
+					MyUtil.outPutData("cookie.txt", super.toString());
+				} else {
+					// 请输入验证码
+					if (ret.indexOf("50011005") != -1) {
+						rets = -1;
+					} else {
+						MyUtil.print("登录失败！" + (index + 1), Factor.getGui());
+						rets = 0;
+
 					}
 				}
-				super.setCookie(cookie);
-				super.setUid(uid);
-				MyUtil.outPutData("cookie.txt", super.toString());
-			} else {
-				// 请输入验证码
-				if (ret.indexOf("50011005") != -1) {
-					rets = -1;
-				} else {
-					MyUtil.print("登录失败！" + (index + 1), Factor.getGui());
-					rets = 0;
 
-				}
 			}
-
+		} catch (Exception e) {
+			MyUtil.print("登录出错！" + e.getMessage(), Factor.getGui());
 		}
-
 		return rets;
 	}
 

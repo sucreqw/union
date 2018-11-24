@@ -18,7 +18,8 @@ public class WeiboCapcha extends Weibo {
 	private String picIndex = "";
 	private String data_enc = "";
 	private String path_enc = "";
-    private String voteId="";
+	private String voteId = "";
+
 	@Override
 	public int Actions(int index, String mission) {
 		Nets net = new Nets();
@@ -63,8 +64,8 @@ public class WeiboCapcha extends Weibo {
 				ret = net.goPost("captcha.weibo.com", 443, verify(picId, data_enc, path_enc, super.getId()));
 				if (!MyUtil.isEmpty(ret)) {
 					if (ret.indexOf("100000") != -1) {
-						//验证成功了。
-						
+						// 验证成功了。
+
 						return 1;
 					}
 				}
@@ -72,50 +73,60 @@ public class WeiboCapcha extends Weibo {
 			// return 1;
 			// 取拖动的验证码 并验证！
 		case "getpicD":
-			//super.setUid("6828954865");
-			ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
-			if (!MyUtil.isEmpty(ret)) {
-				String picUrl = MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
-				picId = MyUtil.midWord("id\":\"", "\",\"", ret);
-				String Hash = MyUtil.midWord("x\":\"", "\",\"", ret);
-				Base64.Decoder decoder = Base64.getDecoder();
-				Hash = new String(decoder.decode(Hash));
-				String indexP = MyUtil.midWord("seqo8,", "", Hash);
-				String startP = MyUtil.midWord("pos", "end", Hash + "end").substring(1);
-				String[] startPs = startP.split(",");
-				byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
-				if (pic != null && indexP!=null) {
-					// MyUtil.outPutData("temp.jpg", pic);
-					byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
-					// MyUtil.outPutData("temp.jpg", rets);
-					String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
-					//MyUtil.outPutData(result + "a.jpg", rets);
-					//System.out.println(result);
-					if(!"".equals(result)) {
-						MyUtil.print("识别结果："+ result, Factor.getGui());
-						String[] p=result.split(",");
-						
-						for(int i=0;i<p.length ;i++) {
-							if(!"".equals(p[i])) {
-								ret=net.goPost("captcha.weibo.com", 443, verifyD(picId, super.getUid(), getjs(simulate(startPs[0], p[i])), "i00uAnVhbE1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdPVzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzEuMC4zNTczLjAgU2FmYXJpLzUzNy4zNgRwbGF0BVdpbjMyBGxhbmcFemgtQ04Gc2NyZWVuCDc2OCoxMzY2AmZwCjQxMjk1NDA0NTkFc2NhbGUBMQJsdA0xNTQyODk4ODA0MzY4AmN0DTE1NDI4OTg4MTMyODUCc3QNMTU0Mjg5ODgwNTkzNQ=="));
-							    if(!MyUtil.isEmpty(ret)) {
-							    	if(ret.indexOf("100000")!=-1) {
-							    		//识别成功！验证超级话话题
-							    		ret=net.goPost("", 443, captchareverify(super.getCookie(), voteId, picId));
-							    		if(!MyUtil.isEmpty(ret)) {
-							    			if(ret.indexOf("succ")!=-1) {
-							    				MyUtil.print("验证成功"+super.getId()+"|" + super.getPass()+"|", Factor.getGui());
-							    				return 1;
-							    			}
-							    		}
-							    	}
-							    	//System.out.println(ret);
-							    	MyUtil.print("验证失败！"+super.getId()+"|" + super.getPass()+"|" , Factor.getGui());
-							    }
+			try {
+
+				// super.setUid("6828954865");
+				ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
+				if (!MyUtil.isEmpty(ret)) {
+					String picUrl = MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
+					picId = MyUtil.midWord("id\":\"", "\",\"", ret);
+					String Hash = MyUtil.midWord("x\":\"", "\",\"", ret);
+					Base64.Decoder decoder = Base64.getDecoder();
+					Hash = new String(decoder.decode(Hash));
+					String indexP = MyUtil.midWord("seqo8,", "", Hash);
+					String startP = MyUtil.midWord("pos", "end", Hash + "end").substring(1);
+					String[] startPs = startP.split(",");
+					byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
+					if (pic != null && indexP != null) {
+						// MyUtil.outPutData("temp.jpg", pic);
+						byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
+						// MyUtil.outPutData("temp.jpg", rets);
+						String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
+						// MyUtil.outPutData(result + "a.jpg", rets);
+						// System.out.println(result);
+						if (!"".equals(result)) {
+							MyUtil.print("识别结果：" + result, Factor.getGui());
+							String[] p = result.split(",");
+
+							for (int i = 0; i < p.length; i++) {
+								if (!"".equals(p[i])) {
+									ret = net.goPost("captcha.weibo.com", 443, verifyD(picId, super.getUid(),
+											getjs(simulate(startPs[0], p[i])),
+											"i00uAnVhbE1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdPVzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzEuMC4zNTczLjAgU2FmYXJpLzUzNy4zNgRwbGF0BVdpbjMyBGxhbmcFemgtQ04Gc2NyZWVuCDc2OCoxMzY2AmZwCjQxMjk1NDA0NTkFc2NhbGUBMQJsdA0xNTQyODk4ODA0MzY4AmN0DTE1NDI4OTg4MTMyODUCc3QNMTU0Mjg5ODgwNTkzNQ=="));
+									if (!MyUtil.isEmpty(ret)) {
+										if (ret.indexOf("100000") != -1) {
+											// 识别成功！验证超级话话题
+											ret = net.goPost("", 443,
+													captchareverify(super.getCookie(), voteId, picId));
+											if (!MyUtil.isEmpty(ret)) {
+												if (ret.indexOf("succ") != -1) {
+													MyUtil.print("验证成功" + super.getId() + "|" + super.getPass() + "|",
+															Factor.getGui());
+													return 1;
+												}
+											}
+										}
+										// System.out.println(ret);
+										MyUtil.print("验证失败！" + super.getId() + "|" + super.getPass() + "|",
+												Factor.getGui());
+									}
+								}
 							}
 						}
 					}
 				}
+			} catch (Exception e) {
+				MyUtil.print("识别验证码出错了！" + e.getMessage(), Factor.getGui());
 			}
 			break;
 
@@ -134,71 +145,76 @@ public class WeiboCapcha extends Weibo {
 	public String getVid() {
 		return this.picId;
 	}
+
 	public void setVoteId(String vid) {
-		this.voteId=vid;
+		this.voteId = vid;
 	}
+
 	public void setVid(String vid) {
-		this.picId=vid;
+		this.picId = vid;
 	}
-	
-	public static String simulate(String start,String end ) {
-		//int i=0;
-		String r=MyUtil.getRand(48, 35);
-		int counts=0;
-		int st=0;
-		int ends=0;
-		if(Integer.parseInt(start)>Integer.parseInt(end)) {
-			
-			st=Integer.parseInt(start)+Integer.parseInt(r);
-			
-		    counts=Integer.parseInt(start)-Integer.parseInt(end);
-		    ends=st-counts;
-			
-		}else {
-			st=Integer.parseInt(start)+Integer.parseInt(r);
-			
-			counts=Integer.parseInt(end)-Integer.parseInt(start);
-			ends=st+counts;
-			
+
+	public static String simulate(String start, String end) {
+		// int i=0;
+		String r = MyUtil.getRand(48, 35);
+		int counts = 0;
+		int st = 0;
+		int ends = 0;
+		if (Integer.parseInt(start) > Integer.parseInt(end)) {
+
+			st = Integer.parseInt(start) + Integer.parseInt(r);
+
+			counts = Integer.parseInt(start) - Integer.parseInt(end);
+			ends = st - counts;
+
+		} else {
+			st = Integer.parseInt(start) + Integer.parseInt(r);
+
+			counts = Integer.parseInt(end) - Integer.parseInt(start);
+			ends = st + counts;
+
 		}
-		int Times=0;
-		String ret="var trace=[["+ st +", 250, "+ Times +"]];\r\n";
-		
-		
-		while(true) {
-			int temp=Integer.parseInt(MyUtil.getRand(5, 0));
+		int Times = 0;
+		String ret = "var trace=[[" + st + ", 250, " + Times + "]];\r\n";
+
+		while (true) {
+			int temp = Integer.parseInt(MyUtil.getRand(5, 0));
 			Times += Integer.parseInt(MyUtil.getRand(50, 20));
-			
-			if(Integer.parseInt(start)<Integer.parseInt(end)) {
-				
-				st+=temp;
-				if(st>ends) {st=ends;}
-			}else {
-				st-=temp;
-				if(st<ends) {st=ends;}
+
+			if (Integer.parseInt(start) < Integer.parseInt(end)) {
+
+				st += temp;
+				if (st > ends) {
+					st = ends;
+				}
+			} else {
+				st -= temp;
+				if (st < ends) {
+					st = ends;
+				}
 			}
-			
-			
-			ret+="trace.push(["+ st +", 250, "+ Times +"]);\r\n";
-			
-			if(st==ends) {return ret;}
-			//i+=temp;
-			
+
+			ret += "trace.push([" + st + ", 250, " + Times + "]);\r\n";
+
+			if (st == ends) {
+				return ret;
+			}
+			// i+=temp;
+
 		}
 	}
-	
-	
+
 	public static String getjs(String js) {
-		String nJS="function getit() {";
-		nJS+=js;
-		nJS+="return x97a57645a3f0e1518f8c9f4d340d4c4f(trace);";
-		nJS+="}";
-		
+		String nJS = "function getit() {";
+		nJS += js;
+		nJS += "return x97a57645a3f0e1518f8c9f4d340d4c4f(trace);";
+		nJS += "}";
+
 		JsUtil.AddJs(nJS);
-		
+
 		return JsUtil.runJS("getit");
 	}
-	
+
 	// 取九宫格图片
 	private byte[] getPic(String id) {
 		StringBuilder data = new StringBuilder(900);
@@ -290,29 +306,31 @@ public class WeiboCapcha extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-    
-	//打榜验证码 验证
-		private byte[] captchareverify(String cookie,String vid,String pid) {
-			StringBuilder data = new StringBuilder(900);
-			String temp = "id="+ pid +"&oid="+ vid +"\\r\\n";
-			data.append("POST /aj/super/captchareverify HTTP/1.1\r\n");
-			data.append("Host: huati.weibo.cn\r\n");
-			data.append("Connection: keep-alive\r\n");
-			data.append("Content-Length: 83\r\n");
-			data.append("Origin: https://huati.weibo.cn\r\n");
-			data.append("X-Requested-With: XMLHttpRequest\r\n");
-			data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
-			data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
-			data.append("Content-type: application/x-www-form-urlencoded\r\n");
-			data.append("Accept: */*\r\n");
-			data.append("Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
-			data.append("Accept-Encoding: gzip,deflate\r\n");
-			data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
-			data.append("Cookie: "+ cookie +"\r\n");
-			data.append("\r\n");
-			data.append(temp);
-			data.append("\r\n");
-			data.append("\r\n");
-			return data.toString().getBytes();
-		}
+
+	// 打榜验证码 验证
+	private byte[] captchareverify(String cookie, String vid, String pid) {
+		StringBuilder data = new StringBuilder(900);
+		String temp = "id=" + pid + "&oid=" + vid + "\\r\\n";
+		data.append("POST /aj/super/captchareverify HTTP/1.1\r\n");
+		data.append("Host: huati.weibo.cn\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("Content-Length: 83\r\n");
+		data.append("Origin: https://huati.weibo.cn\r\n");
+		data.append("X-Requested-With: XMLHttpRequest\r\n");
+		data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
+		data.append("Content-type: application/x-www-form-urlencoded\r\n");
+		data.append("Accept: */*\r\n");
+		data.append(
+				"Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
+		data.append("Accept-Encoding: gzip,deflate\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+		data.append("Cookie: " + cookie + "\r\n");
+		data.append("\r\n");
+		data.append(temp);
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
 }
