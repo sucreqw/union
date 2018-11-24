@@ -146,7 +146,7 @@ public class Controller {
 			MyUtil.print("Cookie未导入！", Factor.getGui());
 		}
 		for (int i = 1; i <= thread; i++) {
-			Guess guess = new Guess(0, limit, isCircle, weiboImplCookie);
+			Guess guess = new Guess(0, limit-1, isCircle, weiboImplCookie);
 			Thread t = new Thread(guess);
 			if (i == 1) {
 				t.setName("ip");
@@ -186,7 +186,7 @@ public class Controller {
 	public void vote(int start , int thread, boolean isCircle,String mission) {
 		int limit = weiboImplCookie == null ? 0 : weiboImplCookie.getsize();
 		if (limit == 0 || getVidImpl()==null) {
-			MyUtil.print("Cookie未导入！", Factor.getGui());
+			MyUtil.print("Cookie或者vid未导入！", Factor.getGui());
 			return ;
 		}
 		for (int i = 1; i <= thread; i++) {
@@ -217,7 +217,7 @@ public class Controller {
 				MyUtil.print("Cookie或者vid未导入！", Factor.getGui());
 			}
 			for (int i = 1; i <= thread; i++) {
-				CheckIn checkin = new CheckIn(l, limit, isCircle, weiboImplCookie, mission);
+				CheckIn checkin = new CheckIn(l, limit-1, isCircle, weiboImplCookie, mission);
 				Thread t = new Thread(checkin);
 				if (i == 1) {
 					t.setName("ip");

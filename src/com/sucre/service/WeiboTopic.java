@@ -15,8 +15,10 @@ public class WeiboTopic extends Weibo {
 		switch (mission) {
 		case "checkin":
 			// MyUtil.print("正在签到。.." + index, null);
+			String allCookie=super.getCookie().split("^")[0];
+			
 			MyUtil.print("正在签到。.." + (index + 1), Factor.getGui());
-			String ret = nets.goPost("huati.weibo.cn", 443, score(super.getCookie()));
+			String ret = nets.goPost("huati.weibo.cn", 443, score(allCookie));
 
 			if (!MyUtil.isEmpty(ret)) {
 
@@ -31,13 +33,13 @@ public class WeiboTopic extends Weibo {
 				v = Controller.getInstance().getVidImpl().getVid(i, v);
 				String vid = v.getVids();
 
-				MyUtil.print("正在关注话题。。" + i + "<>" + index, null);
+				MyUtil.print("正在关注话题。。" + i + "<>" + index,Factor.getGui());
 
 				ret = nets.goPost("api.weibo.cn", 443,
-						follow(midCookie(super.getCookie()), super.getUid(), vid, super.getS()));
+						follow(midCookie(allCookie), super.getUid(), vid, super.getS()));
 
 				ret = nets.goPost("api.weibo.cn", 443,
-						checkin(midCookie(super.getCookie()), super.getUid(), vid, super.getS()));
+						checkin(midCookie(allCookie), super.getUid(), vid, super.getS()));
 				// MyUtil.print("正在签到话题.." + i + "<>" + index, null);
 				MyUtil.print("正在签到话题.." + (index + 1), Factor.getGui());
 			}

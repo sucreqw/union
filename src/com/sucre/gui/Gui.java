@@ -49,6 +49,8 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.DropMode;
+import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
 
 public class Gui extends JFrame implements Printer {
 
@@ -81,7 +83,7 @@ public class Gui extends JFrame implements Printer {
 	private JTextField startpoint;
 	private JButton setTime;
 	private JTextField Times;
-
+	private JEditorPane feedback;
 	/**
 	 * Launch the application.
 	 */
@@ -181,7 +183,7 @@ public class Gui extends JFrame implements Printer {
 	private Gui() {
 		setTitle("main from");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 819, 474);
+		setBounds(100, 100, 1096, 474);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -192,8 +194,8 @@ public class Gui extends JFrame implements Printer {
 		panel.setLayout(null);
 
 		filename = new JTextField();
-		filename.setText("id.txt");
 		filename.setBounds(254, 45, 117, 26);
+		filename.setText("id.txt");
 		panel.add(filename);
 		filename.setColumns(10);
 
@@ -202,15 +204,16 @@ public class Gui extends JFrame implements Printer {
 		panel.add(lblUnion);
 
 		JButton login = new JButton("登录");
+		login.setBounds(663, 16, 103, 26);
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Controller.getInstance().login(Integer.parseInt(thread.getText()), false);
 			}
 		});
-		login.setBounds(663, 16, 103, 26);
 		panel.add(login);
 
 		loadId = new JButton("导入");
+		loadId.setBounds(6, 43, 117, 29);
 		loadId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -222,10 +225,10 @@ public class Gui extends JFrame implements Printer {
 				Controller.getInstance().loadWeiboId(filename.getText(), table,m);
 			}
 		});
-		loadId.setBounds(6, 43, 117, 29);
 		panel.add(loadId);
 
 		LoadCookie = new JButton("导入cookie");
+		LoadCookie.setBounds(6, 74, 117, 29);
 		LoadCookie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -236,18 +239,18 @@ public class Gui extends JFrame implements Printer {
 				Controller.getInstance().loadWeiboCookie(filename.getText(), cookietable);
 			}
 		});
-		LoadCookie.setBounds(6, 74, 117, 29);
 		panel.add(LoadCookie);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setToolTipText("");
 		scrollPane.setBounds(10, 131, 364, 250);
+		scrollPane.setToolTipText("");
 		panel.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
 		loadvid = new JButton("导入vid");
+		loadvid.setBounds(133, 45, 92, 26);
 		loadvid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -259,10 +262,10 @@ public class Gui extends JFrame implements Printer {
 				Controller.getInstance().loadVid(filename.getText(), vidtable);
 			}
 		});
-		loadvid.setBounds(133, 45, 92, 26);
 		panel.add(loadvid);
 
 		addvid = new JButton("加入vid");
+		addvid.setBounds(133, 77, 93, 23);
 		addvid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// vidImpl.add(filename.getText());
@@ -271,7 +274,6 @@ public class Gui extends JFrame implements Printer {
 				// vidImpl.getList());
 			}
 		});
-		addvid.setBounds(133, 77, 93, 23);
 		panel.add(addvid);
 
 		scrollPane_1 = new JScrollPane();
@@ -289,12 +291,13 @@ public class Gui extends JFrame implements Printer {
 		scrollPane_2.setViewportView(cookietable);
 
 		thread = new JTextField();
-		thread.setText("1");
 		thread.setBounds(560, 16, 103, 26);
+		thread.setText("1");
 		panel.add(thread);
 		thread.setColumns(10);
 
 		begin = new JButton("开始");
+		begin.setBounds(663, 45, 103, 29);
 		begin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String m=(String)mission.getSelectedItem();
@@ -322,15 +325,15 @@ public class Gui extends JFrame implements Printer {
 
 			}
 		});
-		begin.setBounds(663, 45, 103, 29);
 		panel.add(begin);
 
 		mission = new JComboBox();
-		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜", "加油", "搜索s.com"}));
 		mission.setBounds(560, 46, 103, 27);
+		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜", "加油", "搜索s.com"}));
 		panel.add(mission);
 
 		resume = new JButton("暂停");
+		resume.setBounds(663, 74, 103, 29);
 		resume.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ("暂停".equals(resume.getText())) {
@@ -343,23 +346,22 @@ public class Gui extends JFrame implements Printer {
 				}
 			}
 		});
-		resume.setBounds(663, 74, 103, 29);
 		panel.add(resume);
 		
 		ipcount = new JTextField();
-		ipcount.setText("0");
 		ipcount.setBounds(484, 19, 66, 21);
+		ipcount.setText("0");
 		panel.add(ipcount);
 		ipcount.setColumns(10);
 		
 		JButton 关于 = new JButton("关于");
+		关于.setBounds(6, 391, 119, 23);
 		关于.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				About about=new About();
 				
 			}
 		});
-		关于.setBounds(6, 391, 119, 23);
 		panel.add(关于);
 		
 		IsCircle = new JCheckBox("循环");
@@ -371,8 +373,8 @@ public class Gui extends JFrame implements Printer {
 		panel.add(lblNewLabel);
 		
 		startpoint = new JTextField();
-		startpoint.setText("0");
 		startpoint.setBounds(484, 47, 66, 21);
+		startpoint.setText("0");
 		panel.add(startpoint);
 		startpoint.setColumns(10);
 		
@@ -381,6 +383,7 @@ public class Gui extends JFrame implements Printer {
 		panel.add(lblNewLabel_1);
 		
 		setTime = new JButton("定时");
+		setTime.setBounds(133, 391, 93, 23);
 		setTime.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -405,14 +408,20 @@ public class Gui extends JFrame implements Printer {
 				thread.start();
 			}
 		});
-		setTime.setBounds(133, 391, 93, 23);
 		panel.add(setTime);
 		
 		Times = new JTextField();
-		Times.setText("10:00:00");
 		Times.setBounds(236, 392, 66, 21);
+		Times.setText("10:00:00");
 		panel.add(Times);
 		Times.setColumns(10);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(807, 6, 253, 375);
+		panel.add(scrollPane_3);
+		
+		feedback = new JEditorPane();
+		scrollPane_3.setViewportView(feedback);
 
 	}
 
@@ -422,6 +431,8 @@ public class Gui extends JFrame implements Printer {
 	@Override
 	public void print(String data) {
 		lblUnion.setText(data);
+		feedback.setText(feedback.getText()+data+"\r\n");
+		
 	}
 
 	/**

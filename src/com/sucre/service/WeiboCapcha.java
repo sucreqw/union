@@ -6,6 +6,7 @@ import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 import org.xml.sax.helpers.NamespaceSupport;
 
 import com.sucre.entity.Weibo;
+import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
 import com.sucre.utils.JsUtil;
 import com.sucre.utils.MyUtil;
@@ -17,7 +18,7 @@ public class WeiboCapcha extends Weibo {
 	private String picIndex = "";
 	private String data_enc = "";
 	private String path_enc = "";
-
+    private String voteId="";
 	@Override
 	public int Actions(int index, String mission) {
 		Nets net = new Nets();
@@ -62,18 +63,20 @@ public class WeiboCapcha extends Weibo {
 				ret = net.goPost("captcha.weibo.com", 443, verify(picId, data_enc, path_enc, super.getId()));
 				if (!MyUtil.isEmpty(ret)) {
 					if (ret.indexOf("100000") != -1) {
+						//验证成功了。
+						
 						return 1;
 					}
 				}
 			}
 			// return 1;
-			// 取拖动的难码 并验证！
+			// 取拖动的验证码 并验证！
 		case "getpicD":
-			super.setUid("6828954865");
+			//super.setUid("6828954865");
 			ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
 			if (!MyUtil.isEmpty(ret)) {
 				String picUrl = MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
-				String vid = MyUtil.midWord("id\":\"", "\",\"", ret);
+				picId = MyUtil.midWord("id\":\"", "\",\"", ret);
 				String Hash = MyUtil.midWord("x\":\"", "\",\"", ret);
 				Base64.Decoder decoder = Base64.getDecoder();
 				Hash = new String(decoder.decode(Hash));
@@ -89,14 +92,25 @@ public class WeiboCapcha extends Weibo {
 					//MyUtil.outPutData(result + "a.jpg", rets);
 					//System.out.println(result);
 					if(!"".equals(result)) {
-						
+						MyUtil.print("识别结果："+ result, Factor.getGui());
 						String[] p=result.split(",");
 						
 						for(int i=0;i<p.length ;i++) {
 							if(!"".equals(p[i])) {
-								ret=net.goPost("captcha.weibo.com", 443, verifyD(vid, super.getUid(), getjs(simulate(startPs[0], p[i])), "i00uAnVhbE1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdPVzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzEuMC4zNTczLjAgU2FmYXJpLzUzNy4zNgRwbGF0BVdpbjMyBGxhbmcFemgtQ04Gc2NyZWVuCDc2OCoxMzY2AmZwCjQxMjk1NDA0NTkFc2NhbGUBMQJsdA0xNTQyODk4ODA0MzY4AmN0DTE1NDI4OTg4MTMyODUCc3QNMTU0Mjg5ODgwNTkzNQ=="));
+								ret=net.goPost("captcha.weibo.com", 443, verifyD(picId, super.getUid(), getjs(simulate(startPs[0], p[i])), "i00uAnVhbE1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdPVzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzEuMC4zNTczLjAgU2FmYXJpLzUzNy4zNgRwbGF0BVdpbjMyBGxhbmcFemgtQ04Gc2NyZWVuCDc2OCoxMzY2AmZwCjQxMjk1NDA0NTkFc2NhbGUBMQJsdA0xNTQyODk4ODA0MzY4AmN0DTE1NDI4OTg4MTMyODUCc3QNMTU0Mjg5ODgwNTkzNQ=="));
 							    if(!MyUtil.isEmpty(ret)) {
-							    	System.out.println(ret);
+							    	if(ret.indexOf("100000")!=-1) {
+							    		//识别成功！验证超级话话题
+							    		ret=net.goPost("", 443, captchareverify(super.getCookie(), voteId, picId));
+							    		if(!MyUtil.isEmpty(ret)) {
+							    			if(ret.indexOf("succ")!=-1) {
+							    				MyUtil.print("验证成功"+super.getId()+"|" + super.getPass()+"|", Factor.getGui());
+							    				return 1;
+							    			}
+							    		}
+							    	}
+							    	//System.out.println(ret);
+							    	MyUtil.print("验证失败！"+super.getId()+"|" + super.getPass()+"|" , Factor.getGui());
 							    }
 							}
 						}
@@ -120,6 +134,13 @@ public class WeiboCapcha extends Weibo {
 	public String getVid() {
 		return this.picId;
 	}
+	public void setVoteId(String vid) {
+		this.voteId=vid;
+	}
+	public void setVid(String vid) {
+		this.picId=vid;
+	}
+	
 	public static String simulate(String start,String end ) {
 		//int i=0;
 		String r=MyUtil.getRand(48, 35);
@@ -269,5 +290,29 @@ public class WeiboCapcha extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-
+    
+	//打榜验证码 验证
+		private byte[] captchareverify(String cookie,String vid,String pid) {
+			StringBuilder data = new StringBuilder(900);
+			String temp = "id="+ pid +"&oid="+ vid +"\\r\\n";
+			data.append("POST /aj/super/captchareverify HTTP/1.1\r\n");
+			data.append("Host: huati.weibo.cn\r\n");
+			data.append("Connection: keep-alive\r\n");
+			data.append("Content-Length: 83\r\n");
+			data.append("Origin: https://huati.weibo.cn\r\n");
+			data.append("X-Requested-With: XMLHttpRequest\r\n");
+			data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
+			data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
+			data.append("Content-type: application/x-www-form-urlencoded\r\n");
+			data.append("Accept: */*\r\n");
+			data.append("Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
+			data.append("Accept-Encoding: gzip,deflate\r\n");
+			data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+			data.append("Cookie: "+ cookie +"\r\n");
+			data.append("\r\n");
+			data.append(temp);
+			data.append("\r\n");
+			data.append("\r\n");
+			return data.toString().getBytes();
+		}
 }
