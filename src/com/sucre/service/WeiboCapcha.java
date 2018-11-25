@@ -127,6 +127,7 @@ public class WeiboCapcha extends Weibo {
 				}
 			} catch (Exception e) {
 				MyUtil.print("识别验证码出错了！" + e.getMessage(), Factor.getGui());
+				System.out.println(ret);
 			}
 			break;
 

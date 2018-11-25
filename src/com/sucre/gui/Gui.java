@@ -51,6 +51,7 @@ import javax.swing.JCheckBox;
 import javax.swing.DropMode;
 import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class Gui extends JFrame implements Printer {
 
@@ -329,7 +330,7 @@ public class Gui extends JFrame implements Printer {
 
 		mission = new JComboBox();
 		mission.setBounds(560, 46, 103, 27);
-		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜", "加油", "搜索s.com"}));
+		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜","查分", "加油", "搜索s.com"}));
 		panel.add(mission);
 
 		resume = new JButton("暂停");
@@ -417,12 +418,14 @@ public class Gui extends JFrame implements Printer {
 		Times.setColumns(10);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_3.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane_3.setBounds(807, 6, 253, 375);
 		panel.add(scrollPane_3);
-		
+		//scroll.setViewportView(feedBack);
 		feedback = new JEditorPane();
 		scrollPane_3.setViewportView(feedback);
-
+       
 	}
 
 	/**

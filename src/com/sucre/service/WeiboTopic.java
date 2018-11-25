@@ -1,5 +1,7 @@
 package com.sucre.service;
 
+import java.awt.Window.Type;
+
 import com.sucre.controller.Controller;
 import com.sucre.entity.Vid;
 import com.sucre.entity.Weibo;
@@ -18,7 +20,8 @@ public class WeiboTopic extends Weibo {
 			String allCookie=super.getCookie().split("^")[0];
 			
 			MyUtil.print("正在签到。.." + (index + 1), Factor.getGui());
-			String ret = nets.goPost("huati.weibo.cn", 443, score(allCookie));
+			
+		    String ret = nets.goPost("huati.weibo.cn", 443, score(allCookie,"REQUEST"));
 
 			if (!MyUtil.isEmpty(ret)) {
 
@@ -43,6 +46,7 @@ public class WeiboTopic extends Weibo {
 				// MyUtil.print("正在签到话题.." + i + "<>" + index, null);
 				MyUtil.print("正在签到话题.." + (index + 1), Factor.getGui());
 			}
+			ret = nets.goPost("huati.weibo.cn", 443, score(allCookie,"FOLLOW"));
 			break;
 		case "checktopic":
 
@@ -58,9 +62,9 @@ public class WeiboTopic extends Weibo {
 		return MyUtil.isEmpty(cookie) ? "" : MyUtil.midWord("SUB=", ";", cookie);
 	}
 
-	private byte[] score(String cookie) {
+	private byte[] score(String cookie ,String type) {
 		StringBuilder data = new StringBuilder(900);
-		String temp = "type=REQUEST&user_score=0\r\n";
+		String temp = "type="+ type +"&user_score=0\r\n";
 
 		data.append("POST https://huati.weibo.cn/aj/super/receivescore HTTP/1.1\r\n");
 		data.append("Host: huati.weibo.cn\r\n");

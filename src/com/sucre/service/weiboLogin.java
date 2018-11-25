@@ -69,10 +69,13 @@ public class weiboLogin extends Weibo {
 					// 请输入验证码
 					if (ret.indexOf("50011005") != -1) {
 						rets = -1;
-					} else {
-						MyUtil.print("登录失败！" + (index + 1), Factor.getGui());
-						rets = 0;
+					} else if(ret.indexOf("50060000")!=-1){
+						MyUtil.print("再次换ip！" + (index + 1), Factor.getGui());
+						rets = 2;
 
+					}else {
+						MyUtil.print("登录失败！" + (index + 1) +ret, Factor.getGui());
+						rets = 0;
 					}
 				}
 
