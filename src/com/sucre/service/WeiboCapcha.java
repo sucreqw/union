@@ -74,7 +74,7 @@ public class WeiboCapcha extends Weibo {
 			// 取拖动的验证码 并验证！
 		case "getpicD":
 			try {
-
+				MyUtil.print("开始取图！", Factor.getGui());
 				// super.setUid("6828954865");
 				ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
 				if (!MyUtil.isEmpty(ret)) {
@@ -116,9 +116,13 @@ public class WeiboCapcha extends Weibo {
 												}
 											}
 										}
-										// System.out.println(ret);
+										System.out.println(ret);
 										MyUtil.print("验证失败！" + super.getId() + "|" + super.getPass() + "|",
 												Factor.getGui());
+										//System.out.print(ret);
+									}else{
+										//网络错误，再来一次!
+										i--;
 									}
 								}
 							}

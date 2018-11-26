@@ -29,6 +29,8 @@ public class Test {
 		for (int i = 0; i < 3; i++) {
 			JsUtil.loadJs("js.js");
 			WeiboCapcha capcha = new WeiboCapcha();
+			capcha.setUid("6828954865");
+			capcha.setVoteId("1022:1008086de98a1a1a398df9761c706bfaac6b00");
 		    capcha.Actions(0, "getpicD");
 			//String temp = capcha.simulate("147", "22");
 			// System.out.println(temp );
