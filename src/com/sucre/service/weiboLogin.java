@@ -74,6 +74,7 @@ public class weiboLogin extends Weibo {
 						rets = 2;
 
 					}else {
+						System.out.println(ret);
 						MyUtil.print("登录失败！" + (index + 1) +ret, Factor.getGui());
 						rets = 0;
 					}
@@ -81,6 +82,7 @@ public class weiboLogin extends Weibo {
 
 			}
 		} catch (Exception e) {
+			System.err.println(ret);
 			MyUtil.print("登录出错！" + e.getMessage(), Factor.getGui());
 		}
 		return rets;
