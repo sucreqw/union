@@ -47,6 +47,12 @@ public class weiboLogin extends Weibo {
 					// super.getCookie() + "|" + super.getUid() + "|" +
 					// super.getId() + "|" + super.getPass());
 					// MyUtil.print("登录成功！" + (index + 1), Factor.getGui());
+					//密码对，直接记录
+					rets=1;
+					if(rets==1) {
+					return rets;
+					}
+					//密码对，直接记录
 					ArrayList<String> url = MyUtil.midWordAll("crossdomain?", "\"", ret);
 					String[] host = { "passport.weibo.com", "login.sina.com.cn", "passport.weibo.cn" };
 
@@ -68,7 +74,11 @@ public class weiboLogin extends Weibo {
 				} else {
 					// 请输入验证码
 					if (ret.indexOf("50011005") != -1) {
-						rets = -1;
+						//不识别验证码，直接记录
+						MyUtil.outPutData("cookie.txt", super.toString());
+						rets=1;
+						//不识别验证码，直接记录
+						//rets = -1;
 					} else if(ret.indexOf("50060000")!=-1){
 						MyUtil.print("再次换ip！" + (index + 1), Factor.getGui());
 						rets = 2;
