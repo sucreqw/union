@@ -50,6 +50,7 @@ public class weiboLogin extends Weibo {
 					//密码对，直接记录
 					rets=1;
 					if(rets==1) {
+						MyUtil.outPutData("cookie.txt", super.toString());
 					return rets;
 					}
 					//密码对，直接记录
@@ -80,8 +81,9 @@ public class weiboLogin extends Weibo {
 						//不识别验证码，直接记录
 						//rets = -1;
 					} else if(ret.indexOf("50060000")!=-1){
-						MyUtil.print("再次换ip！" + (index + 1), Factor.getGui());
-						rets = 2;
+						/*MyUtil.print("再次换ip！" + (index + 1), Factor.getGui());
+						rets = 2;*/
+						rets=0;
 
 					}else {
 						System.out.println(ret);
