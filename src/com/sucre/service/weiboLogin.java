@@ -39,7 +39,7 @@ public class weiboLogin extends Weibo {
 		String ret = "";
 		String cookie = "";
 		try {
-			ret = net.goPost("passport.weibo.cn", 443, login(super.getId(), super.getPass()));
+			ret = net.goPost("passport.sina.cn", 443, login2(super.getId(), super.getPass()));
 			if (!MyUtil.isEmpty(ret)) {
 				if (ret.indexOf("20000000") != -1) {
 					String uid = MyUtil.midWord("uid\":\"", "\"", ret);
@@ -86,8 +86,8 @@ public class weiboLogin extends Weibo {
 						rets=0;
 
 					}else {
-						System.out.println(ret);
-						MyUtil.print("登录失败！" + (index + 1) +ret, Factor.getGui());
+						//System.out.println(ret);
+						MyUtil.print("登录失败！" + (index + 1) , Factor.getGui());
 						rets = 0;
 					}
 				}
@@ -127,6 +127,30 @@ public class weiboLogin extends Weibo {
 
 		return data.toString().getBytes();
 	}
+	// 登录接口2
+		private byte[] login2(String id, String pass) {
+			StringBuilder data = new StringBuilder(900);
+			String temp = "savestate=3650&username="+ id +"&password="+ pass +"&pagerefer=https://sina.cn/index/feed?from=touch&Ver=20&entry=wapsso&loginfrom=1";
+			
+			data=data.append("POST /sso/login HTTP/1.1\r\n");
+			data=data.append("Host: passport.sina.cn\r\n");
+			data=data.append("Connection: keep-alive\r\n");
+			data=data.append("Content-Length: "+ temp.length() +"\r\n");
+			data=data.append("Origin: http://my.sina.cn\r\n");
+			data=data.append(
+					"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36\r\n");
+			data=data.append("Content-Type: application/x-www-form-urlencoded\r\n");
+			data=data.append("Accept: */*\r\n");
+			data=data.append("Referer: http://my.sina.cn/?vt=4&pos=108&his=0\r\n");
+			data=data.append("Accept-Language: en-US,en;q=0.9\r\n");
+			//data=data.append("Cookie: \r\n");
+			data=data.append("\r\n");
+			data=data.append(temp);
+			data=data.append("\r\n");
+			data=data.append("\r\n");
+
+			return data.toString().getBytes();
+		}
 
 	// 第二级接口
 	private byte[] loginsso(String url, String host) {
