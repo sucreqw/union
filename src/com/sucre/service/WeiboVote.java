@@ -91,9 +91,21 @@ public class WeiboVote extends Weibo {
 					MyUtil.print("当前分数："+ userScore +"<=>"+ super.getId()+"|"+super.getPass(), Factor.getGui());
 				}
 				break;	
-			}
+				
+			case "阅读":
+				String s=super.getS();
+				String uid=super.getUid();
+				cookie=super.getCookie();
+				
+				break;
+				
+			case "游客":
+				SinaVisitor visitor=new SinaVisitor();
+				visitor.doWork(index);
+				break;
+			}//end of switch
 
-		}
+		}//end of for
 
 		return 0;
 	}

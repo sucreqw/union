@@ -124,11 +124,20 @@ abstract public class Weibo {
     public void load(String inputdata){
     	try {
 			String[] temp = inputdata.split("\\|");
-			this.cookie = temp[0];
-			this.uid = temp[1];
-			this.id = temp[2];
-			this.pass = temp[3];
-			this.s = temp.length >= 5 ? temp[4]:"";
+			if (temp.length==8) {
+				//key.txt
+				this.cookie=temp[6];
+				this.uid=temp[5];
+				this.s=temp[2];
+				this.id="";
+				this.pass="";
+			}else {
+				this.cookie = temp[0];
+				this.uid = temp[1];
+				this.id = temp[2];
+				this.pass = temp[3];
+				this.s = temp.length >= 5 ? temp[4]:"";
+			}
 		} catch (Exception e) {
 			MyUtil.print("导入weibo数据出错!", Factor.getGui());
 		}
