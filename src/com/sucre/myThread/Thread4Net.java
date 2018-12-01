@@ -35,16 +35,23 @@ abstract public class Thread4Net implements Runnable {
 	public void run() {
 
 		while(isWork){
-			int p = doWork(getIndex());
+			lock.lock();
+			int i=getIndex();
+			lock.unlock();
+			int p = doWork(i);
+			
 			//延时操作
 			//MyUtil.sleeps(9000);
 			//System.out.println(p);
 		}
 	}
 
-	private int getIndex() {
+    private int getIndex() {
+		
+		
+		
+		
 		int i;
-		lock.lock();
 		i = index;
 		index++;
 		if (index > uIndex) {
@@ -53,7 +60,7 @@ abstract public class Thread4Net implements Runnable {
 			if(!isCircle) {isWork=false;}
 			
 		}
-		lock.unlock();
+		
 		return i;
 	}
 }

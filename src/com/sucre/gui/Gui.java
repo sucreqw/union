@@ -208,7 +208,7 @@ public class Gui extends JFrame implements Printer {
 		login.setBounds(663, 16, 103, 26);
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Controller.getInstance().login(Integer.parseInt(thread.getText()), false);
+				Controller.getInstance().login(Integer.parseInt(thread.getText()), false,Integer.parseInt(startpoint.getText()));
 			}
 		});
 		panel.add(login);

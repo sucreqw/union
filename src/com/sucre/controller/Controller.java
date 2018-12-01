@@ -125,13 +125,14 @@ public class Controller {
 	 * @param limit    账号总数
 	 * @param isCircle 是否循环
 	 */
-	public void login(int thread, boolean isCircle) {
+	public void login(int thread, boolean isCircle,int start) {
 		int limit = weiboImplId == null ? 0 : weiboImplId.getsize();
 		if (limit == 0) {
 			MyUtil.print("ID未导入！", Factor.getGui());
 		}
+		Login login = new Login(start, limit-1, isCircle, weiboImplId);
 		for (int i = 1; i <= thread; i++) {
-			Login login = new Login(0, limit-1, isCircle, weiboImplId);
+			
 			Thread t = new Thread(login);
 			if (i == 1) {
 				t.setName("ip");
@@ -145,8 +146,9 @@ public class Controller {
 		if (limit == 0) {
 			MyUtil.print("Cookie未导入！", Factor.getGui());
 		}
+		Guess guess = new Guess(0, limit-1, isCircle, weiboImplCookie);
 		for (int i = 1; i <= thread; i++) {
-			Guess guess = new Guess(0, limit-1, isCircle, weiboImplCookie);
+			
 			Thread t = new Thread(guess);
 			if (i == 1) {
 				t.setName("ip");
@@ -165,8 +167,9 @@ public class Controller {
 		if (limit == 0) {
 			MyUtil.print("Id未导入！", Factor.getGui());
 		}
+		Capcha capcha = new Capcha(0, limit, isCircle, weiboImplId);
 		for (int i = 1; i <= thread; i++) {
-			Capcha capcha = new Capcha(0, limit, isCircle, weiboImplId);
+			
 			Thread t = new Thread(capcha);
 			if (i == 1) {
 				t.setName("ip");
@@ -189,8 +192,9 @@ public class Controller {
 			MyUtil.print("Cookie或者vid未导入！", Factor.getGui());
 			return ;
 		}
+		SinaVote vote = new SinaVote(start, limit-1, isCircle, weiboImplCookie,mission);
 		for (int i = 1; i <= thread; i++) {
-			SinaVote vote = new SinaVote(start, limit-1, isCircle, weiboImplCookie,mission);
+			
 			Thread t = new Thread(vote);
 			if (i == 1) {
 				t.setName("ip");
