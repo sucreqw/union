@@ -91,6 +91,7 @@ public class WeiboVote extends Weibo {
 					MyUtil.print("当前分数："+ userScore +"<=>"+ super.getId()+"|"+super.getPass(), Factor.getGui());
 				}
 				break;	
+<<<<<<< HEAD
 				
 			case "阅读":
 				String s=super.getS();
@@ -104,8 +105,11 @@ public class WeiboVote extends Weibo {
 				visitor.doWork(index);
 				break;
 			}//end of switch
+=======
+			}
+>>>>>>> parent of 44aa4ff... union
 
-		}//end of for
+		}
 
 		return 0;
 	}
