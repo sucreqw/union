@@ -31,6 +31,7 @@ public class WeiboCapcha extends Weibo {
 			String t = "";
 			while (true) {
 				do {
+					MyUtil.print("开始取图！", Factor.getGui());
 					byte[] retb = null;
 					t = String.valueOf(System.currentTimeMillis());
 					ret = net.goPost("captcha.weibo.com", 443, getPic(super.getId()));
@@ -45,7 +46,7 @@ public class WeiboCapcha extends Weibo {
 							retb = SinaCapchaUtil.getPic(picIndex, Base64Image);
 							// MyUtil.outPutData(MyUtil.getTime() +".gif",
 							// retb);
-
+							MyUtil.print("对比验证码！", Factor.getGui());
 							// 对比验证码
 						}
 					}
