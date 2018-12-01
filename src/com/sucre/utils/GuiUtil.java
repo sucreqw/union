@@ -44,6 +44,7 @@ public class GuiUtil {
 	}
 
 	public static void loadTableVid(JTable table, MutiList list) {
+		if(list.getSize()>50000){return;}
 		String[] temp = list.get(0).split("\\|");
 		String[] columnName = new String[temp.length];
 
