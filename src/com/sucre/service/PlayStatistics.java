@@ -45,8 +45,9 @@ public class PlayStatistics {
 			String key="H5_" + MyUtil.makeNonce(5) + "_" + t+ MyUtil.makeNumber(4) + "1";
 			String sig=MyUtil.MD5(vid + key + "yixiong&zhaolong5");
 			
-			StringBuilder data = new StringBuilder(900);
-			String temp ="data="+ vid +"&key="+ key +"&sig="+ sig +"\r\n";
+			StringBuilder data = new StringBuilder();
+			String temp ="data="+ vid +"&key="+ key +"&sig="+ sig +"&\r\n";
+			
 			data.append("POST https://weibo.com/aj/video/playstatistics?ajwvr=6 HTTP/1.1\r\n");
 			data.append("Origin: https://weibo.com\r\n");
 			data.append("Referer: https://weibo.com/2141853335/H5cEZmbrD?type=comment\r\n");
@@ -59,11 +60,12 @@ public class PlayStatistics {
 			data.append("Content-Length: "+ temp.length()+"\r\n");
 			data.append("Connection: Keep-Alive\r\n");
 			data.append("Cache-Control: no-cache\r\n");
-			data.append("Cookie: "+cookie.split("\\^")[2] +";\r\n");
+			data.append("Cookie: "+ cookie.split("\\^")[2] +"\r\n");
 			data.append("\r\n");
 			data.append(temp);
 			data.append("\r\n");
 			data.append("\r\n");
+			
 			return data.toString().getBytes();
 		}
 	
