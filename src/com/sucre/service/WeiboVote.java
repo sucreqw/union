@@ -119,7 +119,13 @@ public class WeiboVote extends Weibo {
 				
 				
 			case "播放":
-                
+                PlayStatistics play=new PlayStatistics();
+                int rets=play.play(super.getUid(), vid, super.getCookie());
+                if(rets==1){
+                	MyUtil.print("成功！！"+ (index +1), Factor.getGui());
+                }else{
+                	MyUtil.print("失败！！"+ (index +1), Factor.getGui());
+                }
 				break;
 			}//end of switch
 
