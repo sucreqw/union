@@ -116,6 +116,11 @@ public class WeiboVote extends Weibo {
 				SinaVisitor visitor=new SinaVisitor();
 				visitor.doWork(index);
 				break;
+				
+				
+			case "播放":
+                
+				break;
 			}//end of switch
 
 
