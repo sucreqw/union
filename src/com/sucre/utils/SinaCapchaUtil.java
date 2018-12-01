@@ -387,8 +387,9 @@ public class SinaCapchaUtil {
 				result++;
 			}
 		}
-		result = result / ret2.length;
-		if (result == 1) {
+		double ret = (double)result / (double)ret2.length;
+		System.out.println(ret);
+		if (ret >0.9997) {
 			return true;
 		}
 
@@ -451,6 +452,7 @@ public class SinaCapchaUtil {
 		for (String temp : maps.keySet()) {
 			String im = maps.get(temp);
 			byte[] pid = getPic(im);
+			System.out.println(temp);
 			if (compareImage(pid, image)) {
 				return temp;
 			}

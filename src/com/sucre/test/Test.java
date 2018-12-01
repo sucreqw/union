@@ -26,7 +26,7 @@ public class Test {
 				+ "screen" + (char) 8 + "768*1366" + (char) 02 + "fp" + (char) 10 + "4129540459" + (char) 05 + "scale"
 				+ (char) 01 + "1" + (char) 02 + "lt" + (char) 13 + "1542634041102" + (char) 02 + "ct" + (char) 13
 				+ "1542634053359" + (char) 02 + "st" + (char) 13 +"1542634043758");*/
-		for (int i = 0; i < 3; i++) {
+		/*for (int i = 0; i < 3; i++) {
 			JsUtil.loadJs("js.js");
 			WeiboCapcha capcha = new WeiboCapcha();
 			capcha.setUid("6828954865");
@@ -36,7 +36,11 @@ public class Test {
 			// System.out.println(temp );
 			//temp = capcha.getjs(temp);
 			//System.out.println(temp);
-		}
+		}*/
+		
+		
+		
+		
 	}
 
 }

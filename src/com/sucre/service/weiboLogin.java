@@ -39,7 +39,7 @@ public class weiboLogin extends Weibo {
 		String ret = "";
 		String cookie = "";
 		try {
-			ret = net.goPost("passport.sina.cn", 443, login2(super.getId(), super.getPass()));
+			ret = net.goPost("passport.sina.cn", 443, login(super.getId(), super.getPass()));
 			if (!MyUtil.isEmpty(ret)) {
 				if (ret.indexOf("20000000") != -1) {
 					String uid = MyUtil.midWord("uid\":\"", "\"", ret);
@@ -60,6 +60,7 @@ public class weiboLogin extends Weibo {
 					for (int i = 0; i < host.length; i++) {
 						ret = net.goPost(host[i], 443, loginsso(url.get(i), host[i]));
 						if (ret.indexOf("20000000") != -1) {
+							MyUtil.print("登录成功："+host[i], Factor.getGui());
 							cookie += MyUtil.getAllCookie(ret) + "^";
 							if (uid == null || "null".equals(uid)) {
 								uid = MyUtil.midWord("uid\":\"", "\"", ret);
@@ -67,6 +68,8 @@ public class weiboLogin extends Weibo {
 
 							// return 1;
 							rets = 1;
+						}else {
+							MyUtil.print("登录失败："+host[i], Factor.getGui());
 						}
 					}
 					super.setCookie(cookie);

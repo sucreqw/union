@@ -44,15 +44,15 @@ public class WeiboCapcha extends Weibo {
 							Base64Image = Base64Image.replaceAll("\\\\", "");
 							picIndex = picIndex.replaceAll("\\\\", "");
 							retb = SinaCapchaUtil.getPic(picIndex, Base64Image);
-							// MyUtil.outPutData(MyUtil.getTime() +".gif",
-							// retb);
-							MyUtil.print("对比验证码！", Factor.getGui());
+							//MyUtil.outPutData(MyUtil.getTime() +".gif",retb);
+							//MyUtil.print("对比验证码！", Factor.getGui());
 							// 对比验证码
 						}
 					}
 					code = "";
 					if (null != retb) {
 						code = SinaCapchaUtil.compareAll(retb);
+						MyUtil.print("识别结果："+code, Factor.getGui());
 						if ("".equals(code)) {
 							// MyUtil.outPutData(MyUtil.getTime() + ".gif",
 							// retb);
@@ -66,8 +66,11 @@ public class WeiboCapcha extends Weibo {
 				if (!MyUtil.isEmpty(ret)) {
 					if (ret.indexOf("100000") != -1) {
 						// 验证成功了。
-
+						MyUtil.print("验证成功！！", Factor.getGui());
 						return 1;
+					}else {
+						String msg=MyUtil.midWord("msg\":\"", "\"}", ret);
+						MyUtil.print("验证失败！！"+MyUtil.decodeUnicode(msg), Factor.getGui());
 					}
 				}
 			}
