@@ -90,7 +90,7 @@ public class weiboLogin extends Weibo {
 
 					}else {
 						//System.out.println(ret);
-						MyUtil.print("登录失败！" + (index + 1) , Factor.getGui());
+						MyUtil.print("登录失败！"+MyUtil.decodeUnicode( MyUtil.midWord("msg\":\"", "\",\"", ret)) +"<>"+ (index + 1) , Factor.getGui());
 						rets = 0;
 					}
 				}
