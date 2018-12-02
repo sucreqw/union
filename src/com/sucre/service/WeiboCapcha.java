@@ -69,8 +69,9 @@ public class WeiboCapcha extends Weibo {
 						MyUtil.print("验证成功！！", Factor.getGui());
 						return 1;
 					}else {
-						String msg=MyUtil.midWord("msg\":\"", "\"}", ret);
-						MyUtil.print("验证失败！！"+MyUtil.decodeUnicode(msg), Factor.getGui());
+						String msg=MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "\"}", ret));
+						MyUtil.print("验证失败！！"+msg, Factor.getGui());
+						if(msg.indexOf("休息")!=-1 && Thread.currentThread().getName().equals("ip")) {MyUtil.changIp();}
 					}
 				}
 			}
