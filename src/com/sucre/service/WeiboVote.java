@@ -47,39 +47,40 @@ public class WeiboVote extends Weibo {
 
 			case "打榜":
 				try {
-				cookie = super.getCookie().split("^")[0];
-				ret = nets.goPost("huati.weibo.cn", 443, getscore(cookie, vid));
-				if (!MyUtil.isEmpty(ret)) {
-					String allScore = MyUtil.midWord("score\":", ",\"", ret);
-					String rank = MyUtil.midWord("rank\":", ",\"", ret);
-					String userScore = MyUtil.midWord("user_total_score\":", ",\"", ret);
-					String name = MyUtil.midWord("topic_name\":\"", "\",\"", ret);
-					MyUtil.print("开始打榜！"+ (index+1) , Factor.getGui());
-					while (true) {
-						ret = nets.goPost("huati.weibo.cn", 443, picktop(cookie, vid, userScore, name, rank, allScore));
-						if (!MyUtil.isEmpty(ret)) {
-							if (ret.indexOf("100000") != -1) {
-								MyUtil.print("打榜成功！" + super.getId() + "|" + super.getPass() + "|"+ name +"|"+ userScore+"|",
-										Factor.getGui());
+					cookie = super.getCookie().split("^")[0];
+					ret = nets.goPost("huati.weibo.cn", 443, getscore(cookie, vid));
+					if (!MyUtil.isEmpty(ret)) {
+						String allScore = MyUtil.midWord("score\":", ",\"", ret);
+						String rank = MyUtil.midWord("rank\":", ",\"", ret);
+						String userScore = MyUtil.midWord("user_total_score\":", ",\"", ret);
+						String name = MyUtil.midWord("topic_name\":\"", "\",\"", ret);
+						MyUtil.print("开始打榜！" + (index + 1), Factor.getGui());
+						while (true) {
+							ret = nets.goPost("huati.weibo.cn", 443,
+									picktop(cookie, vid, userScore, name, rank, allScore));
+							if (!MyUtil.isEmpty(ret)) {
+								if (ret.indexOf("100000") != -1) {
+									MyUtil.print("打榜成功！" + super.getId() + "|" + super.getPass() + "|" + name + "|"
+											+ userScore + "|", Factor.getGui());
 
-								return 1;
-							} else if (ret.indexOf("382023") != -1) {
-								// 要拖码
-								MyUtil.print("要拖码" + super.getId() + "|" + super.getPass() + "|" + userScore,
-										Factor.getGui());
-								return 382023;
+									return 1;
+								} else if (ret.indexOf("382023") != -1) {
+									// 要拖码
+									MyUtil.print("要拖码" + super.getId() + "|" + super.getPass() + "|" + userScore,
+											Factor.getGui());
+									return 382023;
 
-							} else {
-								// 失败，原因不明。
-								MyUtil.print("打榜失败，原因不明！" + super.getId() + "|" + super.getPass(), Factor.getGui());
-								return 0;
+								} else {
+									// 失败，原因不明。
+									MyUtil.print("打榜失败，原因不明！" + super.getId() + "|" + super.getPass(), Factor.getGui());
+									return 0;
+								}
 							}
 						}
 					}
-				}
-				}catch (Exception e) {
-					 MyUtil.print("打榜出错!"+e.getMessage(), Factor.getGui());
-					 System.out.println(ret);
+				} catch (Exception e) {
+					MyUtil.print("打榜出错!" + e.getMessage(), Factor.getGui());
+					System.out.println(ret);
 				}
 				// MyUtil.print(ret, Factor.getGui());
 				break;
@@ -88,47 +89,45 @@ public class WeiboVote extends Weibo {
 				ret = nets.goPost("huati.weibo.cn", 443, getscore(cookie, vid));
 				if (!MyUtil.isEmpty(ret)) {
 					String userScore = MyUtil.midWord("user_total_score\":", ",\"", ret);
-					MyUtil.print("当前分数："+ userScore +"<=>"+ super.getId()+"|"+super.getPass(), Factor.getGui());
+					MyUtil.print("当前分数：" + userScore + "<=>" + super.getId() + "|" + super.getPass(), Factor.getGui());
+					i=Controller.getInstance().getVidImpl().getSize();
 				}
-				break;	
+				break;
 
-				
 			case "阅读":
-				String s=super.getS();
-				String uid=super.getUid();
-				cookie=super.getCookie();
-				
-				ret=nets.goPost("api.weibo.cn", 443, cardlist(uid, cookie, s,vid));
-				if(!MyUtil.isEmpty(ret)) {
-					if(ret.indexOf("cardlistInfo")!=-1) {
-						MyUtil.print("成功！"+ index, Factor.getGui());
-						
-					}else {
-						if(Thread.currentThread().getName().equals("ip")) {
+				String s = super.getS();
+				String uid = super.getUid();
+				cookie = super.getCookie();
+
+				ret = nets.goPost("api.weibo.cn", 443, cardlist(uid, cookie, s, vid));
+				if (!MyUtil.isEmpty(ret)) {
+					if (ret.indexOf("cardlistInfo") != -1) {
+						MyUtil.print("成功！" + index, Factor.getGui());
+
+					} else {
+						if (Thread.currentThread().getName().equals("ip")) {
 							MyUtil.changIp();
 						}
 					}
 				}
-				
+
 				break;
-				
+
 			case "游客":
-				SinaVisitor visitor=new SinaVisitor();
+				SinaVisitor visitor = new SinaVisitor();
 				visitor.doWork(index);
 				break;
-				
-				
-			case "播放":
-                PlayStatistics play=new PlayStatistics();
-                int rets=play.play(super.getUid(), vid, super.getCookie());
-                if(rets==1){
-                	MyUtil.print("成功！！"+ (index +1), Factor.getGui());
-                }else{
-                	MyUtil.print("失败！！"+ (index +1), Factor.getGui());
-                }
-				break;
-			}//end of switch
 
+			case "播放":
+				PlayStatistics play = new PlayStatistics();
+				int rets = play.play(super.getUid(), vid, super.getCookie());
+				if (rets == 1) {
+					MyUtil.print("成功！！" + (index + 1), Factor.getGui());
+				} else {
+					MyUtil.print("失败！！" + (index + 1)+"<>"+super.getId() +"|" + super.getPass(), Factor.getGui());
+				}
+				break;
+			}// end of switch
 
 		}
 
@@ -240,21 +239,31 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-	//阅读
-		private byte[] cardlist(String uid,String cookie,String s,String vid) {
-			StringBuilder data = new StringBuilder(900);
-			
-			data.append("GET https://api.weibo.cn/2/guest/cardlist?networktype=wifi&uicode=10000198&moduleID=708&checktoken=null&wb_version=3332&lcardid=4083046808752770&c=android&i=null&s="+s +"&ua=Xiaomi-MI%204LTE_weibo_7.2.0_android_android6.0.1&wm=4209_8001&aid=01Anull.&did=null&fid=107603"+ vid +"_-_WEIBO_SECOND_PROFILE_WEIBO&uid="+ uid +"&v_f=2&v_p=44&from=1072095010&gsid="+ cookie +"&imsi=null&lang=zh_CN&lfid=230584&page=1&skin=default&count=20&oldwn=4209_8001&sflag=1&containerid=107603"+ vid +"_-_WEIBO_SECOND-PROFILE_WEIBO&luicode=10000228&need_head_cards=0 HTTP/1.1\r\n");
-			data.append("Host: api.weibo.cn\r\n");
-			data.append("Connection: keep-alive\r\n");
-			data.append("Cache-Control: max-age=0\r\n");
-			data.append("Upgrade-Insecure-Requests: 1\r\n");
-			data.append("User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
-			data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\r\n");
-		
-			data.append("Accept-Language: zh-CN,zh;q=0.9\r\n");
-			data.append("\r\n");
-			data.append("\r\n");
-			return data.toString().getBytes();
-		}
+
+	// 阅读
+	private byte[] cardlist(String uid, String cookie, String s, String vid) {
+		StringBuilder data = new StringBuilder(900);
+
+		data.append(
+				"GET https://api.weibo.cn/2/guest/cardlist?networktype=wifi&uicode=10000198&moduleID=708&checktoken=null&wb_version=3332&lcardid=4083046808752770&c=android&i=null&s="
+						+ s
+						+ "&ua=Xiaomi-MI%204LTE_weibo_7.2.0_android_android6.0.1&wm=4209_8001&aid=01Anull.&did=null&fid=107603"
+						+ vid + "_-_WEIBO_SECOND_PROFILE_WEIBO&uid=" + uid + "&v_f=2&v_p=44&from=1072095010&gsid="
+						+ cookie
+						+ "&imsi=null&lang=zh_CN&lfid=230584&page=1&skin=default&count=20&oldwn=4209_8001&sflag=1&containerid=107603"
+						+ vid + "_-_WEIBO_SECOND-PROFILE_WEIBO&luicode=10000228&need_head_cards=0 HTTP/1.1\r\n");
+		data.append("Host: api.weibo.cn\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("Cache-Control: max-age=0\r\n");
+		data.append("Upgrade-Insecure-Requests: 1\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
+		data.append(
+				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\r\n");
+
+		data.append("Accept-Language: zh-CN,zh;q=0.9\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
 }

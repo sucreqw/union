@@ -79,7 +79,7 @@ public class WeiboCapcha extends Weibo {
 			// 取拖动的验证码 并验证！
 		case "getpicD":
 			try {
-				MyUtil.print("开始取图！", Factor.getGui());
+				MyUtil.print("开始取图url!", Factor.getGui());
 				// super.setUid("6828954865");
 				ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
 				if (!MyUtil.isEmpty(ret)) {
@@ -91,11 +91,13 @@ public class WeiboCapcha extends Weibo {
 					String indexP = MyUtil.midWord("seqo8,", "", Hash);
 					String startP = MyUtil.midWord("pos", "end", Hash + "end").substring(1);
 					String[] startPs = startP.split(",");
+					MyUtil.print("开始取验证码背景图！", Factor.getGui());
 					byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
 					if (pic != null && indexP != null) {
 						// MyUtil.outPutData("temp.jpg", pic);
 						byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
 						// MyUtil.outPutData("temp.jpg", rets);
+						MyUtil.print("图片还原成功，开始识别！", Factor.getGui());
 						String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
 						// MyUtil.outPutData(result + "a.jpg", rets);
 						// System.out.println(result);
@@ -131,9 +133,12 @@ public class WeiboCapcha extends Weibo {
 									}
 								}
 							}
-						}
+						}else{
+							MyUtil.print("识别失败！" ,
+									Factor.getGui());
+						}//识别结果
 					}
-				}
+				}//end of if
 			} catch (Exception e) {
 				MyUtil.print("识别验证码出错了！" + e.getMessage(), Factor.getGui());
 				System.out.println(ret);
