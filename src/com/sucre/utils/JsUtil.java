@@ -1,12 +1,8 @@
 package com.sucre.utils;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.Buffer;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -27,6 +23,7 @@ public class JsUtil {
 				String temp= new String(buffer);
 				JS=JS+MyUtil.trimNull(temp);
 			}
+			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,6 +33,11 @@ public class JsUtil {
 	//动态添加js代码。
 	public static void AddJs(String js){
 		JS+=js;
+	}
+	//清除所有js代码
+	public static void SetJs(String js){
+		
+		JS=js;
 	}
 	/**
 	 * 运行js的方法
@@ -53,6 +55,7 @@ public class JsUtil {
 		 */
 		ScriptEngine se = sem.getEngineByName("js");
 		try {
+			
 			//String script = "function say(t){ return 'hello,'+t; }";
 			se.eval(JS);
 			Invocable inv2 = (Invocable) se;

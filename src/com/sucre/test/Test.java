@@ -21,7 +21,7 @@ public class Test {
 		 * String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"),
 		 * 54); System.out.println(ret);
 		 */
-		System.out.println("\u9a8c\u8bc1\u7801\u5df2\u8fc7\u671f");
+		System.out.println("\u64cd\u4f5c\u8fc7\u5feb");
 		/*
 		 * System.out.println("" + (char) 139 + (char) 77 + (char) 46 + (char)
 		 * 02 +

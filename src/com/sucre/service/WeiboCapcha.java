@@ -202,8 +202,8 @@ public class WeiboCapcha extends Weibo {
 		String ret = "var trace=[[" + st + ", "+ ys +", " + Times + "]];\r\n";
 
 		while (true) {
-			int temp = Integer.parseInt(MyUtil.getRand(2, 0));
-			Times += Integer.parseInt(MyUtil.getRand(80, 20));
+			int temp = Integer.parseInt(MyUtil.getRand(5, 0));
+			Times += Integer.parseInt(MyUtil.getRand(50, 20));
 
 			if (Integer.parseInt(start) < Integer.parseInt(end)) {
 
@@ -232,7 +232,7 @@ public class WeiboCapcha extends Weibo {
 	public static String getjs(String js) {
 		String nJS = "function getit() {\r\n";
 		nJS += js;
-		nJS += "return x97a57645a3f0e1518f8c9f4d340d4c4f(trace);\r\n";
+		nJS += "return x10083c1154678cbf65f8ec60cfe136ce(trace);\r\n";
 		nJS += "}";
 
 		JsUtil.AddJs(nJS);

@@ -1,4 +1,4 @@
-﻿
+
 var seed= "()*,-./0123456789:?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnop~$^!|";
 var seeds="()*,-./0123456789:?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnop~$^!|";
 
@@ -1072,31 +1072,41 @@ function arrTransfer(a) {
         }
 
 //********************************************************************************拖动代码区
-//调用方法 returnValue=(x97a57645a3f0e1518f8c9f4d340d4c4f([22,33,44]));
+//调用方法 returnValue=(x10083c1154678cbf65f8ec60cfe136ce([22,33,44]));
 
- function numberTransfer1(x) {
-            for (var e = seeds, t = e.substr(0, e.length - 3), _ = t.length, a = e.substr(-2, 1), i = e.substr(-3, 1), n = x < 0 ? i : "", r = (x = Math.abs(x),
-            parseInt(x / _)), s = [x % _]; r; )
-                n += a,
-                s.push(r % _),
-                r = parseInt(r / _);
-            for (var o = s.length - 1; 0 <= o; o--)
-                n += 0 == o ? t.charAt(s[o]) : t.charAt(s[o] - 1);
-            return x < 0 && (n = i + n),
-            n
+ function  numberTransfer1(_0x2656fb) {
+            _0x2656fb = isNaN(_0x2656fb) ? 0x0 : _0x2656fb;
+            for (var _0xa4a346 = seeds.substr(0x0, seeds.length  - 0x3), _0x4effa1 = seeds.substr(-0x2, 0x1), _0x192756 = seeds.substr(-0x3, 0x1), _0x43a08e = _0x2656fb < 0x0 ? _0x192756 : '', _0x3344fc = Math.abs(_0x2656fb), _0x35ba54 = []; _0x35ba54.push(_0x3344fc % _0xa4a346.length),
+            (_0x3344fc = parseInt(_0x3344fc / _0xa4a346.length)) && (_0x43a08e += _0x4effa1),
+            _0x3344fc; )
+                ;
+            for (var _0x4637de = _0x35ba54.length - 0x1; 0x0 <= _0x4637de; _0x4637de--)
+                _0x43a08e += 0x0 < _0x4637de ? _0xa4a346.charAt(_0x35ba54[_0x4637de] - 0x1) : _0xa4a346.charAt(_0x35ba54[_0x4637de]);
+            return _0x43a08e;
         }
-         function arrTransfer1(x) {
-            for (var e = [x[0]], t = 0; t < x.length - 1; t++) {
-                for (var _ = [], a = 0; a < x[t].length; a++)
-                    _.push(x[t + 1][a] - x[t][a]);
-                e.push(_)
+         function arrTransfer1(_0x54f1d8, _0x15f32d) {
+            if (_0x15f32d = _0x15f32d || 0x3,
+            !(_0x54f1d8 instanceof Array) || _0x54f1d8.length < 0x1 || !(_0x54f1d8[0x0]instanceof Array) || _0x54f1d8[0x0].length< _0x15f32d)
+                return [];
+            for (var _0x573274 = [[]], _0x307372 = 0x0; _0x307372 < _0x15f32d; _0x307372++) {
+                var _0x5caa62 = parseInt(_0x54f1d8[0x0][_0x307372]);
+                _0x573274[0x0].push(isNaN(_0x5caa62) ? 0x0 : _0x5caa62);
             }
-            return e
+            for (var _0x172d95 = 0x1; _0x172d95 < _0x54f1d8.length; _0x172d95++) {
+                _0x573274.push([]);
+                for (var _0x5d11af = 0x0; _0x5d11af < _0x15f32d; _0x5d11af++) {
+                    _0x5caa62 = parseInt(_0x54f1d8[_0x172d95][_0x5d11af]);
+                    _0x5caa62 = isNaN(_0x5caa62) ? 0x0 : _0x5caa62,
+                    _0x573274[_0x172d95].push(_0x5caa62);
+                }
+            }
+            return _0x573274;
         }
-       function  x97a57645a3f0e1518f8c9f4d340d4c4f(x) {
-            for (var e = seeds.substr(-1), t = arrTransfer1(x), _ = [], a = [], i = [], n = 0; n < t.length; n++)
-                _.push(numberTransfer1(t[n][0])),
-                a.push(numberTransfer1(t[n][1])),
-                i.push(numberTransfer1(t[n][2]));
-            return _.join("") + e + a.join("") + e + i.join("")
+
+function x10083c1154678cbf65f8ec60cfe136ce(_0x286ceb) {
+            for (var _0x150503 = seeds.substr(-0x1), _0x2ebb38 = [], _0x1d9507 = [], _0x2408ae = [], t = arrTransfer1(_0x286ceb), n = 0x0; n < t.length; n++)
+                _0x2ebb38.push(numberTransfer1(t[n][0x0])),
+                _0x1d9507.push(numberTransfer1(t[n][0x1])),
+                _0x2408ae.push(numberTransfer1(t[n][0x2]));
+            return _0x2ebb38.join('') + _0x150503 + _0x1d9507.join('') + _0x150503 + _0x2408ae.join('');
         }

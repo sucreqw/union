@@ -30,14 +30,16 @@ public class SinaVote extends Thread4Net {
 			c = (WeiboCapcha) weibo.get(index, c);
 			c.setUid(w.getUid());
 			c.setVoteId(w.getVid());
-            int counts=0;
-			while((ret=c.Actions(index, "getpicD"))!=1) {
+			int counts = 0;
+			while ((ret = c.Actions(index, "getpicD")) != 1) {
 				counts++;
-				if(counts==5) {break;}
+				if (counts == 5) {
+					break;
+				}
 			}
 			w.setPid(c.getVid());
-            ret = w.Actions(index, mission);
-            
+			ret = w.Actions(index, mission);
+
 		}
 
 		if (Controller.getInstance().changeIPcount() != 0) {
@@ -46,7 +48,10 @@ public class SinaVote extends Thread4Net {
 				MyUtil.changIp();
 			}
 		}
-
+		//查看是否暂停
+		while (Controller.getInstance().isStop()) {
+			MyUtil.sleeps(1000);
+		}
 		while (Controller.getInstance().isStop()) {
 			MyUtil.sleeps(1000);
 		}
