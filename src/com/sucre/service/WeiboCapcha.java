@@ -112,17 +112,20 @@ public class WeiboCapcha extends Weibo {
 								if (!"".equals(p[i])) {
 									String hash=getjs(simulate(startPs[0], p[i]));
 									ret = net.goPost("captcha.weibo.com", 443, verifyD(picId, super.getUid(),
-											hash,"i00uAnVhd01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzEzXzYpIEFwcGxlV2ViS2l0LzYwNS4xLjE1IChLSFRNTCwgbGlrZSBHZWNrbykgVmVyc2lvbi8xMS4xLjIgU2FmYXJpLzYwNS4xLjE1BGxhbmcFZW4tVVMGc2NyZWVuCTE5MjAqMTA4MAh0aW1lem9uZQ1Bc2lhL1NoYW5naGFpBHBsYXQITWFjSW50ZWwCZnAgMjk5MWFjZTY5M2FmOWJlOGI1YTU2MWMxYWM4YmFiZjcFc2NhbGUBMQJsdA0xNTQzODg0ODA0NTA4AmN0DTE1NDM4ODYyOTY1MjYCc3QNMTU0Mzg4NjI5NDc5Mg=="));
+											hash,"i00uAnVhd01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzEzXzYpIEFwcGxlV2ViS2l0LzYwNS4xLjE1IChLSFRNTCwgbGlrZSBHZWNrbykgVmVyc2lvbi8xMS4xLjIgU2FmYXJpLzYwNS4xLjE1BGxhbmcFZW4tVVMGc2NyZWVuCTE5MjAqMTA4MAh0aW1lem9uZQ1Bc2lhL1NoYW5naGFpBHBsYXQITWFjSW50ZWwCZnAgOThhMjM2YzcxNTcyODAxMmY3OGY1ODg2MjA3NjYwMmQFc2NhbGUBMQJsdA0xNTQzOTA4NDkyNDQ3AmN0DTE1NDM5MDg1MTUwNTECc3QNMTU0MzkwODUxMzQ3Nw=="));
 									if (!MyUtil.isEmpty(ret)) {
 										if (ret.indexOf("100000") != -1) {
 											// 识别成功！验证超级话话题
-											ret = net.goPost("", 443,
+											ret = net.goPost("huati.weibo.cn", 443,
 													captchareverify(super.getCookie(), voteId, picId));
 											if (!MyUtil.isEmpty(ret)) {
 												if (ret.indexOf("succ") != -1) {
-													MyUtil.print("验证成功" + super.getId() + "|" + super.getPass() + "|",
+													MyUtil.print("识别成功，话题验证成功" + super.getId() + "|" + super.getPass() + "|",
 															Factor.getGui());
 													return 1;
+												}else{
+													MyUtil.print("识别成功，话题验证失败！" ,
+															Factor.getGui());
 												}
 											}
 										}
@@ -339,7 +342,7 @@ public class WeiboCapcha extends Weibo {
 		data.append("POST /aj/super/captchareverify HTTP/1.1\r\n");
 		data.append("Host: huati.weibo.cn\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("Content-Length: 83\r\n");
+		data.append("Content-Length: "+ temp.length() +"\r\n");
 		data.append("Origin: https://huati.weibo.cn\r\n");
 		data.append("X-Requested-With: XMLHttpRequest\r\n");
 		data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
@@ -348,8 +351,8 @@ public class WeiboCapcha extends Weibo {
 		data.append("Content-type: application/x-www-form-urlencoded\r\n");
 		data.append("Accept: */*\r\n");
 		data.append(
-				"Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
-		data.append("Accept-Encoding: gzip,deflate\r\n");
+				"Referer: https://huati.weibo.cn/super/captcha/?ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&from=1086395010&type=pick&page_id="+ vid +"\r\n");
+		
 		data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
 		data.append("Cookie: " + cookie + "\r\n");
 		data.append("\r\n");
