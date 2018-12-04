@@ -323,6 +323,7 @@ public class SinaCapchaUtil {
 			rgb[0] = (pixel & 0xff0000) >> 16;
 			rgb[1] = (pixel & 0xff00) >> 8;
 			rgb[2] = (pixel & 0xff);
+			//记录背景色。
 			StartRGB=rgb[0] + rgb[1] + rgb[2];
 			
 			for (int i = minx; i < width; i++) {
@@ -332,7 +333,7 @@ public class SinaCapchaUtil {
 					rgb[1] = (pixel & 0xff00) >> 8;
 					rgb[2] = (pixel & 0xff);
 					
-					if (j == y) {
+					if (j == (y+1)) {
 						// if (rgb[0] > R && rgb[1] > G && rgb[2] > B) {
 						// ret[i * j] = 1;
 						// ret+="1";
@@ -344,22 +345,24 @@ public class SinaCapchaUtil {
 						// } rgb[0]+","+rgb[1]+","+ rgb[2]
 						int rgbs = rgb[0] + rgb[1] + rgb[2];
 						int rgbret = 0;
-						if(i<314 &&  (rgbs -StartRGB) < -70 && rgbs <200){
-							for (int k = i; k < (i + 45); k++) {
+						if(i<314 &&  (rgbs -StartRGB) < -70 && rgbs <220){
+							for (int k = i; k < (i + 44); k++) {
 								pixel = bi.getRGB(k, j); // 下面三行代码将一个数字转换为RGB数字
 								rgb[0] = (pixel & 0xff0000) >> 16;
 								rgb[1] = (pixel & 0xff00) >> 8;
 								rgb[2] = (pixel & 0xff);
 								int rgbss = rgb[0] + rgb[1] + rgb[2];
-								if (Math.abs(rgbss - rgbs) < 150) {
+								if (Math.abs(rgbss - rgbs) < 200) {
 									rgbret = 1;
 								} else {
 									rgbret = 0;
 									break;
 								}
-
+                        
 							}
+							
 						}
+						System.out.print(i + ":" + rgbs +",");
 						if (rgbret == 1) {
 							ret+=String.valueOf(i) + ",";
 							i=i+45;

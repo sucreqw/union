@@ -95,21 +95,24 @@ public class WeiboCapcha extends Weibo {
 					byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
 					if (pic != null && indexP != null) {
 						// MyUtil.outPutData("temp.jpg", pic);
+						//还原图片
 						byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
-						// MyUtil.outPutData("temp.jpg", rets);
+						//MyUtil.outPutData("temp.jpg", rets);
 						MyUtil.print("图片还原成功，开始识别！", Factor.getGui());
+						//2值化，然后识别。
 						String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
 						// MyUtil.outPutData(result + "a.jpg", rets);
 						// System.out.println(result);
 						if (!"".equals(result)) {
+							MyUtil.outPutData(result +".jpg", rets);
 							MyUtil.print("识别结果：" + result, Factor.getGui());
 							String[] p = result.split(",");
 
 							for (int i = 0; i < p.length; i++) {
 								if (!"".equals(p[i])) {
+									String hash=getjs(simulate(startPs[0], p[i]));
 									ret = net.goPost("captcha.weibo.com", 443, verifyD(picId, super.getUid(),
-											getjs(simulate(startPs[0], p[i])),
-											"i00uAnVhbE1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdPVzY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzEuMC4zNTczLjAgU2FmYXJpLzUzNy4zNgRwbGF0BVdpbjMyBGxhbmcFemgtQ04Gc2NyZWVuCDc2OCoxMzY2AmZwCjQxMjk1NDA0NTkFc2NhbGUBMQJsdA0xNTQyODk4ODA0MzY4AmN0DTE1NDI4OTg4MTMyODUCc3QNMTU0Mjg5ODgwNTkzNQ=="));
+											hash,"i00uAnVhd01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzEzXzYpIEFwcGxlV2ViS2l0LzYwNS4xLjE1IChLSFRNTCwgbGlrZSBHZWNrbykgVmVyc2lvbi8xMS4xLjIgU2FmYXJpLzYwNS4xLjE1BGxhbmcFZW4tVVMGc2NyZWVuCTE5MjAqMTA4MAh0aW1lem9uZQ1Bc2lhL1NoYW5naGFpBHBsYXQITWFjSW50ZWwCZnAgMjk5MWFjZTY5M2FmOWJlOGI1YTU2MWMxYWM4YmFiZjcFc2NhbGUBMQJsdA0xNTQzODg0ODA0NTA4AmN0DTE1NDM4ODYyOTY1MjYCc3QNMTU0Mzg4NjI5NDc5Mg=="));
 									if (!MyUtil.isEmpty(ret)) {
 										if (ret.indexOf("100000") != -1) {
 											// 识别成功！验证超级话话题
@@ -172,9 +175,13 @@ public class WeiboCapcha extends Weibo {
 	public static String simulate(String start, String end) {
 		// int i=0;
 		String r = MyUtil.getRand(48, 35);
+		
 		int counts = 0;
 		int st = 0;
+		//y轴起始点；
+		int ys=250;
 		int ends = 0;
+		//判断要拉动的方向。
 		if (Integer.parseInt(start) > Integer.parseInt(end)) {
 
 			st = Integer.parseInt(start) + Integer.parseInt(r);
@@ -190,11 +197,13 @@ public class WeiboCapcha extends Weibo {
 
 		}
 		int Times = 0;
-		String ret = "var trace=[[" + st + ", 250, " + Times + "]];\r\n";
+		
+		int isaddys=0;
+		String ret = "var trace=[[" + st + ", "+ ys +", " + Times + "]];\r\n";
 
 		while (true) {
-			int temp = Integer.parseInt(MyUtil.getRand(5, 0));
-			Times += Integer.parseInt(MyUtil.getRand(50, 20));
+			int temp = Integer.parseInt(MyUtil.getRand(2, 0));
+			Times += Integer.parseInt(MyUtil.getRand(80, 20));
 
 			if (Integer.parseInt(start) < Integer.parseInt(end)) {
 
@@ -208,8 +217,9 @@ public class WeiboCapcha extends Weibo {
 					st = ends;
 				}
 			}
-
-			ret += "trace.push([" + st + ", 250, " + Times + "]);\r\n";
+            isaddys++;
+            if((isaddys%10)==0){ys++;}
+			ret += "trace.push([" + st + ", "+ ys +", " + Times + "]);\r\n";
 
 			if (st == ends) {
 				return ret;
@@ -220,9 +230,9 @@ public class WeiboCapcha extends Weibo {
 	}
 
 	public static String getjs(String js) {
-		String nJS = "function getit() {";
+		String nJS = "function getit() {\r\n";
 		nJS += js;
-		nJS += "return x97a57645a3f0e1518f8c9f4d340d4c4f(trace);";
+		nJS += "return x97a57645a3f0e1518f8c9f4d340d4c4f(trace);\r\n";
 		nJS += "}";
 
 		JsUtil.AddJs(nJS);
