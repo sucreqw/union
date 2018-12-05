@@ -60,7 +60,7 @@ public class PlayStatistics {
 			data.append("Content-Length: "+ temp.length()+"\r\n");
 			data.append("Connection: Keep-Alive\r\n");
 			data.append("Cache-Control: no-cache\r\n");
-			data.append("Cookie: "+ cookie +"\r\n");
+			data.append("Cookie: "+ cookie +";\r\n");
 			data.append("\r\n");
 			data.append(temp);
 			data.append("\r\n");

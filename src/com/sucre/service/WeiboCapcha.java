@@ -119,7 +119,7 @@ public class WeiboCapcha extends Weibo {
 											ret = net.goPost("huati.weibo.cn", 443,
 													captchareverify(super.getCookie(), voteId, picId));
 											if (!MyUtil.isEmpty(ret)) {
-												if (ret.indexOf("succ") != -1) {
+												if (ret.indexOf("100000") != -1) {
 													MyUtil.print("识别成功，话题验证成功" + super.getId() + "|" + super.getPass() + "|",
 															Factor.getGui());
 													return 1;
@@ -129,8 +129,8 @@ public class WeiboCapcha extends Weibo {
 												}
 											}
 										}
-										System.out.println(ret);
-										MyUtil.print("验证失败！" + super.getId() + "|" + super.getPass() + "|",
+										//System.out.println(ret);
+										MyUtil.print("验证失败！" + MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "\"", ret))+ super.getId() + "|" + super.getPass() + "|",
 												Factor.getGui());
 										//System.out.print(ret);
 									}else{
@@ -338,8 +338,8 @@ public class WeiboCapcha extends Weibo {
 	// 打榜验证码 验证
 	private byte[] captchareverify(String cookie, String vid, String pid) {
 		StringBuilder data = new StringBuilder(900);
-		String temp = "id=" + pid + "&oid=" + vid + "\\r\\n";
-		data.append("POST /aj/super/captchareverify HTTP/1.1\r\n");
+		String temp = "type=pick&id=" + pid + "&oid=" + vid + "&\r\n";
+		data.append("POST https://huati.weibo.cn/aj/super/captchareverify HTTP/1.1\r\n");
 		data.append("Host: huati.weibo.cn\r\n");
 		data.append("Connection: keep-alive\r\n");
 		data.append("Content-Length: "+ temp.length() +"\r\n");
