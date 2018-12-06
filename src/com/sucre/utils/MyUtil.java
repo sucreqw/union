@@ -20,6 +20,8 @@ import java.util.zip.GZIPOutputStream;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.junit.validator.PublicClassValidator;
+
 
 
 
@@ -34,7 +36,7 @@ public class MyUtil {
 //	public static MutiList listId = new MutiList();
 //	public static MutiList listVid = new MutiList();
 //	public static MutiList listCookie = new MutiList();
-
+    public static int counts=0;
 //	/**
 //	 * @param fileName 为当前目录下的文件名,带后�?
 //	 * @param list     为要加载进入的list对象
@@ -218,6 +220,12 @@ public class MyUtil {
 	public static String getTimeB() {
 		long t = System.currentTimeMillis();
 		return String.valueOf(t).substring(0, 10);
+	}
+
+
+	public static String getIp() {
+		
+		return getRand(255, 0) +"." + getRand(255, 0)+"." + getRand(255, 0)+"." + getRand(255, 0);
 	}
 
 	/**

@@ -127,6 +127,16 @@ public class WeiboVote extends Weibo {
 					MyUtil.print("失败！！" + (index + 1)+"<>"+super.getId() +"|" + super.getPass(), Factor.getGui());
 				}
 				break;
+				
+			case "沸点":
+				ret=nets.goPost("mbd.baidu.com", 443, starhit(vid));
+				if(!MyUtil.isEmpty(ret)) {
+					MyUtil.counts++;
+					MyUtil.print("当前票数："+ MyUtil.midWord("vote\":", ",\"", ret)+"<==>软件投出票数：" +MyUtil.counts , Factor.getGui());
+					
+					
+				}
+				break;
 			}// end of switch
 
 		}
@@ -266,4 +276,24 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
+	
+	//百度沸点
+	private byte[] starhit(String vid) {
+		StringBuilder data = new StringBuilder(900);
+		//String temp = "";
+		data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vid +"&votetype=1 HTTP/1.1\r\n");
+		data.append("Host: mbd.baidu.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 light/1.0 baiduboxapp/11.1.0.10 (Baidu; P1 4.4.2)\r\n");
+		data.append("Content-Type: \r\n");
+		data.append("Accept: */*\r\n");
+		data.append("Referer: https://mbd.baidu.com/webpage?type=starhit&action=starhome&starid="+ vid +"&from=alading\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
+		data.append("Cookie: BDUSS="+ MyUtil.makeNonce(12)+"Vk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dld"+ MyUtil.makeNonce(6)+"2llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(6)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABzQ6lsc0Opb"+ MyUtil.makeNonce(3)+"S;\r\n");
+		data.append("X-Forwarded-For: "+ MyUtil.getIp()+"\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+	
 }
