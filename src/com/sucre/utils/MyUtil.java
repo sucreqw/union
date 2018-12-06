@@ -36,6 +36,7 @@ public class MyUtil {
 //	public static MutiList listId = new MutiList();
 //	public static MutiList listVid = new MutiList();
 //	public static MutiList listCookie = new MutiList();
+	//计数器
     public static int counts=0;
 //	/**
 //	 * @param fileName 为当前目录下的文件名,带后�?
@@ -222,7 +223,10 @@ public class MyUtil {
 		return String.valueOf(t).substring(0, 10);
 	}
 
-
+   /**
+    * 随机生成一组ip
+    * @return
+    */
 	public static String getIp() {
 		
 		return getRand(255, 0) +"." + getRand(255, 0)+"." + getRand(255, 0)+"." + getRand(255, 0);

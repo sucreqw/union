@@ -39,6 +39,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Base64.Encoder;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -85,6 +86,7 @@ public class Gui extends JFrame implements Printer {
 	private JButton setTime;
 	private JTextField Times;
 	private JEditorPane feedback;
+	private JTextField counts;
 	/**
 	 * Launch the application.
 	 */
@@ -425,6 +427,16 @@ public class Gui extends JFrame implements Printer {
 		//scroll.setViewportView(feedBack);
 		feedback = new JEditorPane();
 		scrollPane_3.setViewportView(feedback);
+		
+		counts = new JTextField();
+		counts.setText("0");
+		counts.setBounds(484, 78, 66, 21);
+		panel.add(counts);
+		counts.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("结束票数：");
+		lblNewLabel_2.setBounds(378, 81, 78, 15);
+		panel.add(lblNewLabel_2);
        
 	}
 
@@ -458,5 +470,9 @@ public class Gui extends JFrame implements Printer {
 	 */
 	public static Gui getInstance() {
 		return frame;
+	}
+	
+	public int getCounts() {
+		return Integer.parseInt(counts.getText());
 	}
 }

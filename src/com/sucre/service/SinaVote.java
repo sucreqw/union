@@ -39,8 +39,10 @@ public class SinaVote extends Thread4Net {
 			}
 			w.setPid(c.getVid());
 			ret = w.Actions(index, mission);
-
-		}
+		case 3:
+			super.exitWork();
+			break;
+		}//end of switch
 
 		if (Controller.getInstance().changeIPcount() != 0) {
 			if ((index + 1) % Controller.getInstance().changeIPcount() == 0

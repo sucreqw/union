@@ -63,4 +63,8 @@ abstract public class Thread4Net implements Runnable {
 		
 		return i;
 	}
+    
+    public void exitWork() {
+    	isWork=false;
+    }
 }

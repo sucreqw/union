@@ -288,4 +288,8 @@ public class Controller {
 	public boolean isStop() {
 		return this.stop;
 	}
+	
+	public int getEndCount() {
+		return Factor.getGuiFrame().getCounts();
+	}
 }
