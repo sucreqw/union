@@ -142,6 +142,16 @@ public class WeiboVote extends Weibo {
 					
 				}
 				break;
+			case "剧赞":
+                ret=nets.goPost("api.weibo.cn", 443, gouvote(super.getUid(), super.getCookie(), super.getS(), vid));
+                if(!MyUtil.isEmpty(ret)){
+                	if(ret.indexOf("result\":1")!=-1){
+                		MyUtil.print("剧赞成功！", Factor.getGui());
+                	}else{
+                		MyUtil.print("剧赞失败！"+MyUtil.midWord("msg\":\"", "\"", ret) , Factor.getGui());
+                	}
+                }
+                break;
 			}// end of switch
 
 		}
@@ -300,5 +310,21 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
+	
+	// 剧赞
+		private byte[] gouvote(String uid, String cookie, String s, String vid) {
+			StringBuilder data = new StringBuilder(900);
+
+			data.append(
+					"GET /2/page/button?request_url=http%3A%2F%2Fi.dianshi.weibo.com%2Fji_gouvote%3Fmid%3D"+ vid +"%26uid%3D"+ uid +"%26active_id%3D3015%26na_id%3D1001&networktype=wifi&accuracy_level=0&cardid=Square_DoubleButton&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="+ s +"&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLjU9xJv2UnDaKr12aNYUkBHuVU.&fid=231219_3015_newartificial_1001&v_f=2&v_p=62&from=1086395010&gsid="+ cookie +"&lang=zh_CN&lfid=231522type%3D1%26q%3D%23%E7%94%B5%E8%A7%86%E5%89%A7%E5%A4%A7%E8%B5%8F%23%26t%3D3&skin=default&oldwm=9006_2001&sflag=1&luicode=10000003 HTTP/1.1\r\n");
+			data.append("Host: api.weibo.cn\r\n");
+			data.append("Connection: keep-alive\r\n");
+			data.append(
+					"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
+
+			data.append("\r\n");
+			data.append("\r\n");
+			return data.toString().getBytes();
+		}
 	
 }
