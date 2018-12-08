@@ -295,10 +295,11 @@ public class WeiboVote extends Weibo {
 	//百度沸点
 	private byte[] starhit(String vid) {
 		StringBuilder data = new StringBuilder(900);
+		String temp= MyUtil.makeNonce(12);
 		//String temp = "";
 		//data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vid +"&votetype=1 HTTP/1.1\r\n");
 		                                 //GET /webpage?type=starhit&action=vote&format=json&starid=3772&votetype=1 HTTP/1.1
-		data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vid +"&votetype=1 HTTP/1.1\r\n");
+		data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vid +"&votetype=1&risk%5Baid%5D=1460&risk%5Bapp%5D=android&risk%5Bver%5D=11.1.0.10&risk%5Bto%5D=20$132415441861852612274694828715441861876503946a3906851094f4e11fe02b118e34f56ace02d87fd709c5de82632871a3244bd1a5ee910b41544186188633&risk%5Bvw%5D=021570413240000000000000000000000000000000000000000000008401ff800375E0954C4180E9759B8EAEA14CFC65FCC:FG%3D10000000000000037878399090ed720264812f55de3f99d872ae42&risk%5Bua%5D=Mozilla%2F5.0+(Linux%3B+Android+4.4.2%3B+Che2-TL00+Build%2FHonorChe2-TL00%3B+wv)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Version%2F4.0+Chrome%2F63.0.3239.83+Mobile+Safari%2F537.36+T7%2F11.1+light%2F1.0+baiduboxapp%2F11.1.0.10+(Baidu%3B+P1+4.4.2)&risk%5Bz%5D=cBGwxtjx05pecz6zjRd1V6fqCV-16ioFBETIi7wt64je0V22I6gMu84vDlbROd7GaPGJ_Az6Wpbp7t5Tb2mh393GmDh-TWhoh5NDzht4y8_o HTTP/1.1\r\n");
 		data.append("Host: mbd.baidu.com\r\n");
 		data.append("Connection: keep-alive\r\n");
 		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 light/1.0 baiduboxapp/11.1.0.10 (Baidu; P1 4.4.2)\r\n");
@@ -306,7 +307,8 @@ public class WeiboVote extends Weibo {
 		data.append("Accept: */*\r\n");
 		data.append("Referer: https://mbd.baidu.com/webpage?type=starhit&action=starhome&starid="+ vid +"&from=alading\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
-		data.append("Cookie: BAIDUCUID=_avet_P1SulP"+ MyUtil.makeNonce(12)+"-"+ MyUtil.makeNonce(12)+"_iE-NN(10)Pf_uL28gha2tDA;  BAIDUID="+ MyUtil.makeNonce(12)+"9759B8EAEA14CFC65FCC:FG=1; BDUSS="+ MyUtil.makeNonce(12)+"Vk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dld"+ MyUtil.makeNonce(6)+"2llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(26)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ MyUtil.makeNonce(14)+"S;\r\n");
+		data.append("Cookie: BAIDUCUID=_avet_P1SulP"+ MyUtil.makeNonce(12)+"-"+ MyUtil.makeNonce(12)+"_iE-NN(10)Pf_uL28gha2tDA;  BAIDUID="+ temp+"9759B8EAEA14CFC65FCC:FG=1; BIDUPSID="+ temp+"9759B8EAEA14CFC65FCC; BDUSS="+ MyUtil.makeNonce(12)+"Vk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dld"+ MyUtil.makeNonce(6)+"2llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(26)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ MyUtil.makeNonce(14)+"S;\r\n");
+		//                   BAIDUCUID=_avet_P1SuNN(8)SNuluP-aYVuNN(8)_iE-88La28ngu2Pf_uL28gha2tDA; BAIDUID=NN(8)180E9759B8EAEA14CFC65FCC:FG=1; BIDUPSID=NN(8)180E9759B8EAEA14CFC65FCC; BDUSS=dNenoyUjNrdlA4dmhGR3lncXJFVHJTamw0Qm93YlptVjZoOH53cHhvaGNyVEZjQVFBQUFBJCQAAAAAAAAAAAEAAANN(6)AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFwgClxcIApcak; 
 		//data.append("Cookie: BAIDUCUID=_avet_P1SulPavu3guSNuluP-aYVu2iAg82o8_iE-NN(10)Pf_uL28gha2tDA;  BAIDUID=5E0954C4180E9759B8EAEA14CFC65FCC:FG=1;  BDUSS=mhRQ05ZYkNVVk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dldpRjdxR1llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAADWq945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABzQ6lsc0OpbS;\r\n");
 		data.append("X-Forwarded-For: "+ MyUtil.getIp()+"\r\n");
 		data.append("\r\n");
@@ -316,6 +318,7 @@ public class WeiboVote extends Weibo {
 	
 	// 剧赞
 		private byte[] gouvote(String uid, String cookie, String s, String vid) {
+			cookie=MyUtil.midWord("SUB=", ";", cookie);
 			StringBuilder data = new StringBuilder(900);  
 			uid=MyUtil.makeNumber(10);
 			data.append(
