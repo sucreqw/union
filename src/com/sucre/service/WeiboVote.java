@@ -306,19 +306,20 @@ public class WeiboVote extends Weibo {
 		                                 //GET /webpage?type=starhit&action=vote&format=json&starid=3772&votetype=1 HTTP/1.1
 		String[] vids=vid.split("\\|");
 		String t=String.valueOf(System.currentTimeMillis());
-		String buids= temp+"9759B8EAEA14CFC65FCC:FG=1";
+		String buids= temp+ MyUtil.makeNonce(20)+":FG=1";
 		String token=MyUtil.MD5(buids+"a$4#1G9g6^" +t);
-		data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vids[0] +"&uk="+ vids[1] +"&votetype=1&risk%5Baid%5D=1460&risk%5Bapp%5D=android&risk%5Bver%5D=11.1.5.10&risk%5Bto%5D=20$132415442339129437189518891115442783317956331f5afe3713b7e307c352c96eeaab90a19292318fc0e792fd71676566a36d46d8efcee696d1544233913855&risk%5Bvw%5D=021570413240000000000000000000000000000000000000000000008401ff80037" + temp+"9759B8EAEA14CFC65FCC:FG%3D10000000000000037f29d2e6c1d99c781935eb0ea9c2594ea01b41&risk%5Bua%5D=Mozilla%2F5.0+(Linux%3B+Android+8.0.0%3B+MHA-AL00+Build%2FHUAWEIMHA-AL00%3B+wv)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Version%2F4.0+Chrome%2F63.0.3239.83+Mobile+Safari%2F537.36+T7%2F11.1+light%2F1.0+baiduboxapp%2F11.1.5.10+(Baidu%3B+P1+8.0.0)&risk%5Bz%5D=640D40288C184BE9C61E530BBE1F0BE01A5C7E7C61EAC973D7DC09090AEABD&stoken="+ token +"&ts="+ t +" HTTP/1.1\r\n");
+		
+		data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vids[0] +"&uk="+ vids[1] +"&votetype=1&risk%5Baid%5D=1460&risk%5Bapp%5D=android&risk%5Bver%5D=11.1.5.10&risk%5Bto%5D=20$132415442339129437189518891115442783317956331f5afe3713b7e307c352c96eeaab90a19292318fc0e792fd71676566a36d46d8efcee696d1544233913855&risk%5Bvw%5D=021570413240000000000000000000000000000000000000000000008401ff80037" +buids +"0000000000000037f29d2e6c1d99c781935eb0ea9c2594ea01b41&risk%5Bua%5D=Mozilla%2F5.0+(Linux%3B+Android+8.0.0%3B+MHA-AL00+Build%2FHUAWEIMHA-AL00%3B+wv)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Version%2F4.0+Chrome%2F63.0.3239.83+Mobile+Safari%2F537.36+T7%2F11.1+light%2F1.0+baiduboxapp%2F11.1.5.10+(Baidu%3B+P1+8.0.0)&risk%5Bz%5D=640D40288C184BE9C61E530BBE1F0BE01A5C7E7C61EAC973D7DC09090AEABD&stoken="+ token +"&ts="+ t +" HTTP/1.1\r\n");
 		data.append("Host: mbd.baidu.com\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 light/1.0 baiduboxapp/11.1.0.10 (Baidu; P1 4.4.2)\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che5-TL100 Build/HonorChe5-TL100; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 light/1.0 baiduboxapp/11.2.0.10 (Baidu; P1 4.4.3)\r\n");
 		data.append("Content-Type: \r\n");
 		data.append("Accept: */*\r\n");
 		data.append("Referer: https://mbd.baidu.com/webpage?type=starhit&action=starhome&starid="+ vid +"&from=alading\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
 		//data.append("Cookie: BAIDUCUID=_avet_P1SulP"+ MyUtil.makeNonce(12)+"-"+ MyUtil.makeNonce(12)+"_iE-NN"+MyUtil.makeNonce(10) +"Pf_uL28gha2tDA;  BAIDUID="+ buids +"; BIDUPSID="+ temp+"9759B8EAEA14CFC65FCC; BDUSS="+ MyUtil.makeNonce(12)+"Vk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dld"+ MyUtil.makeNonce(6)+"2llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(26)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ MyUtil.makeNonce(14)+"S;\r\n");
 		//                   BAIDUCUID=_avet_P1SuNN(8)SNuluP-aYVuNN(8)_iE-88La28ngu2Pf_uL28gha2tDA; BAIDUID=NN(8)180E9759B8EAEA14CFC65FCC:FG=1; BIDUPSID=NN(8)180E9759B8EAEA14CFC65FCC; BDUSS=dNenoyUjNrdlA4dmhGR3lncXJFVHJTamw0Qm93YlptVjZoOH53cHhvaGNyVEZjQVFBQUFBJCQAAAAAAAAAAAEAAANN(6)AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFwgClxcIApcak; 
-		data.append("Cookie: BAIDUCUID=lPSCu0iN2a_x8vij08Hdaga2vulKuv8r0iSEfgadStiOPv8T_a2mi_aWvigxa2tHA; BAIDUID="+ buids +"; BDUSS=JRbDB1WGlKNGRKckVZcTZyTXFjUlo4V2dScnF3WFZ6SXpOY2ZXcDNDM2VyREJjQVFBQUFBJCQAAAAAAAAAAAEAAAC"+ MyUtil.makeNonce(6)+"-"+ MyUtil.makeNonce(5)+"xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4fCVzeHwlcT0; \r\n");
+		data.append("Cookie: BAIDUCUID="+ MyUtil.makeNonce(10)+"_OPvao_iSZulO3Hig_a28P_aSOf_ax2i80Pvt__u278_ajv8YMa2tHA; BAIDUID="+ buids +"; BDUSS=QxZ2pDd2VkTEFCS0ltZXVNYVJjZTdETFVBRnJ0ZndxfmE4ZmdrSnZlVTBGalJjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(6)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADSJDFw0iQxcM0; \r\n");
 		data.append("X-Forwarded-For: "+ MyUtil.getIp()+"\r\n");
 		data.append("X-Requested-With: com.baidu.searchbox\r\n");
 		data.append("\r\n");
