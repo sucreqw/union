@@ -38,6 +38,7 @@ public class MyUtil {
 //	public static MutiList listCookie = new MutiList();
 	//计数器
     public static int counts=0;
+    public static int succcounts=0;
 //	/**
 //	 * @param fileName 为当前目录下的文件名,带后�?
 //	 * @param list     为要加载进入的list对象

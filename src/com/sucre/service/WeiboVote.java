@@ -133,9 +133,10 @@ public class WeiboVote extends Weibo {
 			case "沸点":
 				ret=nets.goPost("mbd.baidu.com", 443, starhit(vid));
 				if(!MyUtil.isEmpty(ret)) {
-					//if(ret.indexOf("voteSucc\":1")!=-1) {
+					if(ret.indexOf("voteSucc\":1")!=-1) {MyUtil.succcounts++;}
+					
 					MyUtil.counts++;
-					MyUtil.print("当前票数："+ MyUtil.midWord("vote\":", ",\"", ret)+"<==>软件投出票数：" +MyUtil.counts , Factor.getGui());
+					MyUtil.print("当前票数："+ MyUtil.midWord("vote\":", ",\"", ret)+"<=>软件投出票数：" +MyUtil.counts +"<=>返回成功次数："+ MyUtil.succcounts, Factor.getGui());
 					//}
 					if(Controller.getInstance().getEndCount()!=0 && Controller.getInstance().getEndCount()<MyUtil.counts) {
 						MyUtil.print("投票完成！" , Factor.getGui());
