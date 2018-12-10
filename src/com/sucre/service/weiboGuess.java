@@ -1,5 +1,6 @@
 package com.sucre.service;
 
+import com.sucre.controller.Controller;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
@@ -43,14 +44,17 @@ public class weiboGuess extends Weibo {
 					MyUtil.print("成功猜到S：" + gets(sIndex) +"<>"+ (index +1), Factor.getGui());
 					MyUtil.outPutData("cookies.txt", super.toString());
 					
-					if((index +1) % 50 ==0 && "ip".equals(Thread.currentThread().getName())){
+					if(Controller.getInstance().changeIPcount()!=0) {
+					if((index +1) % Controller.getInstance().changeIPcount() ==0 && "ip".equals(Thread.currentThread().getName())){
 						MyUtil.changIp();
+					}
 					}
 					return 1;
 					//不成功，继续试
 				}else{
 					sIndex++;
 					MyUtil.print("继续穷举S参数：" + gets(sIndex) +"<>"+ (index +1), Factor.getGui());
+					if(sIndex>=15) {return 0;}
 				}
 			}
 //		}
@@ -62,6 +66,7 @@ public class weiboGuess extends Weibo {
 	 * @return 返回索引对应的参数。
 	 */
 	private String gets(int index) {
+		if(index>15) {return "";}
 		String key = "0123456789abcdef";
 		String ret = "";
 		for (int i = 0; i < 8; i++) {

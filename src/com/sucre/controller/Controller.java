@@ -141,12 +141,12 @@ public class Controller {
 		}
 	}
 
-	public void guess(int thread, boolean isCircle) {
+	public void guess(int startpoint,int thread, boolean isCircle) {
 		int limit = weiboImplCookie == null ? 0 : weiboImplCookie.getsize();
 		if (limit == 0) {
 			MyUtil.print("Cookie未导入！", Factor.getGui());
 		}
-		Guess guess = new Guess(0, limit-1, isCircle, weiboImplCookie);
+		Guess guess = new Guess(startpoint, limit-1, isCircle, weiboImplCookie);
 		for (int i = 1; i <= thread; i++) {
 			
 			Thread t = new Thread(guess);

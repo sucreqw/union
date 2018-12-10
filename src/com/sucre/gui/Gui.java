@@ -307,7 +307,7 @@ public class Gui extends JFrame implements Printer {
 				switch (m) {
 				case "guess":
 					print("guess!!!");
-					Controller.getInstance().guess(Integer.parseInt(thread.getText()), false);
+					Controller.getInstance().guess(Integer.parseInt(startpoint.getText()),Integer.parseInt(thread.getText()), false);
 					break;
 				case "checkin":
 					//Controller.getInstance().getPic(Integer.parseInt(thread.getText()), false);
