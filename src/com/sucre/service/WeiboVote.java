@@ -146,6 +146,7 @@ public class WeiboVote extends Weibo {
 						MyUtil.print( MyUtil.midWord("errmsg\":\"", "\"", ret) , Factor.getGui());
 							
 					}
+					System.out.println(MyUtil.midWord("data", "}", ret));
 				}
 				break;
 			case "剧赞":
@@ -158,6 +159,17 @@ public class WeiboVote extends Weibo {
                 	}
                 }
                 break;
+                
+			case "微博之夜" :
+				ret=nets.goPost("huodong.weibo.cn", 443, netchina2018(super.getUid(),vid,super.getCookie()));
+                if(!MyUtil.isEmpty(ret)){
+                	if(ret.indexOf("u6295\\u7968\\u6210\\u529f")!=-1){
+                		MyUtil.print("投票成功！", Factor.getGui());
+                	}else{
+                		MyUtil.print("投票失败！"+MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "\"", ret)) , Factor.getGui());
+                	}
+                }
+				break;
 			}// end of switch
 
 		}
@@ -309,18 +321,20 @@ public class WeiboVote extends Weibo {
 		String t=String.valueOf(System.currentTimeMillis());
 		String buids= temp+ MyUtil.makeNonce(20)+":FG=1";
 		String token=MyUtil.MD5(buids+"a$4#1G9g6^" +t);
-		
-		data.append("GET https://mbd.baidu.com/webpage?type=starhit&action=vote&format=json&starid="+ vid +"&votetype=1&risk%5Baid%5D=1460&risk%5Bapp%5D=android&risk%5Bver%5D=11.1.5.10&risk%5Bto%5D=20$132415442339129437189518891115442783317956331f5afe3713b7e307c352c96eeaab90a19292318fc0e792fd71676566a36d46d8efcee696d1544233913855&risk%5Bvw%5D=021570413240000000000000000000000000000000000000000000008401ff80037" +buids +"0000000000000037f29d2e6c1d99c781935eb0ea9c2594ea01b41&risk%5Bua%5D=Mozilla%2F5.0+(Linux%3B+Android+8.0.0%3B+MHA-AL00+Build%2FHUAWEIMHA-AL00%3B+wv)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Version%2F4.0+Chrome%2F63.0.3239.83+Mobile+Safari%2F537.36+T7%2F11.1+light%2F1.0+baiduboxapp%2F11.1.5.10+(Baidu%3B+P1+8.0.0)&risk%5Bz%5D=640D40288C184BE9C61E530BBE1F0BE01A5C7E7C61EAC973D7DC09090AEABD&stoken="+ token +"&ts="+ t +" HTTP/1.1\r\n");
+		//            laHsagO_2ilr82uAgi-Yujuh28_zuvu_YuHmag8fv8lqa2iC_iH1ilfvWaJa9QPJ897mA
+		//            bcPwZt5gc9zEr0GUbG-1n0uoAMSguzr1FYb4J0aAJzH7GBCd0pcfrV6Buj5Zw7yH-JBlJB2gw85-mZS5j-g9row
+		String buid2=MyUtil.makeNonce(8)+ "-1n0uoAMSguzr1FYb4J0aAJzH7GBCd0pcfrV6Buj5Zw7yH-JBlJB2gw85-mZS5j-g9row";
+		data.append("GET /webpage?type=starhit&action=vote&format=json&starid="+ vid+"&votetype=1&risk%5Baid%5D=1461&risk%5Bapp%5D=ios&risk%5Bver%5D=11.0.0.12&risk%5Bto%5D=20$"+MyUtil.makeNumber(10)+"884545611417567399154452887242957845a5e5d7e397af0d39de2576011039ae6619a929c06a908cb96311a2447c976b307cbf4571544528847061&risk%5Bvw%5D=021571413240000000000000000000000000000000000000000000008401ff80037"+ buids+"0000000000000037e60dab5eda3376732b7a9345252a2fc64e6b2&risk%5Bua%5D=Mozilla%2F5.0+(iPhone%3B+CPU+iPhone+OS+12_1+like+Mac+OS+X)+AppleWebKit%2F605.1.15+(KHTML,+like+Gecko)+Mobile%2F16B92+light%252F1.0%2528WKWebView%2529+baiduboxapp%2F11.0.0.12+(Baidu%3B+P2+12.1)&risk%5Bz%5D="+ buid2 +"&stoken="+ token +"&ts="+ t+" HTTP/1.1\r\n");
 		data.append("Host: mbd.baidu.com\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che5-TL100 Build/HonorChe5-TL100; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/63.0.3239.83 Mobile Safari/537.36 T7/11.1 light/1.0 baiduboxapp/11.2.0.10 (Baidu; P1 4.4.3)\r\n");
+		data.append("User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/16B92 light%2F1.0%28WKWebView%29 baiduboxapp/11.0.0.12 (Baidu; P2 12.1)\r\n");
 		data.append("Content-Type: \r\n");
 		data.append("Accept: */*\r\n");
 		data.append("Referer: https://mbd.baidu.com/webpage?type=starhit&action=starhome&starid="+ vid +"&from=alading\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
 		//data.append("Cookie: BAIDUCUID=_avet_P1SulP"+ MyUtil.makeNonce(12)+"-"+ MyUtil.makeNonce(12)+"_iE-NN"+MyUtil.makeNonce(10) +"Pf_uL28gha2tDA;  BAIDUID="+ buids +"; BIDUPSID="+ temp+"9759B8EAEA14CFC65FCC; BDUSS="+ MyUtil.makeNonce(12)+"Vk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dld"+ MyUtil.makeNonce(6)+"2llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(26)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ MyUtil.makeNonce(14)+"S;\r\n");
 		//                   BAIDUCUID=_avet_P1SuNN(8)SNuluP-aYVuNN(8)_iE-88La28ngu2Pf_uL28gha2tDA; BAIDUID=NN(8)180E9759B8EAEA14CFC65FCC:FG=1; BIDUPSID=NN(8)180E9759B8EAEA14CFC65FCC; BDUSS=dNenoyUjNrdlA4dmhGR3lncXJFVHJTamw0Qm93YlptVjZoOH53cHhvaGNyVEZjQVFBQUFBJCQAAAAAAAAAAAEAAANN(6)AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFwgClxcIApcak; 
-		data.append("Cookie: BAIDUCUID="+ MyUtil.makeNonce(10)+"_OPvao_iSZulO3Hig_a28P_aSOf_ax2i80Pvt__u278_ajv8YMa2tHA; BAIDUID="+ buids +"; BDUSS=QxZ2pDd2VkTEFCS0lt"+ MyUtil.makeNonce(12)+"TFVBRnJ0ZndxfmE4ZmdrSnZlVTBGalJjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(6)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADSJDF"+ MyUtil.makeNonce(8)+"; \r\n");
+		data.append("Cookie: x-logic-no=5; BDPASSGATE="+ MyUtil.makeNonce(10)+"_yiU4VOu3kIN8efBUrKAAevFSlp636SPfCaWmhH33bUrWz0HSieXBDP6wZTXebZda5XKXlVXa_1ajQMtfyJrbCWyzNSotMPdJ222y2QZCb4jKUE0wA4HkPNjwOEd0f6NKTsubRDghQw4ivKl73JXb38076nomMrs1TCG0Grqr83IKHRfQGLYKuuR94rSjEdgXJmfA4H6TS0dmUs4QGUY8K0fdME-A3v5rnW; BAIDULOC=12613216.419904_2619693.4042002_1000_257_1544528602986; BDORZ=AE84CDB3A529C0F8A2B9DCDD1D18B695; BAIDUCUID="+ buid2 +"; WISE_HIS_PM=1; MBD_UL=U10uJVMHwyAdx5JRNydpyw; BDUSS=duZFVxfk8zdUthODF-U0U0VEcxOXJRaU1TeWdobzB3"+MyUtil.makeNonce(10)+"hHOXBtMXhiQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(6)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGkONVtpDjVbWE; BIDUPSID=04C5CB99B5324855EFE99ABD93C00B58; MSA_WH=414_613; MBD_AT=1528471206; BAIDUID="+ buids+"; \r\n");
 		//data.append("Cookie: BAIDUCUID=_aHMi_ikHi_m8v8Mg8v0fliK2u_D8vunl8Seija9HiiLu28hgu278_aj2tjRa2tHA; BAIDUID=" + buids +"; MBD_AT=1544365777; BDORZ=FAE1F8CFA4E8841CC28A015FEAEE495D; BDPASSGATE=IlPT2AEptyoA_yiU4V4v3kIN8ejBVrmAH4PJSEptQlePdCyWmhTOAqVyEzChZm_YHi4hzp3acMAJxyndVi2ed0YudR1JojBLfEOdxq_Kr0vtKx2-fK1w0a4jKUE2sA8YbKBzx4w0RQVGZzEub0v5h2druhKl73JQb4r5y5C7gKrl_oGm2X8My88b28RkPGbAPNu594rXhkdTNkSdUuL2LTTtmXA9Ypku5LWziLoQ1eD-zDELDfLoOPMaG705JiW; delPer=0; PSINO=5; BAIDULOC=13432834_3639127_66_224_1544506576339; BDUSS=GJBZjFodlQ0MnJXelFkLTczUlkzfmhMbFFYNHV3U0xsSGMzUXN4RGpwMHM0VFpjQVFBQUFBJCQAAAAAAAAAAAEAAADiRmoqt-e46DExMTExAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxUD1wsVA9cM; \r\n");
 		data.append("X-Forwarded-For: "+ MyUtil.getIp()+"\r\n");
 		data.append("X-Requested-With: com.baidu.searchbox\r\n");
@@ -346,7 +360,10 @@ public class WeiboVote extends Weibo {
 			return data.toString().getBytes();
 		}
 	//微博之夜
-		private byte[] netchina2018(String uid,String vid,String cookie){
+		private byte[] netchina2018(String uid,String vid,String cookies){
+			String[] cookiess=cookies.split("\\^");
+			String cookie="";
+			if(cookiess.length>2) {cookie=cookiess[2];}
 			StringBuilder data = new StringBuilder(900);  
 			String temp="item_no="+ vid +"&clientType=mobile&type=2\r\n";
 			data.append("POST /netchina2018/aj_vote?currentuid="+ uid +"&item_no="+ vid +" HTTP/1.1\r\n");
@@ -360,7 +377,7 @@ public class WeiboVote extends Weibo {
 			data.append("Connection: keep-alive\r\n");
 			data.append("Referer: https://huodong.weibo.cn/netchina2018/h5_voteresult?item_id=pfwe%2FgFHecXZL%2FsHLTMeEw%3D%3D&sinainternalbrowser=topnav&luicode=10000011&lfid=100165_-_netchina2018_-_index_-_toolbar\r\n");
 			data.append("Content-Length: "+ temp.length()+"\r\n");
-			data.append("Cookie: \r\n");
+			data.append("Cookie: "+ cookie + "\r\n");
 			data.append("\r\n");
 			data.append(temp);
 			data.append("\r\n");
