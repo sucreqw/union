@@ -321,6 +321,7 @@ public class WeiboVote extends Weibo {
 		//data.append("Cookie: BAIDUCUID=_avet_P1SulP"+ MyUtil.makeNonce(12)+"-"+ MyUtil.makeNonce(12)+"_iE-NN"+MyUtil.makeNonce(10) +"Pf_uL28gha2tDA;  BAIDUID="+ buids +"; BIDUPSID="+ temp+"9759B8EAEA14CFC65FCC; BDUSS="+ MyUtil.makeNonce(12)+"Vk9XLXVtNHFWRlhKTXF4MkxmU3NwMX54dld"+ MyUtil.makeNonce(6)+"2llRWNYUkpjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(26)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ MyUtil.makeNonce(14)+"S;\r\n");
 		//                   BAIDUCUID=_avet_P1SuNN(8)SNuluP-aYVuNN(8)_iE-88La28ngu2Pf_uL28gha2tDA; BAIDUID=NN(8)180E9759B8EAEA14CFC65FCC:FG=1; BIDUPSID=NN(8)180E9759B8EAEA14CFC65FCC; BDUSS=dNenoyUjNrdlA4dmhGR3lncXJFVHJTamw0Qm93YlptVjZoOH53cHhvaGNyVEZjQVFBQUFBJCQAAAAAAAAAAAEAAANN(6)AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFwgClxcIApcak; 
 		data.append("Cookie: BAIDUCUID="+ MyUtil.makeNonce(10)+"_OPvao_iSZulO3Hig_a28P_aSOf_ax2i80Pvt__u278_ajv8YMa2tHA; BAIDUID="+ buids +"; BDUSS=QxZ2pDd2VkTEFCS0lt"+ MyUtil.makeNonce(12)+"TFVBRnJ0ZndxfmE4ZmdrSnZlVTBGalJjQVFBQUFBJCQAAAAAAAAAAAEAAA"+ MyUtil.makeNonce(6)+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADSJDF"+ MyUtil.makeNonce(8)+"; \r\n");
+		//data.append("Cookie: BAIDUCUID=_aHMi_ikHi_m8v8Mg8v0fliK2u_D8vunl8Seija9HiiLu28hgu278_aj2tjRa2tHA; BAIDUID=" + buids +"; MBD_AT=1544365777; BDORZ=FAE1F8CFA4E8841CC28A015FEAEE495D; BDPASSGATE=IlPT2AEptyoA_yiU4V4v3kIN8ejBVrmAH4PJSEptQlePdCyWmhTOAqVyEzChZm_YHi4hzp3acMAJxyndVi2ed0YudR1JojBLfEOdxq_Kr0vtKx2-fK1w0a4jKUE2sA8YbKBzx4w0RQVGZzEub0v5h2druhKl73JQb4r5y5C7gKrl_oGm2X8My88b28RkPGbAPNu594rXhkdTNkSdUuL2LTTtmXA9Ypku5LWziLoQ1eD-zDELDfLoOPMaG705JiW; delPer=0; PSINO=5; BAIDULOC=13432834_3639127_66_224_1544506576339; BDUSS=GJBZjFodlQ0MnJXelFkLTczUlkzfmhMbFFYNHV3U0xsSGMzUXN4RGpwMHM0VFpjQVFBQUFBJCQAAAAAAAAAAAEAAADiRmoqt-e46DExMTExAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxUD1wsVA9cM; \r\n");
 		data.append("X-Forwarded-For: "+ MyUtil.getIp()+"\r\n");
 		data.append("X-Requested-With: com.baidu.searchbox\r\n");
 		data.append("\r\n");
@@ -344,5 +345,27 @@ public class WeiboVote extends Weibo {
 			data.append("\r\n");
 			return data.toString().getBytes();
 		}
-	
+	//微博之夜
+		private byte[] netchina2018(String uid,String vid,String cookie){
+			StringBuilder data = new StringBuilder(900);  
+			String temp="item_no="+ vid +"&clientType=mobile&type=2\r\n";
+			data.append("POST /netchina2018/aj_vote?currentuid="+ uid +"&item_no="+ vid +" HTTP/1.1\r\n");
+			data.append("Host: huodong.weibo.cn\r\n");
+			data.append("Accept: application/json\r\n");
+			data.append("X-Requested-With: XMLHttpRequest\r\n");
+			data.append("Accept-Language: en-us\r\n");
+			data.append("Content-Type: application/x-www-form-urlencoded\r\n");
+			data.append("Origin: https://huodong.weibo.cn\r\n");
+			data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15\r\n");
+			data.append("Connection: keep-alive\r\n");
+			data.append("Referer: https://huodong.weibo.cn/netchina2018/h5_voteresult?item_id=pfwe%2FgFHecXZL%2FsHLTMeEw%3D%3D&sinainternalbrowser=topnav&luicode=10000011&lfid=100165_-_netchina2018_-_index_-_toolbar\r\n");
+			data.append("Content-Length: "+ temp.length()+"\r\n");
+			data.append("Cookie: \r\n");
+			data.append("\r\n");
+			data.append(temp);
+			data.append("\r\n");
+			data.append("\r\n");
+		
+			return data.toString().getBytes();
+		}
 }
