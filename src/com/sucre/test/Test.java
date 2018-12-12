@@ -21,7 +21,7 @@ public class Test {
 		 * String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"),
 		 * 54); System.out.println(ret);
 		 */
-		System.out.println("\u64cd\u4f5c\u8fc7\u5feb");
+		System.out.println("\u53c2\u6570\u503c\u53c2\u6570 (%s) \u975e\u6cd5\uff0c\u9700\u4e3a (%s)\uff0c\u5b9e\u9645\u4e3a (%s)\uff0c\u8bf7\u53c2\u8003API\u6587\u6863");
 		/*
 		 * System.out.println("" + (char) 139 + (char) 77 + (char) 46 + (char)
 		 * 02 +
@@ -33,21 +33,21 @@ public class Test {
 		 * (char) 02 + "ct" + (char) 13 + "1542634053359" + (char) 02 + "st" +
 		 * (char) 13 +"1542634043758");
 		 */
-		for (int i = 0; i < 1; i++) {
-			JsUtil.loadJs("js.js");
-		WeiboCapcha capcha = new WeiboCapcha();
-			capcha.setUid("6828954865");
-			capcha.setVoteId("1022:1008086de98a1a1a398df9761c706bfaac6b00");
-			capcha.Actions(0, "getpicD");
-			
-//		//SinaCapchaUtil util=new SinaCapchaUtil();
-//			String temp=SinaCapchaUtil.grayImage2(MyUtil.loadByte("temp3.jpg"), 63);
+//		for (int i = 0; i < 1; i++) {
+//			JsUtil.loadJs("js.js");
+//		WeiboCapcha capcha = new WeiboCapcha();
+//			capcha.setUid("6828954865");
+//			capcha.setVoteId("1022:1008086de98a1a1a398df9761c706bfaac6b00");
+//			capcha.Actions(0, "getpicD");
 //			
-//			System.out.println("结果：" + temp );
-//			 String temps = capcha.simulate("44", "100");
-//			 temps = capcha.getjs(temps);
-//			 System.out.println(temps);
-		}
+////		//SinaCapchaUtil util=new SinaCapchaUtil();
+////			String temp=SinaCapchaUtil.grayImage2(MyUtil.loadByte("temp3.jpg"), 63);
+////			
+////			System.out.println("结果：" + temp );
+////			 String temps = capcha.simulate("44", "100");
+////			 temps = capcha.getjs(temps);
+////			 System.out.println(temps);
+//		}
 
 	}
 
