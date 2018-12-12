@@ -184,6 +184,40 @@ public class WeiboVote extends Weibo {
 					}
 				}
 				break;
+			
+			case "秒拍领分" :
+				for (int j = 1; j < 3; j++) {
+					ret = nets.goPost("n.miaopai.com", 443, task(super.getCookie(), String.valueOf(j)));
+					if (!MyUtil.isEmpty(ret)) {
+					    MyUtil.print(MyUtil.midWord("data\":", "}", ret), Factor.getGui());
+					}
+				}	
+				break;
+			
+			case "秒拍查分" :
+				ret = nets.goPost("n.miaopai.com", 443, fansvotes(super.getCookie()));
+				if (!MyUtil.isEmpty(ret)) {
+				    MyUtil.print(MyUtil.midWord("data\":", "}", ret), Factor.getGui());
+				}
+				break;
+				
+			case "秒拍送分" :
+				vid=URLEncoder.encode(vid);
+				for (int j=0; j<5; j++) {
+				ret = nets.goPost("n.miaopai.com", 443, miaovote(super.getCookie(), vid, MyUtil.makeNumber(10)));
+				if (!MyUtil.isEmpty(ret)) {
+					MyUtil.counts++;
+					
+				    if (ret.indexOf("consume\":\"1\"}")!=-1) {
+				    	MyUtil.succcounts=MyUtil.succcounts+10;
+				    	MyUtil.print("投票成功！软件运行次数："+ MyUtil.counts +"<>返回成功次数："+MyUtil.succcounts, Factor.getGui());
+				    }else {
+				    	MyUtil.print("投票失败，跳过！", Factor.getGui());
+				    	break;
+				    }
+				}
+				}
+				break;
 			}// end of switch
 
 		}
@@ -443,6 +477,59 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		data.append("\r\n");
 
+		return data.toString().getBytes();
+	}
+	//秒拍签到+0秒视频领分 type为1时为签到 为2时为视频领分
+	private byte[] task(String cookie,String type) {
+		
+		StringBuilder data = new StringBuilder(900);
+		//String temp = "";
+		data.append("GET /api/aj_wbstory/task.json?appid=530&suid="+cookie +"&type="+ type +"&_cb=_jsonp4r2gf10n9gp HTTP/1.1\r\n");
+		data.append("Host: n.miaopai.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
+		data.append("Accept: */*\r\n");
+		data.append("Referer: http://n.miaopai.com/weibo2018\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
+		data.append("X-Requested-With: com.yixia.videoeditor\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+	//秒拍微博之夜送分
+	private byte[] miaovote(String cookie,String vid,String uid) {
+		StringBuilder data = new StringBuilder(900);
+		//String temp = "";
+		data.append("GET /api/aj_wbstory/vote.json?appid=530&suid="+ cookie +"&uid="+ uid +"&id="+ vid +"&_cb=_jsonph6n0z9xrvgi HTTP/1.1\r\n");
+		data.append("Host: n.miaopai.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
+		data.append("Accept: */*\r\n");
+		data.append("Referer: http://n.miaopai.com/weibo2018\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
+		data.append("X-Requested-With: com.yixia.videoeditor\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+	
+	//秒拍账号查分
+	private byte[] fansvotes(String cookie) {
+		StringBuilder data = new StringBuilder(900);
+		//String temp = "";
+		data.append("GET /api/aj_wbstory/fansvotes.json?appid=530&suid="+ cookie +"&_cb=_jsonpd8awzj7t72d HTTP/1.1\r\n");
+		data.append("Host: n.miaopai.com\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
+		data.append("Accept: */*\r\n");
+		data.append("Referer: http://n.miaopai.com/weibo2018\r\n");
+		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
+		data.append("X-Requested-With: com.yixia.videoeditor\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
 		return data.toString().getBytes();
 	}
 }
