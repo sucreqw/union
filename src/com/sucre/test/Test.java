@@ -56,7 +56,9 @@ public class Test {
 //	                l.append("ts", o),
 //	                l.append("expire", 3e5),
 //	                l.append("sign"
-    System.out.print(MyUtil.MD5("300000321544660897304211862636691me.verified.weibo.com"));
+		for (int j=0; j<5; j++) {
+		  System.out.print(j);
+		}
 	}
 
 }

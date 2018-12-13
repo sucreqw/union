@@ -189,7 +189,7 @@ public class WeiboVote extends Weibo {
 				for (int j = 1; j < 3; j++) {
 					ret = nets.goPost("n.miaopai.com", 443, task(super.getCookie(), String.valueOf(j)));
 					if (!MyUtil.isEmpty(ret)) {
-					    MyUtil.print(MyUtil.midWord("data\":", "}", ret), Factor.getGui());
+					    MyUtil.print(MyUtil.midWord("data\":", "}", ret)+"<>"+(index +1), Factor.getGui());
 					}
 				}	
 				break;
@@ -197,7 +197,7 @@ public class WeiboVote extends Weibo {
 			case "秒拍查分" :
 				ret = nets.goPost("n.miaopai.com", 443, fansvotes(super.getCookie()));
 				if (!MyUtil.isEmpty(ret)) {
-				    MyUtil.print(MyUtil.midWord("data\":", "}", ret), Factor.getGui());
+				    MyUtil.print(MyUtil.midWord("data\":", "}", ret)+"<>"+(index +1), Factor.getGui());
 				}
 				break;
 				
@@ -210,9 +210,9 @@ public class WeiboVote extends Weibo {
 					
 				    if (ret.indexOf("consume\":\"1\"}")!=-1) {
 				    	MyUtil.succcounts=MyUtil.succcounts+10;
-				    	MyUtil.print("投票成功！软件运行次数："+ MyUtil.counts +"<>返回成功次数："+MyUtil.succcounts, Factor.getGui());
+				    	MyUtil.print("投票成功！软件运行次数："+ MyUtil.counts +"<>返回成功次数："+MyUtil.succcounts +"<>"+(index +1), Factor.getGui());
 				    }else {
-				    	MyUtil.print("投票失败，跳过！", Factor.getGui());
+				    	MyUtil.print("投票失败，跳过！"+"<>"+(index +1), Factor.getGui());
 				    	break;
 				    }
 				}
