@@ -23,35 +23,15 @@ import javax.swing.JTextField;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.CropImageFilter;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.ImageFilter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Base64.Encoder;
-import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.Date;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
-import javax.swing.DropMode;
 import javax.swing.JEditorPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 public class Gui extends JFrame implements Printer {
