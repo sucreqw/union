@@ -21,7 +21,7 @@ public class Test {
 		 * String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"),
 		 * 54); System.out.println(ret);
 		 */
-		System.out.println("\u53c2\u6570\u503c\u53c2\u6570 (%s) \u975e\u6cd5\uff0c\u9700\u4e3a (%s)\uff0c\u5b9e\u9645\u4e3a (%s)\uff0c\u8bf7\u53c2\u8003API\u6587\u6863");
+		System.out.println("\u91cd\u590d\u6295\u7968!");
 		/*
 		 * System.out.println("" + (char) 139 + (char) 77 + (char) 46 + (char)
 		 * 02 +
@@ -48,7 +48,15 @@ public class Test {
 ////			 temps = capcha.getjs(temps);
 ////			 System.out.println(temps);
 //		}
-
+		
+//		 if (l.append("type", t),
+//	                l.append("vuid", e.uid),
+//	                l.append("v_score", 1),
+//	                l.append("source", s),
+//	                l.append("ts", o),
+//	                l.append("expire", 3e5),
+//	                l.append("sign"
+    System.out.print(MyUtil.MD5("300000321544660897304211862636691me.verified.weibo.com"));
 	}
 
 }
