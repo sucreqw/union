@@ -1,5 +1,6 @@
 package com.sucre.service;
 
+import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
 import com.sucre.utils.MyUtil;
 
@@ -30,7 +31,7 @@ public class PlayStatistics {
 			if (ret.indexOf("success") != -1) {
 				return 1;
 			}
-
+           MyUtil.print(MyUtil.midWord("data\":\"", "}", ret), Factor.getGui());
 		}
 
 		return 0;
@@ -104,7 +105,8 @@ public class PlayStatistics {
 		 * D = "data={""uid"":""" & U & """,""mid"":""" & M & """,""keys"":""" &
 		 * K & """,""type"":""feedvideo""}&key=" & Ks & "&sig=" & Sig
 		 */
-
+       //{"uid":"1985825237","mid":"4317077814545999","type":"feedlive"}H5_ebsqd_154478059278732901yixiong&zhaolong5
+		//{"uid":"uid","mid":"mid","type":"feedlive"}
 		String vid = "{\"uid\":\"" + uid + "\",\"mid\":\"" + mid + "\",\"type\":\"feedlive\"}";
 		String t = MyUtil.getTime();
 
@@ -112,7 +114,10 @@ public class PlayStatistics {
 		String sig = MyUtil.MD5(vid + key + "yixiong&zhaolong5");
 
 		StringBuilder data = new StringBuilder();
-		String temp = "data=" + vid + "&key=" + key + "&sig=" + sig + "&\r\n";
+		//data={"uid":"2944114247","mid":"4317077814545999","type":"feedlive"}&key=H5_3iQXe_154478136628149391&sig=9517346432cbfc0b4a224dda630846c7&
+
+		//data={"uid":"1985825237","mid":"4317077814545999","type":"feedlive"}&key=H5_8sdty_154478031815761111&sig=99e129f2f9715793a7f99d5fbcbcd717
+		String temp = "data=" + vid +"&key=" + key +"&sig=" + sig + "&\r\n";
 
 		data.append("POST https://weibo.com/aj/video/playstatistics?ajwvr=6 HTTP/1.1\r\n");
 		data.append("Origin: https://weibo.com\r\n");

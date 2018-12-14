@@ -242,7 +242,7 @@ public class WeiboVote extends Weibo {
 			case "回放" :
 				
 				PlayStatistics plays = new PlayStatistics();
-				int retss = plays.play(super.getUid(), vid, super.getCookie());
+				int retss = plays.play2(super.getUid(), vid, super.getCookie());
 				if (retss == 1) {
 					MyUtil.print("成功！！" + (index + 1), Factor.getGui());
 				} else {

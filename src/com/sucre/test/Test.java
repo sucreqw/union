@@ -21,7 +21,7 @@ public class Test {
 		 * String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"),
 		 * 54); System.out.println(ret);
 		 */
-		System.out.println("security_id\u4e0d\u6b63\u786e");
+		System.out.println("{\"uid\":\"" + "uid" + "\",\"mid\":\"" + "mid" + "\",\"type\":\"feedlive\"}");
 		/*
 		 * System.out.println("" + (char) 139 + (char) 77 + (char) 46 + (char)
 		 * 02 +
