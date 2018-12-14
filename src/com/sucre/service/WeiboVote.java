@@ -220,8 +220,11 @@ public class WeiboVote extends Weibo {
 				break;
 				
 			case "v峰会":
+				String id=vid;//MyUtil.midWord("uid=", "&", vid);
+				String source="32";//MyUtil.midWord("source=", "&", vid);
+				
 				for (int j=1; j<4; j++) {
-					ret = nets.goPost("me.verified.weibo.com", 443, vfh2018(super.getCookie(),vid,String.valueOf(j)));
+					ret = nets.goPost("me.verified.weibo.com", 443, vfh2018(super.getCookie(),id,String.valueOf(j),source));
 					if (!MyUtil.isEmpty(ret)) {
 						MyUtil.counts++;
 						
@@ -235,6 +238,18 @@ public class WeiboVote extends Weibo {
 					}
 					}
 				break;
+			
+			case "回放" :
+				
+				PlayStatistics plays = new PlayStatistics();
+				int retss = plays.play(super.getUid(), vid, super.getCookie());
+				if (retss == 1) {
+					MyUtil.print("成功！！" + (index + 1), Factor.getGui());
+				} else {
+					MyUtil.print("失败！！" + (index + 1) + "<>" + super.getId() + "|" + super.getPass(), Factor.getGui());
+				}
+				break;
+				
 			}// end of switch
 
 		}
@@ -551,12 +566,18 @@ public class WeiboVote extends Weibo {
 	}
 	
 	//v峰会投票 1为宣传，2为拉票，3为想见他
-	private byte[] vfh2018(String cookie,String vid,String type) {
+	private byte[] vfh2018(String cookies,String vid,String type,String source) {
+		String[] cookiess = cookies.split("\\^");
+		String cookie = "";
+//		if (cookiess.length > 0) {
+//			cookie = cookiess[2];
+//		}
+		cookie=cookiess[0];
 		StringBuilder data = new StringBuilder(900);
 		//(3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
 		String t=MyUtil.getTime();
-		String h=MyUtil.MD5("30000032"+ t + type +"1"+ vid +"me.verified.weibo.com");
-		String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source=32&ts="+ t+"&expire=300000&sign="+ h+"&\r\n";
+		String h=MyUtil.MD5("300000"+source + t + type +"1"+ vid +"me.verified.weibo.com");
+		String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source="+ source +"&ts="+ t+"&expire=300000&sign="+ h+"&\r\n";
 		data.append("POST /vfh2018/ajax/vote HTTP/1.1\r\n");
 		data.append("Host: me.verified.weibo.com\r\n");
 		data.append("Connection: keep-alive\r\n");
@@ -572,6 +593,30 @@ public class WeiboVote extends Weibo {
 		data.append("X-Requested-With: com.sina.weibo\r\n");
 		data.append("\r\n");
 		data.append(temp);
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+	//回放
+	private byte[] flashplayinfo(String cookie,String vid,String uid) {
+		StringBuilder data = new StringBuilder(900);
+		//(3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
+		vid=URLEncoder.encode(vid);
+		String t=String.valueOf(System.currentTimeMillis()+ (int) 36e5);
+		String h=MyUtil.MD5("id="+ vid +"&uid="+ uid +"&fr=h5&expires="+ t +"22f18e62a05fb5e4fe4000e6e97ced10");
+	//String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source=32&ts="+ t+"&expire=300000&sign="+ h+"&\r\n";
+		
+		data.append("GET /api/live/flashplayinfo?id="+ vid +"&uid="+ uid +"&fr=h5&expires="+ t +"&sign="+ h +" HTTP/1.1\r\n");
+		data.append("Host: ing.weibo.com\r\n");
+		data.append("Origin: http://live.weibo.com\r\n");
+		
+		data.append("Cookie: \r\n");
+		data.append("Accept: */*\r\n");
+		data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15\r\n");
+		data.append("Accept-Language: en-us\r\n");
+		data.append("Referer: http://live.weibo.com/show\r\n");
+		data.append("Connection: keep-alive\r\n");
+		
 		data.append("\r\n");
 		data.append("\r\n");
 		return data.toString().getBytes();

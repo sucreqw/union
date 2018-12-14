@@ -21,7 +21,7 @@ public class Test {
 		 * String ret=SinaCapchaUtil.grayImage2(MyUtil.loadByte("ret2.jpg"),
 		 * 54); System.out.println(ret);
 		 */
-		System.out.println("\u91cd\u590d\u6295\u7968!");
+		System.out.println("security_id\u4e0d\u6b63\u786e");
 		/*
 		 * System.out.println("" + (char) 139 + (char) 77 + (char) 46 + (char)
 		 * 02 +
@@ -56,9 +56,9 @@ public class Test {
 //	                l.append("ts", o),
 //	                l.append("expire", 3e5),
 //	                l.append("sign"
-		for (int j=0; j<5; j++) {
-		  System.out.print(j);
-		}
+		int a=(int) 36e5;
+		System.out.print(a);
+		System.out.print(MyUtil.MD5("id=1042152%3Ace1b6e2b50804a85539c361a51a5aa23&uid=6830645982&fr=h5&expires=154477690203922f18e62a05fb5e4fe4000e6e97ced10"));
 	}
 
 }
