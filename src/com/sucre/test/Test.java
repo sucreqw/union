@@ -56,9 +56,8 @@ public class Test {
 //	                l.append("ts", o),
 //	                l.append("expire", 3e5),
 //	                l.append("sign"
-		int a=(int) 36e5;
-		System.out.print(a);
-		System.out.print(MyUtil.MD5("id=1042152%3Ace1b6e2b50804a85539c361a51a5aa23&uid=6830645982&fr=h5&expires=154477690203922f18e62a05fb5e4fe4000e6e97ced10"));
+
+		System.out.print(MyUtil.MD5("{\"uid\":\"2756703685\",\"mid\":\"4317077814545999\",\"type\":\"feedlive\"}H5_D2SMP_154478592676658911yixiong&zhaolong5"));
 	}
 
 }

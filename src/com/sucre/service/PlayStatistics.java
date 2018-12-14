@@ -26,6 +26,8 @@ public class PlayStatistics {
 		// String uid=MyUtil.midWord("uid\":\"", "\",\"", vid);
 		String mid = MyUtil.midWord("mid\":\"", "\",\"", vid);
 		//String keys = MyUtil.midWord("keys\":\"", "\",\"", vid);
+		uid=MyUtil.makeNumber(10);
+		//cookie="";
 		String ret = net.goPost("weibo.com", 443, playstatistics2(cookie, uid, mid));
 		if (!MyUtil.isEmpty(ret)) {
 			if (ret.indexOf("success") != -1) {
@@ -121,7 +123,7 @@ public class PlayStatistics {
 
 		data.append("POST https://weibo.com/aj/video/playstatistics?ajwvr=6 HTTP/1.1\r\n");
 		data.append("Origin: https://weibo.com\r\n");
-		data.append("Referer: https://weibo.com/2141853335/H5cEZmbrD?type=comment\r\n");
+		data.append("Referer: https://weibo.com/\r\n");
 		data.append(
 				"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134\r\n");
 		data.append("Content-Type: application/x-www-form-urlencoded\r\n");

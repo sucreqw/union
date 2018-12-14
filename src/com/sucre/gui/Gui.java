@@ -294,6 +294,10 @@ public class Gui extends JFrame implements Printer {
 					Controller.getInstance().doMission(m, 0, Integer.parseInt(thread.getText()), false);
 					print("checkIn!!!");
 					break;
+				case "定时换ip":
+					Controller.getInstance().changeipM("定时换ip", Integer.parseInt(thread.getText()));
+					
+					break;
 				case "加油":
 				    Controller.getInstance().vote(Integer.parseInt(startpoint.getText()), Integer.parseInt( thread.getText()), IsCircle.isSelected(), m);
 					break;
@@ -312,7 +316,7 @@ public class Gui extends JFrame implements Printer {
 
 		mission = new JComboBox();
 		mission.setBounds(560, 46, 103, 27);
-		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜","查分", "加油", "搜索s.com","游客","阅读","播放","沸点","剧赞","微博之夜","秒拍领分","秒拍查分","秒拍送分","v峰会","回放"}));
+		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜","查分", "加油", "搜索s.com","游客","阅读","播放","沸点","剧赞","微博之夜","秒拍领分","秒拍查分","秒拍送分","v峰会","回放","定时换ip","综艺赞"}));
 		panel.add(mission);
 
 		resume = new JButton("暂停");
@@ -383,6 +387,7 @@ public class Gui extends JFrame implements Printer {
 						 
 						 if(t.equals(Factor.getGuiFrame().Times.getText())) {
 							 Factor.getGuiFrame().begin.doClick();
+							 
 						 }
 						 MyUtil.sleeps(1000);
 						 }

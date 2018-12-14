@@ -53,10 +53,10 @@ public class Controller {
 	 * 
 	 * @param fileName
 	 */
-	public void loadWeiboId(String fileName, JTable table,String mission) {
+	public void loadWeiboId(String fileName, JTable table, String mission) {
 		weiboImplId = new WeiboImpl();
 		weiboImplId.loadList(fileName);
-		//weiboImplId.getCounts(Integer.parseInt(fileName), mission);
+		// weiboImplId.getCounts(Integer.parseInt(fileName), mission);
 		GuiUtil.loadTableVid(table, (MutiList) weiboImplId.getlist());
 	}
 
@@ -83,24 +83,30 @@ public class Controller {
 		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 
 	}
-    /**
-     * 添加一个vid
-     * @param data
-     * @param table
-     */
+
+	/**
+	 * 添加一个vid
+	 * 
+	 * @param data
+	 * @param table
+	 */
 	public void addVid(String data, JTable table) {
-		if (null==vidImpl) {vidImpl = new VidImpl();}
+		if (null == vidImpl) {
+			vidImpl = new VidImpl();
+		}
 		vidImpl.add(data);
 		GuiUtil.loadTableVid(table, (MutiList) vidImpl.getlist());
 	}
-    /**
-     * 取vid的列表对象
-     * @return
-     */
+
+	/**
+	 * 取vid的列表对象
+	 * 
+	 * @return
+	 */
 	public vidDao getVidImpl() {
 		return vidImpl;
 	}
-   
+
 	/**
 	 * 加载list到列表
 	 * 
@@ -125,14 +131,14 @@ public class Controller {
 	 * @param limit    账号总数
 	 * @param isCircle 是否循环
 	 */
-	public void login(int thread, boolean isCircle,int start) {
+	public void login(int thread, boolean isCircle, int start) {
 		int limit = weiboImplId == null ? 0 : weiboImplId.getsize();
 		if (limit == 0) {
 			MyUtil.print("ID未导入！", Factor.getGui());
 		}
-		Login login = new Login(start, limit-1, isCircle, weiboImplId);
+		Login login = new Login(start, limit - 1, isCircle, weiboImplId);
 		for (int i = 1; i <= thread; i++) {
-			
+
 			Thread t = new Thread(login);
 			if (i == 1) {
 				t.setName("ip");
@@ -141,14 +147,14 @@ public class Controller {
 		}
 	}
 
-	public void guess(int startpoint,int thread, boolean isCircle) {
+	public void guess(int startpoint, int thread, boolean isCircle) {
 		int limit = weiboImplCookie == null ? 0 : weiboImplCookie.getsize();
 		if (limit == 0) {
 			MyUtil.print("Cookie未导入！", Factor.getGui());
 		}
-		Guess guess = new Guess(startpoint, limit-1, isCircle, weiboImplCookie);
+		Guess guess = new Guess(startpoint, limit - 1, isCircle, weiboImplCookie);
 		for (int i = 1; i <= thread; i++) {
-			
+
 			Thread t = new Thread(guess);
 			if (i == 1) {
 				t.setName("ip");
@@ -156,9 +162,10 @@ public class Controller {
 			t.start();
 		}
 	}
-   
+
 	/**
 	 * 取九宫格验证码
+	 * 
 	 * @param thread
 	 * @param isCircle
 	 */
@@ -169,7 +176,7 @@ public class Controller {
 		}
 		Capcha capcha = new Capcha(0, limit, isCircle, weiboImplId);
 		for (int i = 1; i <= thread; i++) {
-			
+
 			Thread t = new Thread(capcha);
 			if (i == 1) {
 				t.setName("ip");
@@ -177,24 +184,24 @@ public class Controller {
 			t.start();
 		}
 	}
-    
 
 	/**
 	 * 新浪投票类
-	 * @param start 起始位置
-	 * @param thread 线程数
+	 * 
+	 * @param start    起始位置
+	 * @param thread   线程数
 	 * @param isCircle 是否循环
-	 * @param mission 任务名称
+	 * @param mission  任务名称
 	 */
-	public void vote(int start , int thread, boolean isCircle,String mission) {
+	public void vote(int start, int thread, boolean isCircle, String mission) {
 		int limit = weiboImplCookie == null ? 0 : weiboImplCookie.getsize();
-		if (limit == 0 || getVidImpl()==null) {
+		if (limit == 0 || getVidImpl() == null) {
 			MyUtil.print("Cookie或者vid未导入！", Factor.getGui());
-			return ;
+			return;
 		}
-		SinaVote vote = new SinaVote(start, limit-1, isCircle, weiboImplCookie,mission);
+		SinaVote vote = new SinaVote(start, limit - 1, isCircle, weiboImplCookie, mission);
 		for (int i = 1; i <= thread; i++) {
-			
+
 			Thread t = new Thread(vote);
 			if (i == 1) {
 				t.setName("ip");
@@ -202,7 +209,7 @@ public class Controller {
 			t.start();
 		}
 	}
-	
+
 	/**
 	 * 取用户定义的多少账号换一次ip
 	 * 
@@ -210,6 +217,24 @@ public class Controller {
 	 */
 	public int changeIPcount() {
 		return Factor.getGuiFrame().getIPcount();
+	}
+
+	/**
+	 * 定时换ip,秒数
+	 */
+	public void changeipM(String mission, int s) {
+		Thread thread = new Thread() {
+			int i = 0;
+
+			public void run() {
+				while (true) {
+					i++;
+                    if(i==s) {MyUtil.changIp(); i=0;}
+                    MyUtil.sleeps(1000);
+				}
+			};
+		};
+		thread.start();
 	}
 
 	public void doMission(String mission, int l, int thread, boolean isCircle) {
@@ -221,7 +246,7 @@ public class Controller {
 				MyUtil.print("Cookie或者vid未导入！", Factor.getGui());
 			}
 			for (int i = 1; i <= thread; i++) {
-				CheckIn checkin = new CheckIn(l, limit-1, isCircle, weiboImplCookie, mission);
+				CheckIn checkin = new CheckIn(l, limit - 1, isCircle, weiboImplCookie, mission);
 				Thread t = new Thread(checkin);
 				if (i == 1) {
 					t.setName("ip");
@@ -288,7 +313,7 @@ public class Controller {
 	public boolean isStop() {
 		return this.stop;
 	}
-	
+
 	public int getEndCount() {
 		return Factor.getGuiFrame().getCounts();
 	}

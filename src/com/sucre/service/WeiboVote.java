@@ -4,6 +4,7 @@ import java.net.CookieHandler;
 import java.net.URLEncoder;
 import java.nio.file.attribute.AclEntry.Builder;
 import java.util.Base64.Encoder;
+import java.util.jar.Attributes.Name;
 import java.util.Spliterator;
 
 import javax.swing.text.TabStop;
@@ -156,14 +157,31 @@ public class WeiboVote extends Weibo {
 			case "剧赞":
 				ret = nets.goPost("api.weibo.cn", 443, gouvote(super.getUid(), super.getCookie(), super.getS(), vid));
 				if (!MyUtil.isEmpty(ret)) {
+					MyUtil.counts++;
 					if (ret.indexOf("result\":1") != -1) {
-						MyUtil.print("剧赞成功！", Factor.getGui());
+						MyUtil.succcounts++;
+						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts
+								+ "<=>返回成功次数：" + MyUtil.succcounts, Factor.getGui());
 					} else {
 						MyUtil.print("剧赞失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
 					}
 				}
 				break;
-
+			case "综艺赞":
+				String vv=MyUtil.midWord("vid=", "&", vid);
+				String n=MyUtil.midWord("name=", "&", vid);
+				ret = nets.goPost("api.weibo.cn", 443, relivevote(n, super.getCookie(), super.getS(), vv));
+				if (!MyUtil.isEmpty(ret)) {
+					MyUtil.counts++;
+					if (ret.indexOf("result\":1") != -1) {
+						MyUtil.succcounts++;
+						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts
+								+ "<=>返回成功次数：" + MyUtil.succcounts, Factor.getGui());
+					} else {
+						MyUtil.print("剧赞失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
+					}
+				}
+				break;
 			case "微博之夜":
 				for (int j = 0; j < 20; j++) {
 					ret = nets.goPost("huodong.weibo.cn", 443, netchina2018(super.getUid(), vid, super.getCookie()));
@@ -241,13 +259,17 @@ public class WeiboVote extends Weibo {
 			
 			case "回放" :
 				
-				PlayStatistics plays = new PlayStatistics();
+				/*PlayStatistics plays = new PlayStatistics();
 				int retss = plays.play2(super.getUid(), vid, super.getCookie());
 				if (retss == 1) {
 					MyUtil.print("成功！！" + (index + 1), Factor.getGui());
 				} else {
 					MyUtil.print("失败！！" + (index + 1) + "<>" + super.getId() + "|" + super.getPass(), Factor.getGui());
-				}
+				}*/
+				
+				ret=nets.goPost("", 443, flashplayinfo(super.getCookie(),vid,super.getUid()));
+				MyUtil.counts++;
+				MyUtil.print(String.valueOf(MyUtil.counts), Factor.getGui());
 				break;
 				
 			}// end of switch
@@ -463,6 +485,7 @@ public class WeiboVote extends Weibo {
 		cookie = MyUtil.midWord("SUB=", ";", cookie);
 		StringBuilder data = new StringBuilder(900);
 		uid = MyUtil.makeNumber(10);
+		//http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
 		data.append("GET /2/page/button?request_url=http%3A%2F%2Fi.dianshi.weibo.com%2Fji_gouvote%3Fmid%3D" + vid
 				+ "%26uid%3D" + uid
 				+ "%26active_id%3D3015%26na_id%3D1001&networktype=wifi&accuracy_level=0&cardid=Square_DoubleButton&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="
@@ -480,7 +503,25 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
+	// 综艺大赏
+		private byte[] relivevote(String name, String cookie, String s, String vid) {
+			cookie = MyUtil.midWord("SUB=", ";", cookie);
+			StringBuilder data = new StringBuilder(900);
+			//uid = MyUtil.makeNumber(10);
+			//http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
+			//http://i.topic.tv.weibo.com/module/relivevote?oid=1978841494&mod_id=1471&from_mod_id=0&name=%E6%9D%8E%E5%AD%90%E7%92%87
+			name=URLEncoder.encode(name);
+			name=URLEncoder.encode(name);
+			data.append("GET https://api.weibo.cn/2/page/button?request_url=http%3A%2F%2Fi.topic.tv.weibo.com%2Fmodule%2Frelivevote%3Foid%3D"+ vid +"%26mod_id%3D1471%26from_mod_id%3D0%26name%3D%"+ name +"&networktype=wifi&accuracy_level=0&cardid=yanyuan_relive_vote_button&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="+s+"&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLjU9xJv2UnDaKr12aNYUkBHuVU.&fid=231610_standard_cardlist_1463_yanyuan_tabs&v_f=2&v_p=62&from=1086395010&gsid="+ cookie +"&lang=zh_CN&lfid=231610_standard_cardlist_1463_yanyuan_tabs&skin=default&oldwm=9006_2001&sflag=1&luicode=10000011 HTTP/1.1\r\n");
+			data.append("Host: api.weibo.cn\r\n");
+			data.append("Connection: keep-alive\r\n");
+			data.append(
+					"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
 
+			data.append("\r\n");
+			data.append("\r\n");
+			return data.toString().getBytes();
+		}
 	// 微博之夜
 	private byte[] netchina2018(String uid, String vid, String cookies) {
 		String[] cookiess = cookies.split("\\^");
