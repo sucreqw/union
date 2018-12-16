@@ -239,7 +239,7 @@ public class WeiboVote extends Weibo {
 				
 			case "v峰会":
 				String id=vid;//MyUtil.midWord("uid=", "&", vid);
-				String source="32";//MyUtil.midWord("source=", "&", vid);
+				String source="29";//MyUtil.midWord("source=", "&", vid);
 				
 				for (int j=1; j<4; j++) {
 					ret = nets.goPost("me.verified.weibo.com", 443, vfh2018(super.getCookie(),id,String.valueOf(j),source));
@@ -250,7 +250,7 @@ public class WeiboVote extends Weibo {
 					    	MyUtil.succcounts++;
 					    	MyUtil.print("投票成功！软件运行次数："+ MyUtil.counts +"<>返回成功次数："+MyUtil.succcounts, Factor.getGui());
 					    }else {
-					    	MyUtil.print("投票失败!"+MyUtil.decodeUnicode(MyUtil.midWord("data\":", "}", ret)), Factor.getGui());
+					    	MyUtil.print("投票失败!"+MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "}", ret)), Factor.getGui());
 					    	//break;
 					    }
 					}
@@ -618,7 +618,7 @@ public class WeiboVote extends Weibo {
 		//(3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
 		String t=MyUtil.getTime();
 		String h=MyUtil.MD5("300000"+source + t + type +"1"+ vid +"me.verified.weibo.com");
-		String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source="+ source +"&ts="+ t+"&expire=300000&sign="+ h+"&\r\n";
+		String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source="+ source +"&ts="+ t+"&expire=300000&sign="+ h+"&security_id=7b4f070032225cfb93308c976e8ac54e&\r\n";
 		data.append("POST /vfh2018/ajax/vote HTTP/1.1\r\n");
 		data.append("Host: me.verified.weibo.com\r\n");
 		data.append("Connection: keep-alive\r\n");
