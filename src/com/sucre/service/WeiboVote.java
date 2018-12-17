@@ -489,7 +489,7 @@ public class WeiboVote extends Weibo {
 	private byte[] gouvote(String uid, String cookie, String s, String vid) {
 		cookie = MyUtil.midWord("SUB=", ";", cookie);
 		StringBuilder data = new StringBuilder(900);
-		uid = MyUtil.makeNumber(10);
+		//uid = MyUtil.makeNumber(10);
 		// http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
 		data.append("GET /2/page/button?request_url=http%3A%2F%2Fi.dianshi.weibo.com%2Fji_gouvote%3Fmid%3D" + vid
 				+ "%26active_id%3D3015%26na_id%3D1001&networktype=wifi&accuracy_level=0&cardid=Square_DoubleButton&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="
