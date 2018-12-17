@@ -160,23 +160,23 @@ public class WeiboVote extends Weibo {
 					MyUtil.counts++;
 					if (ret.indexOf("result\":1") != -1) {
 						MyUtil.succcounts++;
-						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts
-								+ "<=>返回成功次数：" + MyUtil.succcounts, Factor.getGui());
+						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
+								Factor.getGui());
 					} else {
 						MyUtil.print("剧赞失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
 					}
 				}
 				break;
 			case "综艺赞":
-				String vv=MyUtil.midWord("vid=", "&", vid);
-				String n=MyUtil.midWord("name=", "&", vid);
+				String vv = MyUtil.midWord("vid=", "&", vid);
+				String n = MyUtil.midWord("name=", "&", vid);
 				ret = nets.goPost("api.weibo.cn", 443, relivevote(n, super.getCookie(), super.getS(), vv));
 				if (!MyUtil.isEmpty(ret)) {
 					MyUtil.counts++;
 					if (ret.indexOf("result\":1") != -1) {
 						MyUtil.succcounts++;
-						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts
-								+ "<=>返回成功次数：" + MyUtil.succcounts, Factor.getGui());
+						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
+								Factor.getGui());
 					} else {
 						MyUtil.print("剧赞失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
 					}
@@ -196,82 +196,87 @@ public class WeiboVote extends Weibo {
 							MyUtil.print("投票失败！" + MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "\"", ret)),
 									Factor.getGui());
 						}
-						if(ret.indexOf("\u4eca\u5929\u7968\u6570\u5df2\u7528\u5b8c")!=-1){
+						if (ret.indexOf("\u4eca\u5929\u7968\u6570\u5df2\u7528\u5b8c") != -1) {
 							break;
 						}
 					}
 				}
 				break;
-			
-			case "秒拍领分" :
+
+			case "秒拍领分":
 				for (int j = 1; j < 3; j++) {
 					ret = nets.goPost("n.miaopai.com", 443, task(super.getCookie(), String.valueOf(j)));
 					if (!MyUtil.isEmpty(ret)) {
-					    MyUtil.print(MyUtil.midWord("data\":", "}", ret)+"<>"+(index +1), Factor.getGui());
+						MyUtil.print(MyUtil.midWord("data\":", "}", ret) + "<>" + (index + 1), Factor.getGui());
 					}
-				}	
+				}
 				break;
-			
-			case "秒拍查分" :
+
+			case "秒拍查分":
 				ret = nets.goPost("n.miaopai.com", 443, fansvotes(super.getCookie()));
 				if (!MyUtil.isEmpty(ret)) {
-				    MyUtil.print(MyUtil.midWord("data\":", "}", ret)+"<>"+(index +1), Factor.getGui());
+					MyUtil.print(MyUtil.midWord("data\":", "}", ret) + "<>" + (index + 1), Factor.getGui());
 				}
 				break;
-				
-			case "秒拍送分" :
-				vid=URLEncoder.encode(vid);
-				for (int j=0; j<5; j++) {
-				ret = nets.goPost("n.miaopai.com", 443, miaovote(super.getCookie(), vid, MyUtil.makeNumber(10)));
-				if (!MyUtil.isEmpty(ret)) {
-					MyUtil.counts++;
-					
-				    if (ret.indexOf("consume\":\"1\"}")!=-1) {
-				    	MyUtil.succcounts=MyUtil.succcounts+10;
-				    	MyUtil.print("投票成功！软件运行次数："+ MyUtil.counts +"<>返回成功次数："+MyUtil.succcounts +"<>"+(index +1), Factor.getGui());
-				    }else {
-				    	MyUtil.print("投票失败，跳过！"+"<>"+(index +1), Factor.getGui());
-				    	break;
-				    }
-				}
-				}
-				break;
-				
-			case "v峰会":
-				String id=vid;//MyUtil.midWord("uid=", "&", vid);
-				String source="29";//MyUtil.midWord("source=", "&", vid);
-				
-				for (int j=1; j<4; j++) {
-					ret = nets.goPost("me.verified.weibo.com", 443, vfh2018(super.getCookie(),id,String.valueOf(j),source));
+
+			case "秒拍送分":
+				vid = URLEncoder.encode(vid);
+				for (int j = 0; j < 5; j++) {
+					ret = nets.goPost("n.miaopai.com", 443, miaovote(super.getCookie(), vid, MyUtil.makeNumber(10)));
 					if (!MyUtil.isEmpty(ret)) {
 						MyUtil.counts++;
-						
-					    if (ret.indexOf("100000")!=-1) {
-					    	MyUtil.succcounts++;
-					    	MyUtil.print("投票成功！软件运行次数："+ MyUtil.counts +"<>返回成功次数："+MyUtil.succcounts, Factor.getGui());
-					    }else {
-					    	MyUtil.print("投票失败!"+MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "}", ret)), Factor.getGui());
-					    	//break;
-					    }
+
+						if (ret.indexOf("consume\":\"1\"}") != -1) {
+							MyUtil.succcounts = MyUtil.succcounts + 10;
+							MyUtil.print("投票成功！软件运行次数：" + MyUtil.counts + "<>返回成功次数：" + MyUtil.succcounts + "<>"
+									+ (index + 1), Factor.getGui());
+						} else {
+							MyUtil.print("投票失败，跳过！" + "<>" + (index + 1), Factor.getGui());
+							break;
+						}
 					}
-					}
+				}
 				break;
-			
-			case "回放" :
-				
-				/*PlayStatistics plays = new PlayStatistics();
-				int retss = plays.play2(super.getUid(), vid, super.getCookie());
-				if (retss == 1) {
-					MyUtil.print("成功！！" + (index + 1), Factor.getGui());
-				} else {
-					MyUtil.print("失败！！" + (index + 1) + "<>" + super.getId() + "|" + super.getPass(), Factor.getGui());
-				}*/
-				
-				ret=nets.goPost("", 443, flashplayinfo(super.getCookie(),vid,super.getUid()));
+
+			case "v峰会":
+				String id = vid;// MyUtil.midWord("uid=", "&", vid);
+				String source = "29";// MyUtil.midWord("source=", "&", vid);
+
+				for (int j = 1; j < 4; j++) {
+					ret = nets.goPost("me.verified.weibo.com", 443,
+							vfh2018(super.getCookie(), id, String.valueOf(j), source));
+					if (!MyUtil.isEmpty(ret)) {
+						MyUtil.counts++;
+
+						if (ret.indexOf("100000") != -1) {
+							MyUtil.succcounts++;
+							MyUtil.print("投票成功！软件运行次数：" + MyUtil.counts + "<>返回成功次数：" + MyUtil.succcounts,
+									Factor.getGui());
+						} else {
+							MyUtil.print("投票失败!" + MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "}", ret)),
+									Factor.getGui());
+							// break;
+						}
+					}
+				}
+				break;
+
+			case "回放":
+
+				/*
+				 * PlayStatistics plays = new PlayStatistics(); int retss =
+				 * plays.play2(super.getUid(), vid, super.getCookie()); if
+				 * (retss == 1) { MyUtil.print("成功！！" + (index + 1),
+				 * Factor.getGui()); } else { MyUtil.print("失败！！" + (index + 1)
+				 * + "<>" + super.getId() + "|" + super.getPass(),
+				 * Factor.getGui()); }
+				 */
+
+				ret = nets.goPost("", 443, flashplayinfo(super.getCookie(), vid, super.getUid()));
 				MyUtil.counts++;
 				MyUtil.print(String.valueOf(MyUtil.counts), Factor.getGui());
 				break;
-				
+
 			}// end of switch
 
 		}
@@ -485,15 +490,42 @@ public class WeiboVote extends Weibo {
 		cookie = MyUtil.midWord("SUB=", ";", cookie);
 		StringBuilder data = new StringBuilder(900);
 		uid = MyUtil.makeNumber(10);
-		//http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
+		// http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
 		data.append("GET /2/page/button?request_url=http%3A%2F%2Fi.dianshi.weibo.com%2Fji_gouvote%3Fmid%3D" + vid
-				+ "%26uid%3D" + uid
 				+ "%26active_id%3D3015%26na_id%3D1001&networktype=wifi&accuracy_level=0&cardid=Square_DoubleButton&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="
 				+ s
-				+ "&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzk"
-				+ MyUtil.makeNonce(32) + ".&fid=231219_3015_newartificial_1001&v_f=2&v_p=62&from=1086395010&gsid="
+				+ "&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLjU9xJv2UnDaKr12aNYUkBHuVU.&fid=231219_3015_newartificial_1001&v_f=2&v_p=62&from=1086395010&gsid="
 				+ cookie
-				+ "&lang=zh_CN&lfid=100303type%3D1%26q%3D%E5%89%A7%E8%B5%9E%26t%3D0&skin=default&oldwm=9006_2001&sflag=1&luicode=10000003 HTTP/1.1\r\n");
+				+ "&lang=zh_CN&lfid=231522type%3D1%26q%3D%23%E7%94%B5%E8%A7%86%E5%89%A7%E5%A4%A7%E8%B5%8F%23%26t%3D3&skin=default&oldwm=9006_2001&sflag=1&luicode=10000003 HTTP/1.1\r\n");
+		data.append("Host: api.weibo.cn\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append(
+				"User-Agent: Che2-TL00_4.4.2_weibo_8.6.3_android\r\n");
+
+		data.append("X-Log-Uid: "+ uid +"\r\n");
+		data.append("\r\n");
+		data.append("\r\n");
+		
+		return data.toString().getBytes();
+	}
+
+	// 综艺大赏
+	private byte[] relivevote(String name, String cookie, String s, String vid) {
+		cookie = MyUtil.midWord("SUB=", ";", cookie);
+		StringBuilder data = new StringBuilder(900);
+		// uid = MyUtil.makeNumber(10);
+		// http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
+		// http://i.topic.tv.weibo.com/module/relivevote?oid=1978841494&mod_id=1471&from_mod_id=0&name=%E6%9D%8E%E5%AD%90%E7%92%87
+		name = URLEncoder.encode(name);
+		name = URLEncoder.encode(name);
+		data.append(
+				"GET https://api.weibo.cn/2/page/button?request_url=http%3A%2F%2Fi.topic.tv.weibo.com%2Fmodule%2Frelivevote%3Foid%3D"
+						+ vid + "%26mod_id%3D1471%26from_mod_id%3D0%26name%3D%" + name
+						+ "&networktype=wifi&accuracy_level=0&cardid=yanyuan_relive_vote_button&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="
+						+ s
+						+ "&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLjU9xJv2UnDaKr12aNYUkBHuVU.&fid=231610_standard_cardlist_1463_yanyuan_tabs&v_f=2&v_p=62&from=1086395010&gsid="
+						+ cookie
+						+ "&lang=zh_CN&lfid=231610_standard_cardlist_1463_yanyuan_tabs&skin=default&oldwm=9006_2001&sflag=1&luicode=10000011 HTTP/1.1\r\n");
 		data.append("Host: api.weibo.cn\r\n");
 		data.append("Connection: keep-alive\r\n");
 		data.append(
@@ -503,25 +535,7 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-	// 综艺大赏
-		private byte[] relivevote(String name, String cookie, String s, String vid) {
-			cookie = MyUtil.midWord("SUB=", ";", cookie);
-			StringBuilder data = new StringBuilder(900);
-			//uid = MyUtil.makeNumber(10);
-			//http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
-			//http://i.topic.tv.weibo.com/module/relivevote?oid=1978841494&mod_id=1471&from_mod_id=0&name=%E6%9D%8E%E5%AD%90%E7%92%87
-			name=URLEncoder.encode(name);
-			name=URLEncoder.encode(name);
-			data.append("GET https://api.weibo.cn/2/page/button?request_url=http%3A%2F%2Fi.topic.tv.weibo.com%2Fmodule%2Frelivevote%3Foid%3D"+ vid +"%26mod_id%3D1471%26from_mod_id%3D0%26name%3D%"+ name +"&networktype=wifi&accuracy_level=0&cardid=yanyuan_relive_vote_button&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="+s+"&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLjU9xJv2UnDaKr12aNYUkBHuVU.&fid=231610_standard_cardlist_1463_yanyuan_tabs&v_f=2&v_p=62&from=1086395010&gsid="+ cookie +"&lang=zh_CN&lfid=231610_standard_cardlist_1463_yanyuan_tabs&skin=default&oldwm=9006_2001&sflag=1&luicode=10000011 HTTP/1.1\r\n");
-			data.append("Host: api.weibo.cn\r\n");
-			data.append("Connection: keep-alive\r\n");
-			data.append(
-					"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3573.0 Safari/537.36\r\n");
 
-			data.append("\r\n");
-			data.append("\r\n");
-			return data.toString().getBytes();
-		}
 	// 微博之夜
 	private byte[] netchina2018(String uid, String vid, String cookies) {
 		String[] cookiess = cookies.split("\\^");
@@ -552,15 +566,18 @@ public class WeiboVote extends Weibo {
 
 		return data.toString().getBytes();
 	}
-	//秒拍签到+0秒视频领分 type为1时为签到 为2时为视频领分
-	private byte[] task(String cookie,String type) {
-		
+
+	// 秒拍签到+0秒视频领分 type为1时为签到 为2时为视频领分
+	private byte[] task(String cookie, String type) {
+
 		StringBuilder data = new StringBuilder(900);
-		//String temp = "";
-		data.append("GET /api/aj_wbstory/task.json?appid=530&suid="+cookie +"&type="+ type +"&_cb=_jsonp4r2gf10n9gp HTTP/1.1\r\n");
+		// String temp = "";
+		data.append("GET /api/aj_wbstory/task.json?appid=530&suid=" + cookie + "&type=" + type
+				+ "&_cb=_jsonp4r2gf10n9gp HTTP/1.1\r\n");
 		data.append("Host: n.miaopai.com\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
 		data.append("Accept: */*\r\n");
 		data.append("Referer: http://n.miaopai.com/weibo2018\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
@@ -570,14 +587,17 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-	//秒拍微博之夜送分
-	private byte[] miaovote(String cookie,String vid,String uid) {
+
+	// 秒拍微博之夜送分
+	private byte[] miaovote(String cookie, String vid, String uid) {
 		StringBuilder data = new StringBuilder(900);
-		//String temp = "";
-		data.append("GET /api/aj_wbstory/vote.json?appid=530&suid="+ cookie +"&uid="+ uid +"&id="+ vid +"&_cb=_jsonph6n0z9xrvgi HTTP/1.1\r\n");
+		// String temp = "";
+		data.append("GET /api/aj_wbstory/vote.json?appid=530&suid=" + cookie + "&uid=" + uid + "&id=" + vid
+				+ "&_cb=_jsonph6n0z9xrvgi HTTP/1.1\r\n");
 		data.append("Host: n.miaopai.com\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
 		data.append("Accept: */*\r\n");
 		data.append("Referer: http://n.miaopai.com/weibo2018\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
@@ -587,15 +607,17 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-	
-	//秒拍账号查分
+
+	// 秒拍账号查分
 	private byte[] fansvotes(String cookie) {
 		StringBuilder data = new StringBuilder(900);
-		//String temp = "";
-		data.append("GET /api/aj_wbstory/fansvotes.json?appid=530&suid="+ cookie +"&_cb=_jsonpd8awzj7t72d HTTP/1.1\r\n");
+		// String temp = "";
+		data.append(
+				"GET /api/aj_wbstory/fansvotes.json?appid=530&suid=" + cookie + "&_cb=_jsonpd8awzj7t72d HTTP/1.1\r\n");
 		data.append("Host: n.miaopai.com\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Linux; Android 8.0.0; EDI-AL10 Build/HUAWEIEDISON-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36 miaopai_android/INSVERSION-7.1.40\r\n");
 		data.append("Accept: */*\r\n");
 		data.append("Referer: http://n.miaopai.com/weibo2018\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.9\r\n");
@@ -605,32 +627,34 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-	
-	//v峰会投票 1为宣传，2为拉票，3为想见他
-	private byte[] vfh2018(String cookies,String vid,String type,String source) {
+
+	// v峰会投票 1为宣传，2为拉票，3为想见他
+	private byte[] vfh2018(String cookies, String vid, String type, String source) {
 		String[] cookiess = cookies.split("\\^");
 		String cookie = "";
-//		if (cookiess.length > 0) {
-//			cookie = cookiess[2];
-//		}
-		cookie=cookiess[0];
+		// if (cookiess.length > 0) {
+		// cookie = cookiess[2];
+		// }
+		cookie = cookiess[0];
 		StringBuilder data = new StringBuilder(900);
-		//(3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
-		String t=MyUtil.getTime();
-		String h=MyUtil.MD5("300000"+source + t + type +"1"+ vid +"me.verified.weibo.com");
-		String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source="+ source +"&ts="+ t+"&expire=300000&sign="+ h+"&security_id=7b4f070032225cfb93308c976e8ac54e&\r\n";
+		// (3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
+		String t = MyUtil.getTime();
+		String h = MyUtil.MD5("300000" + source + t + type + "1" + vid + "me.verified.weibo.com");
+		String temp = "type=" + type + "&vuid=" + vid + "&v_score=1&source=" + source + "&ts=" + t
+				+ "&expire=300000&sign=" + h + "&security_id=7b4f070032225cfb93308c976e8ac54e&\r\n";
 		data.append("POST /vfh2018/ajax/vote HTTP/1.1\r\n");
 		data.append("Host: me.verified.weibo.com\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append("Content-Length: "+ temp.length() +"\r\n");
+		data.append("Content-Length: " + temp.length() + "\r\n");
 		data.append("Accept: application/json, text/plain, */*\r\n");
 		data.append("Origin: https://me.verified.weibo.com\r\n");
 		data.append("x-wap-profile: http://wap1.huawei.com/uaprof/HONOR_Che2-TL00_UAProfile.xml\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Linux; Android 4.4.2; Che2-TL00 Build/HonorChe2-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36 Weibo (HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2)\r\n");
 		data.append("Content-Type: application/x-www-form-urlencoded\r\n");
 		data.append("Referer: https://me.verified.weibo.com/vfh2018/vote2018\r\n");
 		data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
-		data.append("Cookie: "+ cookie +"\r\n");
+		data.append("Cookie: " + cookie + "\r\n");
 		data.append("X-Requested-With: com.sina.weibo\r\n");
 		data.append("\r\n");
 		data.append(temp);
@@ -638,26 +662,30 @@ public class WeiboVote extends Weibo {
 		data.append("\r\n");
 		return data.toString().getBytes();
 	}
-	//回放
-	private byte[] flashplayinfo(String cookie,String vid,String uid) {
+
+	// 回放
+	private byte[] flashplayinfo(String cookie, String vid, String uid) {
 		StringBuilder data = new StringBuilder(900);
-		//(3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
-		vid=URLEncoder.encode(vid);
-		String t=String.valueOf(System.currentTimeMillis()+ (int) 36e5);
-		String h=MyUtil.MD5("id="+ vid +"&uid="+ uid +"&fr=h5&expires="+ t +"22f18e62a05fb5e4fe4000e6e97ced10");
-	//String temp = "type="+ type +"&vuid="+ vid +"&v_score=1&source=32&ts="+ t+"&expire=300000&sign="+ h+"&\r\n";
-		
-		data.append("GET /api/live/flashplayinfo?id="+ vid +"&uid="+ uid +"&fr=h5&expires="+ t +"&sign="+ h +" HTTP/1.1\r\n");
+		// (3e5 + s + o + t + 1 + e.uid + "me.verified.weibo.com")
+		vid = URLEncoder.encode(vid);
+		String t = String.valueOf(System.currentTimeMillis() + (int) 36e5);
+		String h = MyUtil.MD5("id=" + vid + "&uid=" + uid + "&fr=h5&expires=" + t + "22f18e62a05fb5e4fe4000e6e97ced10");
+		// String temp = "type="+ type +"&vuid="+ vid
+		// +"&v_score=1&source=32&ts="+ t+"&expire=300000&sign="+ h+"&\r\n";
+
+		data.append("GET /api/live/flashplayinfo?id=" + vid + "&uid=" + uid + "&fr=h5&expires=" + t + "&sign=" + h
+				+ " HTTP/1.1\r\n");
 		data.append("Host: ing.weibo.com\r\n");
 		data.append("Origin: http://live.weibo.com\r\n");
-		
+
 		data.append("Cookie: \r\n");
 		data.append("Accept: */*\r\n");
-		data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15\r\n");
+		data.append(
+				"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15\r\n");
 		data.append("Accept-Language: en-us\r\n");
 		data.append("Referer: http://live.weibo.com/show\r\n");
 		data.append("Connection: keep-alive\r\n");
-		
+
 		data.append("\r\n");
 		data.append("\r\n");
 		return data.toString().getBytes();
