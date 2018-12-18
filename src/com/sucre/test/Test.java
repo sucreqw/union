@@ -6,6 +6,7 @@ import com.sucre.service.WeiboCapcha;
 import com.sucre.utils.JsUtil;
 import com.sucre.utils.MyUtil;
 import com.sucre.utils.SinaCapchaUtil;
+import com.sucre.utils.SinaUtils;
 
 public class Test {
 
@@ -57,7 +58,8 @@ public class Test {
 //	                l.append("expire", 3e5),
 //	                l.append("sign"
 
-		System.out.print(MyUtil.MD5("{\"uid\":\"2756703685\",\"mid\":\"4317077814545999\",\"type\":\"feedlive\"}H5_D2SMP_154478592676658911yixiong&zhaolong5"));
+	System.out.println(SinaUtils.CaculateS("6863578217"));
+		//System.out.print(MyUtil.MD5("{\"uid\":\"2756703685\",\"mid\":\"4317077814545999\",\"type\":\"feedlive\"}H5_D2SMP_154478592676658911yixiong&zhaolong5"));
 	}
 
 }

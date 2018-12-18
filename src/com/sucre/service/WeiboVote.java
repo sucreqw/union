@@ -15,6 +15,7 @@ import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
 import com.sucre.utils.MyUtil;
+import com.sucre.utils.SinaUtils;
 
 public class WeiboVote extends Weibo {
 	private String picId = "";
@@ -491,18 +492,11 @@ public class WeiboVote extends Weibo {
 		StringBuilder data = new StringBuilder(900);
 		//uid = MyUtil.makeNumber(10);
 		// http://i.topic.tv.weibo.com/module/relivevote?oid=6412297026&mod_id=1471&from_mod_id=0&name=%E6%AF%95%E9%9B%AF%E7%8F%BA
-		data.append("GET /2/page/button?request_url=http%3A%2F%2Fi.dianshi.weibo.com%2Fji_gouvote%3Fmid%3D" + vid
-				+ "%26active_id%3D3015%26na_id%3D1001&networktype=wifi&accuracy_level=0&cardid=Square_DoubleButton&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3654&c=android&i=f842b7a&s="
-				+ s
-				+ "&ft=11&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLjU9xJv2UnDaKr12aNYUkBHuVU.&fid=231219_3015_newartificial_1001&v_f=2&v_p=62&from=1086395010&gsid="
-				+ cookie
-				+ "&lang=zh_CN&lfid=231522type%3D1%26q%3D%23%E7%94%B5%E8%A7%86%E5%89%A7%E5%A4%A7%E8%B5%8F%23%26t%3D3&skin=default&oldwm=9006_2001&sflag=1&luicode=10000003 HTTP/1.1\r\n");
+		data.append("GET /2/page/button?request_url=http%3A%2F%2Fi.dianshi.weibo.com%2Fji_gouvote%3Fmid%3D4310580644387329%26active_id%3D3015%26na_id%3D1001&networktype=wifi&accuracy_level=0&cardid=Square_DoubleButton&sensors_device_id=45a4fef39d2c744d&uicode=10000011&moduleID=700&featurecode=10000085&wb_version=3797&lcardid=2310020003_hotweibo_wbcard&c=android&i=f703d9e&s=08544313&ft=0&ua=QiKU-8681-M02__weibo__8.12.1__android__android5.1&wm=14056_0004&aid=01AhYm6FPWTx0v0lrvRcLCaRRjhnYQKA3lkHceZ5jZ9bjUJ_g.&fid=231219_3015_newartificial_1001&v_f=2&v_p=70&from=108C195010&gsid=_2A25xHIA8DeRxGeBG7VEU9ybOyjuIHXVTi5T0rDV6PUJbkdAKLVT-kWpNRhJ03h2jNbY8CzDmT5O1L8r2MXEnnTXo&lang=zh_CN&lfid=2302836157271643&skin=default&oldwm=14056_0004&sflag=1&luicode=10000198&sensors_is_first_day=true HTTP/1.1\r\n");
 		data.append("Host: api.weibo.cn\r\n");
 		data.append("Connection: keep-alive\r\n");
-		data.append(
-				"User-Agent: Che2-TL00_4.4.2_weibo_8.6.3_android\r\n");
-
-		data.append("X-Log-Uid: "+ uid +"\r\n");
+		data.append("User-Agent: 8681-M02_5.1_weibo_8.12.1_android\r\n");
+		data.append("X-Log-Uid: 6863578217\r\n");
 		data.append("\r\n");
 		data.append("\r\n");
 		
