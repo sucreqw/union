@@ -155,34 +155,21 @@ public class WeiboVote extends Weibo {
 					System.out.println(MyUtil.midWord("data", "}", ret));
 				}
 				break;
-			case "剧赞":
-				ret = nets.goPost("api.weibo.cn", 443, gouvote(super.getUid(), super.getCookie(), super.getS(), vid));
+			case "通用":
+				ret = nets.goPost("api.weibo.cn", 443, buttonVote(super.getCookie(), super.getS(), super.getUid(), vid));
 				if (!MyUtil.isEmpty(ret)) {
 					MyUtil.counts++;
 					if (ret.indexOf("result\":1") != -1) {
 						MyUtil.succcounts++;
-						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
+						MyUtil.print("成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
 								Factor.getGui());
+						//MyUtil.print(MyUtil.midWord("\"name\":\"有机值", ",", ret),Factor.getGui());
 					} else {
-						MyUtil.print("剧赞失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
+						MyUtil.print("失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
 					}
 				}
 				break;
-			case "综艺赞":
-				String vv = MyUtil.midWord("vid=", "&", vid);
-				String n = MyUtil.midWord("name=", "&", vid);
-				ret = nets.goPost("api.weibo.cn", 443, relivevote(n, super.getCookie(), super.getS(), vv));
-				if (!MyUtil.isEmpty(ret)) {
-					MyUtil.counts++;
-					if (ret.indexOf("result\":1") != -1) {
-						MyUtil.succcounts++;
-						MyUtil.print("剧赞成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
-								Factor.getGui());
-					} else {
-						MyUtil.print("剧赞失败！" + MyUtil.midWord("msg\":\"", "\"", ret), Factor.getGui());
-					}
-				}
-				break;
+			
 			case "微博之夜":
 				for (int j = 0; j < 20; j++) {
 					ret = nets.goPost("huodong.weibo.cn", 443, netchina2018(super.getUid(), vid, super.getCookie()));
@@ -239,28 +226,7 @@ public class WeiboVote extends Weibo {
 				}
 				break;
 
-			case "v峰会":
-				String id = vid;// MyUtil.midWord("uid=", "&", vid);
-				String source = "29";// MyUtil.midWord("source=", "&", vid);
-
-				for (int j = 1; j < 4; j++) {
-					ret = nets.goPost("me.verified.weibo.com", 443,
-							vfh2018(super.getCookie(), id, String.valueOf(j), source));
-					if (!MyUtil.isEmpty(ret)) {
-						MyUtil.counts++;
-
-						if (ret.indexOf("100000") != -1) {
-							MyUtil.succcounts++;
-							MyUtil.print("投票成功！软件运行次数：" + MyUtil.counts + "<>返回成功次数：" + MyUtil.succcounts,
-									Factor.getGui());
-						} else {
-							MyUtil.print("投票失败!" + MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "}", ret)),
-									Factor.getGui());
-							// break;
-						}
-					}
-				}
-				break;
+			
 
 			case "回放":
 
@@ -680,6 +646,35 @@ public class WeiboVote extends Weibo {
 		data.append("Referer: http://live.weibo.com/show\r\n");
 		data.append("Connection: keep-alive\r\n");
 
+		data.append("\r\n");
+		data.append("\r\n");
+		return data.toString().getBytes();
+	}
+	
+	private byte[] buttonVote(String cookie,String s,String uid,String vid) {
+		StringBuilder data = new StringBuilder(900);
+		cookie = MyUtil.midWord("SUB=", ";", cookie)==null?cookie:MyUtil.midWord("SUB=", ";", cookie);
+		
+		String olds=MyUtil.midWord("&s=", "&", vid);
+		String oldgsid=MyUtil.midWord("&gsid=", "&", vid);
+		String oldi=MyUtil.midWord("&i=", "&", vid);
+		String oldua=MyUtil.midWord("&ua=", "&", vid);
+		String oldfrom=MyUtil.midWord("&from=", "&", vid);
+		
+		String temp = "";
+		temp=vid.replace(olds, s);
+		temp=temp.replace(oldgsid, cookie);
+		temp=temp.replace(oldi, "f842b7a");
+		temp=temp.replace(oldua, "HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2");
+		temp=temp.replace(oldfrom, "1086395010");
+		
+		
+		data.append(temp +"\r\n");
+		data.append("Host: api.weibo.cn\r\n");
+		data.append("Connection: keep-alive\r\n");
+		data.append("User-Agent: HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2\r\n");
+		data.append("X-Log-Uid: "+ uid +"\r\n");
+		//data.append("X-Requested-With: com.baidu.searchbox\r\n");
 		data.append("\r\n");
 		data.append("\r\n");
 		return data.toString().getBytes();
