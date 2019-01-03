@@ -241,17 +241,42 @@ public class WeiboVote extends Weibo {
                     MyUtil.counts++;
                     MyUtil.print(String.valueOf(MyUtil.counts), Factor.getGui());
                     break;
-                case "读书" :
-                    ret = nets.goPost("movie.weibo.com", 443, readbook(super.getCookie(),vid));
+                case "读书":
+                    ret = nets.goPost("m.weibo.cn", 443, readbookVid(super.getCookie(), super.getUid()));
                     if (!MyUtil.isEmpty(ret)) {
-                        MyUtil.counts++;
-                        if (ret.indexOf("result\":1") != -1) {
+
+                        String temp = MyUtil.midWord("option_id=" + vid, "luicode", ret);
+                        String sig = "";
+
+                        sig = temp != "" && temp != null ? MyUtil.midWord("sig=", "&", temp) : "";
+
+
+                        ret = nets.goPost("movie.weibo.com", 443, readbook(super.getCookie(), vid, sig));
+                        if (!MyUtil.isEmpty(ret)) {
+                            MyUtil.counts++;
+                            if (ret.indexOf("投票成功") != -1) {
+                                MyUtil.succcounts++;
+                                MyUtil.print("成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
+                                        Factor.getGui());
+
+                            } else {
+                                MyUtil.print("失败！<==>" + (index + 1), Factor.getGui());
+                            }
+                        }
+
+                    }
+                    break;
+
+                case "跑步" :
+                    ret = nets.goPost("utils.sports.sina.cn", 443, paotuan(super.getCookie(),super.getUid(),vid));
+                    if (!MyUtil.isEmpty(ret)) {
+                        if (ret.indexOf("msg\":\"Succ") != -1) {
                             MyUtil.succcounts++;
                             MyUtil.print("成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
                                     Factor.getGui());
 
                         } else {
-                            MyUtil.print("失败！<==>"+ (index+1) , Factor.getGui());
+                            MyUtil.print("失败！<==>" + (index + 1), Factor.getGui());
                         }
                     }
                     break;
@@ -691,7 +716,32 @@ public class WeiboVote extends Weibo {
         return data.toString().getBytes();
     }
 
-    private byte[] readbook(String cookies, String vid) {
+    //读书取vid
+    private byte[] readbookVid(String cookies, String uid) {
+        StringBuilder data = new StringBuilder(900);
+        String[] cookiess = cookies.split("\\^");
+        String cookie = "";
+        if (cookiess.length > 2) {
+            cookie = cookiess[2];
+        }
+
+        data.append("GET /api/container/getIndex?uid=" + uid + "&wm=9847_0002&sourcetype=weixin&from=singlemessage&isappinstalled=0&sudaref=login.sina.com.cn&containerid=1059030002_7095_7 HTTP/1.1\r\n");
+        data.append("Host: m.weibo.cn\r\n");
+        data.append("Connection: keep-alive\r\n");
+        data.append("Upgrade-Insecure-Requests: 1\r\n");
+        data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\r\n");
+        data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\r\n");
+        data.append("Referer: https://m.weibo.cn/\r\n");
+        data.append("Accept-Language: en-US,en;q=0.9\r\n");
+        data.append("Cookie: " + cookie + "\r\n");
+        data.append("\r\n");
+        data.append("\r\n");
+
+        return data.toString().getBytes();
+    }
+
+    //读书
+    private byte[] readbook(String cookies, String vid, String sig) {
         StringBuilder data = new StringBuilder(900);
         //String temp = "";
         String[] cookiess = cookies.split("\\^");
@@ -700,7 +750,7 @@ public class WeiboVote extends Weibo {
             cookie = cookiess[2];
         }
 
-        data.append(vid + "\r\n");
+        data.append("GET /movie/commonvote?theme_id=234&option_id=" + vid + "&sig=" + sig + "&luicode=10000011&lfid=1059030002_7095_7 HTTP/1.1\r\n");
         data.append("Host: movie.weibo.com\r\n");
         data.append("Connection: keep-alive\r\n");
         data.append("Upgrade-Insecure-Requests: 1\r\n");
@@ -708,11 +758,44 @@ public class WeiboVote extends Weibo {
         data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\r\n");
         data.append("Referer: https://m.weibo.cn/\r\n");
         data.append("Accept-Language: en-US,en;q=0.9\r\n");
-        data.append("Cookie: \r\n");
+        data.append("Cookie: " + cookie + "\r\n");
         data.append("\r\n");
         data.append("\r\n");
 
         return data.toString().getBytes();
 
+    }
+
+
+    //跑步活动 http://sports.sina.cn/running/paotuan/2018/vip.d.html?tid=14745&from=groupmessage
+
+    private byte[] paotuan(String cookies,String uid,String vid) {
+        String[] cookiess = cookies.split("\\^");
+        String cookie = "";
+        if (cookiess.length > 2) {
+            cookie = cookiess[2];
+        }
+
+        StringBuilder data = new StringBuilder(900);
+        String temp = "app_res_id="+ vid +"&uid="+ uid +"&callback=ijax_"+ MyUtil.getTime()+"_82491727&\r\n";
+        //paotuan2018_14745
+        data.append("POST /digg/index/dayMultiIncrMany?callback=ijax_"+ MyUtil.getTime()+ "_82491727& HTTP/1.1\r\n");
+        data.append("Host: utils.sports.sina.cn\r\n");
+        data.append("Content-Length: "+ temp.length() +"\r\n");
+        data.append("Cache-Control: max-age=0\r\n");
+        data.append("Origin: http://sports.sina.cn\r\n");
+        data.append("Upgrade-Insecure-Requests: 1\r\n");
+        data.append("Content-Type: application/x-www-form-urlencoded\r\n");
+        data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\r\n");
+        data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\r\n");
+        data.append("Referer: http://sports.sina.cn/running/paotuan/2018/vip.d.html?tid=14745&from=groupmessage\r\n");
+        data.append("Accept-Language: en-US,en;q=0.9\r\n");
+        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("\r\n");
+        data.append(temp);
+        data.append("\r\n");
+        data.append("\r\n");
+
+        return data.toString().getBytes();
     }
 }
