@@ -6,15 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0549dac8-9707-4b4f-b4ba-0c7f537b7b45" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="9abbdadf-701b-48ae-a65c-cc692b127229" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/sucre/gui/About.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/gui/About.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/sucre/gui/Gui.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/gui/Gui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/sucre/service/WeiboVote.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/service/WeiboVote.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/gui/About.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/gui/About.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -30,6 +25,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1890" />
@@ -40,15 +42,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546508044707" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546583997568" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -72,17 +74,17 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0549dac8-9707-4b4f-b4ba-0c7f537b7b45" name="Default Changelist" comment="" />
-      <created>1546507897820</created>
+      <changelist id="9abbdadf-701b-48ae-a65c-cc692b127229" name="Default Changelist" comment="" />
+      <created>1546575455070</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1546507897820</updated>
-      <workItem from="1546507907796" duration="195000" />
+      <updated>1546575455070</updated>
+      <workItem from="1546575469902" duration="3208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195000" />
+    <option name="totallyTimeSpent" value="3208000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1890" height="979" extended-state="0" />
@@ -92,7 +94,7 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Messages" weight="0.32919955" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
@@ -124,8 +126,22 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="775" column="25" lean-forward="true" selection-start-line="775" selection-start-column="25" selection-end-line="775" selection-end-column="25" />
+        <state relative-caret-position="5090">
+          <caret line="371" column="42" lean-forward="true" selection-start-line="371" selection-start-column="42" selection-end-line="371" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/Gui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="285" column="59" lean-forward="true" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="755">
+          <caret line="176" column="5" lean-forward="true" selection-start-line="175" selection-start-column="8" selection-end-line="176" selection-end-column="5" />
         </state>
       </provider>
     </entry>
