@@ -8,10 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9abbdadf-701b-48ae-a65c-cc692b127229" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/service/WeiboImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/WeiboImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/union.iml" beforeDir="false" afterPath="$PROJECT_DIR$/union.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -44,20 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/Gui.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
               <caret line="285" column="59" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/sucre/jdbc/JdbcConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="38" column="30" lean-forward="true" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -75,10 +62,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-5" />
+    <option name="y" value="3" />
     <option name="width" value="1386" />
-    <option name="height" value="788" />
+    <option name="height" value="782" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -130,7 +118,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546649578728" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546697273752" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -166,18 +154,17 @@
       <option name="presentableId" value="Default" />
       <updated>1546575455070</updated>
       <workItem from="1546575469902" duration="3208000" />
-      <workItem from="1546606495232" duration="1387000" />
+      <workItem from="1546606495232" duration="2000000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4595000" />
+    <option name="totallyTimeSpent" value="5208000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-5" y="3" width="1386" height="782" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2549168" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25414783" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -226,13 +213,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/Gui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="285" column="59" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -243,7 +223,14 @@
     <entry file="file://$PROJECT_DIR$/src/com/sucre/jdbc/JdbcConnector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
-          <caret line="38" column="30" lean-forward="true" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
+          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/Gui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="285" column="59" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="59" />
         </state>
       </provider>
     </entry>
