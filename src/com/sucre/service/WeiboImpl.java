@@ -1,9 +1,5 @@
 package com.sucre.service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import com.mysql.jdbc.PreparedStatement;
 import com.sucre.dao.weiboDao;
 import com.sucre.entity.Weibo;
@@ -11,6 +7,10 @@ import com.sucre.factor.Factor;
 import com.sucre.jdbc.JdbcConnector;
 import com.sucre.listUtil.MutiList;
 import com.sucre.utils.MyUtil;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * service层，微博dao层的实现类。

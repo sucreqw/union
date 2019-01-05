@@ -85,9 +85,10 @@ public class weiboLogin extends Weibo {
                         rets = -1;
                         MyUtil.print("登录需要验证码。" + (index + 1), Factor.getGui());
                     } else if (ret.indexOf("50060000") != -1) {
-                        MyUtil.print("再次换ip！" + (index + 1), Factor.getGui());
+                        MyUtil.print("密码正确，登录失败" + (index + 1), Factor.getGui());
 //						rets = 2;
-                        rets = -1;
+                        MyUtil.outPutData("登录失败.txt", super.getId()+"|" + super.getPass());
+                        rets = 0;
 
                     } else {
                         //System.out.println(ret);

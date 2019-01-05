@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="union:jar">
+    <output-path>$PROJECT_DIR$/../runnable</output-path>
+    <root id="archive" name="union.jar">
+      <element id="module-output" name="union" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit-4.12.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
