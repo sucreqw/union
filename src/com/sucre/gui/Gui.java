@@ -1,38 +1,19 @@
 package com.sucre.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import com.sucre.controller.Controller;
 import com.sucre.factor.Factor;
 import com.sucre.service.VidImpl;
 import com.sucre.service.WeiboImpl;
-import com.sucre.utils.JsUtil;
 import com.sucre.utils.MyUtil;
 import com.sucre.utils.Printer;
-import com.sucre.utils.SinaCapchaUtil;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import javax.swing.JButton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
-import javax.swing.JEditorPane;
-import javax.swing.ScrollPaneConstants;
 
 public class Gui extends JFrame implements Printer {
 
@@ -319,7 +300,7 @@ public class Gui extends JFrame implements Printer {
 		mission.setModel(new DefaultComboBoxModel(new String[] {"login", "guess", "checkin", "打榜","查分",
 				"加油", "搜索s.com","游客","阅读","播放",
 				"微博之夜","秒拍领分","秒拍查分","秒拍送分",
-				"定时换ip","通用","读书","跑步"}));
+				"定时换ip","通用","读书","跑步","春节"}));
 		panel.add(mission);
 
 		resume = new JButton("暂停");

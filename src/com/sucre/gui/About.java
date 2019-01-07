@@ -1,15 +1,6 @@
 package com.sucre.gui;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-
-import java.awt.BorderLayout;
-import java.awt.Window.Type;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
+import javax.swing.*;
+import java.awt.*;
 
 public class About extends JFrame{
 	public About() {
@@ -39,6 +30,12 @@ public class About extends JFrame{
 				+"需要抓包得到，可在网页端抓包。找到关键字：option_id=2781\r\n"
 				+"增加了跑步投票功能，vid格式为：paotuan2018_14745\r\n"
 				+"可以网页端抓包得到：http://sports.sina.cn/running/paotuan/2018/vip.d.html?tid=14745&from=groupmessage\r\n"
+				+"版本1.7.6\r\n"
+				+"增加了详细的登录提示。\r\n"
+				+"增加了春节投票活动：https://m.weibo.cn/p/1059030002_7107_2\r\n"
+				+"vid格式为：2906\r\n"
+				+"每个账号能投8票，软件默认一次全投完，经测试高危号可以投，cookie不用带s参数。\r\n"
+
 
 
 		);

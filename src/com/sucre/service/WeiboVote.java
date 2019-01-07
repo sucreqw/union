@@ -1,20 +1,13 @@
 package com.sucre.service;
 
-import java.net.CookieHandler;
-import java.net.URLEncoder;
-import java.nio.file.attribute.AclEntry.Builder;
-import java.util.Base64.Encoder;
-import java.util.jar.Attributes.Name;
-import java.util.Spliterator;
-
-
 import com.sucre.controller.Controller;
 import com.sucre.entity.Vid;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
 import com.sucre.utils.MyUtil;
-import com.sucre.utils.SinaUtils;
+
+import java.net.URLEncoder;
 
 public class WeiboVote extends Weibo {
     private String picId = "";
@@ -280,13 +273,49 @@ public class WeiboVote extends Weibo {
                         }
                     }
                     break;
+
+                case "春节":
+                    ret = nets.goPost("movie.weibo.com", 443, votepopvid(super.getCookie(),vid));
+                    if (!MyUtil.isEmpty(ret)) {
+
+                        //String temp = MyUtil.midWord("option_id=" + vid, "&", ret);
+                        String sig = "";
+
+                        sig =MyUtil.midWord("sig=", "&", ret) ;
+
+
+                        ret = nets.goPost("movie.weibo.com", 443, votepop(super.getCookie(),sig,vid));
+                        if (!MyUtil.isEmpty(ret)) {
+                            MyUtil.counts++;
+                            if (ret.indexOf("success") != -1) {
+                                MyUtil.succcounts++;
+                                MyUtil.print("成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
+                                        Factor.getGui());
+
+                            } else {
+                                MyUtil.print("失败！<==>" + (index + 1), Factor.getGui());
+                            }
+                        }
+
+                    }
+                    break;
             }// end of switch
 
         }
 
         return 0;
     }
-
+    //取指定的cookie
+    public String getcookieIndex(String cookies,int index){
+        String[] cookiess = cookies.split("\\^");
+        String cookie = "";
+        if (cookiess.length > 2) {
+            cookie = cookiess[index];
+        }else{
+            cookie=cookies;
+        }
+        return cookie;
+    }
     // 设置识别完成后的pid
     public void setPid(String pid) {
         this.picId = pid;
@@ -793,6 +822,47 @@ public class WeiboVote extends Weibo {
         data.append("Cookie: "+ cookie +"\r\n");
         data.append("\r\n");
         data.append(temp);
+        data.append("\r\n");
+        data.append("\r\n");
+
+        return data.toString().getBytes();
+    }
+
+    private byte[] votepopvid(String cookie ,String vid){
+        StringBuilder data =new StringBuilder(900);
+
+        cookie=getcookieIndex(cookie,2);
+
+        data.append("GET https://movie.weibo.com/movie/commonvote/votepop?ua=HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1&from=108A395010&option_id="+ vid +"&theme_id=241 HTTP/1.1\r\n");
+        data.append("Host: movie.weibo.com\r\n");
+        data.append("Connection: keep-alive\r\n");
+        data.append("Upgrade-Insecure-Requests: 1\r\n");
+        data.append("User-Agent: Mozilla/5.0 (Linux; Android 6.0.1; VKY_AL00 Build/V417IR; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.100 Mobile Safari/537.36 Weibo (HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1)\r\n");
+        data.append("x-user-agent: HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1\r\n");
+        data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n");
+        data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("\r\n");
+        data.append("\r\n");
+        data.append("\r\n");
+
+        return data.toString().getBytes();
+    }
+
+    private byte[]  votepop(String cookie,String sig ,String vid){
+        StringBuilder data =new StringBuilder(900);
+
+        cookie=getcookieIndex(cookie,2);
+
+        data.append("GET https://movie.weibo.com/movie/commonvote/voteByH5PopWindows?theme_id=241&option_id="+ vid +"&sig="+ sig +"&num=8& HTTP/1.1\r\n");
+        data.append("Host: movie.weibo.com\r\n");
+        data.append("Connection: keep-alive\r\n");
+        data.append("Accept: application/json, text/plain, */*\r\n");
+        data.append("User-Agent: Mozilla/5.0 (Linux; Android 6.0.1; VKY_AL00 Build/V417IR; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.100 Mobile Safari/537.36 Weibo (HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1)\r\n");
+        data.append("Referer: https://movie.weibo.com/movie/commonvote/votepop?ua=HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1&from=108A395010&option_id=2906&theme_id=241\r\n");
+        data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("\r\n");
         data.append("\r\n");
         data.append("\r\n");
 
