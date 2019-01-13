@@ -299,6 +299,21 @@ public class WeiboVote extends Weibo {
 
                     }
                     break;
+
+                case "LPL战队":
+                    ret=nets.goPost("sports.weibo.com",443,lpl(super.getCookie(),vid));
+                    if (!MyUtil.isEmpty(ret)) {
+                        MyUtil.counts++;
+                        if (ret.indexOf("送奖杯成功") != -1) {
+                            MyUtil.succcounts++;
+                            MyUtil.print("成功！" + "<=>软件投出票数：" + MyUtil.counts + "<=>返回成功次数：" + MyUtil.succcounts,
+                                    Factor.getGui());
+
+                        } else {
+                            MyUtil.print("失败！<==>" + (index + 1), Factor.getGui());
+                        }
+                    }
+                    break;
             }// end of switch
 
         }
@@ -863,6 +878,27 @@ public class WeiboVote extends Weibo {
         data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
         data.append("Cookie: "+ cookie +"\r\n");
         data.append("\r\n");
+        data.append("\r\n");
+        data.append("\r\n");
+
+        return data.toString().getBytes();
+    }
+
+    private byte[] lpl(String cookie,String vid){
+        StringBuilder data =new StringBuilder(900);
+
+        cookie=getcookieIndex(cookie,0);
+
+        data.append("GET https://sports.weibo.com/vote/h5voteresult?vid="+ vid +"&themeid=92&status=100000&sinainternalbrowser=topnav HTTP/1.1\r\n");
+        data.append("Host: sports.weibo.com\r\n");
+        data.append("Connection: keep-alive\r\n");
+        data.append("Upgrade-Insecure-Requests: 1\r\n");
+        data.append("User-Agent: Mozilla/5.0 (Linux; Android 6.0.1; VKY_AL00 Build/V417IR; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.100 Mobile Safari/537.36 Weibo (HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1)\r\n");
+        data.append("x-user-agent: HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1\r\n");
+        data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n");
+        data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("X-Requested-With: com.baidu.searchbox\r\n");
         data.append("\r\n");
         data.append("\r\n");
 

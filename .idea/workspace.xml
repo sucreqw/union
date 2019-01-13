@@ -47,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/Gui.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="302" column="42" selection-start-line="302" selection-start-column="42" selection-end-line="302" selection-end-column="42" />
+              <caret line="302" column="45" selection-start-line="302" selection-start-column="45" selection-end-line="302" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -55,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="300" column="26" lean-forward="true" selection-start-line="300" selection-start-column="26" selection-end-line="300" selection-end-column="26" />
+            <state relative-caret-position="103">
+              <caret line="304" selection-start-line="304" selection-end-line="304" />
             </state>
           </provider>
         </entry>
@@ -64,8 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/About.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="36" column="60" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
+            <state relative-caret-position="372">
+              <caret line="40" column="44" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -81,12 +81,12 @@
         <option value="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" />
         <option value="$PROJECT_DIR$/src/com/sucre/service/WeiboImpl.java" />
         <option value="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" />
-        <option value="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" />
         <option value="$PROJECT_DIR$/src/com/sucre/gui/About.java" />
+        <option value="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-5" />
     <option name="y" value="3" />
     <option name="width" value="1386" />
@@ -137,7 +137,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546820139771" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547074264321" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -195,17 +195,18 @@
       <workItem from="1546575469902" duration="3208000" />
       <workItem from="1546606495232" duration="2000000" />
       <workItem from="1546776317568" duration="3025000" />
+      <workItem from="1547380233484" duration="992000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8233000" />
+    <option name="totallyTimeSpent" value="9225000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="3" width="1386" height="782" extended-state="1" />
+    <frame x="-5" y="3" width="1386" height="782" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25791857" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2616893" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -215,7 +216,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3295082" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39969134" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -254,12 +255,6 @@
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java</url>
-          <line>868</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -288,21 +283,21 @@
     <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/Gui.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="302" column="42" selection-start-line="302" selection-start-column="42" selection-end-line="302" selection-end-column="42" />
+          <caret line="302" column="45" selection-start-line="302" selection-start-column="45" selection-end-line="302" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/About.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="36" column="60" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
+        <state relative-caret-position="372">
+          <caret line="40" column="44" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="300" column="26" lean-forward="true" selection-start-line="300" selection-start-column="26" selection-end-line="300" selection-end-column="26" />
+        <state relative-caret-position="103">
+          <caret line="304" selection-start-line="304" selection-end-line="304" />
         </state>
       </provider>
     </entry>

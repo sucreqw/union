@@ -35,6 +35,10 @@ public class About extends JFrame{
 				+"增加了春节投票活动：https://m.weibo.cn/p/1059030002_7107_2\r\n"
 				+"vid格式为：2906\r\n"
 				+"每个账号能投8票，软件默认一次全投完，经测试高危号可以投，cookie不用带s参数。\r\n"
+				+"版本1.7.7\r\n"
+				+"开发工具正式全面转到idea,生成jar的大小是eclipse生成的三分之一。\r\n"
+				+"清除了微博之夜活动的相关任务选项。增加了lpl投票，vid格式为：5436\r\n"
+				+"高危号可以投，每个每天5票，cookie不需要s参数\r\n"
 
 
 
