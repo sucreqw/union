@@ -1,18 +1,9 @@
 package com.sucre.myNet;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import java.net.Socket;
-
 import javax.net.SocketFactory;
-
 import javax.net.ssl.SSLSocketFactory;
+import java.io.*;
+import java.net.Socket;
 
 /**
  * 负责socket发�?�与接收.接收后的数据交出调用者自己处�?.
@@ -25,9 +16,9 @@ public class Nets {
 	/**
 	 * https数据包发�?.get/post通用.
 	 * 
-	 * @param Host 服务器域�?
-	 * @param Port 服务器端�?
-	 * @param out  要发送的数据
+	 * @param host 服务器域�?
+	 * @param port 服务器端�?
+	 * @param data  要发送的数据
 	 * @return 成功后返回服务器返回的数�?,不成功返回错误码.
 	 */
 	public String goPost(String host, int port, byte[] data) {
@@ -176,6 +167,12 @@ public class Nets {
 		return ret;
 	}
 
+	/**
+	 * byte形式的indexof
+	 * @param source
+	 * @param target
+	 * @return
+	 */
 	private int serachB(byte[] source, byte[] target) {
 		int ret = -1;
 		for (int i = 0; i < source.length; i++) {
