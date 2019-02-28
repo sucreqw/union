@@ -39,6 +39,9 @@ public class About extends JFrame{
 				+"开发工具正式全面转到idea,生成jar的大小是eclipse生成的三分之一。\r\n"
 				+"清除了微博之夜活动的相关任务选项。增加了lpl投票，vid格式为：5436\r\n"
 				+"高危号可以投，每个每天5票，cookie不需要s参数\r\n"
+				+"版本1.8\r\n"
+				+"利用秒拍漏洞新增秒拍关注与取消关注功能。cookie为原来刷秒拍红心的cookie,格式为：cookie|id\r\n"
+				+"uid格式为：6llRdRoWfDXMHT4K 目前uid只能通过手机版抓包的形式取得。"
 
 
 

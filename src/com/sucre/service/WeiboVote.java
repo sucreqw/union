@@ -321,7 +321,7 @@ public class WeiboVote extends Weibo {
                     if(!MyUtil.isEmpty(ret)){
                         String msg=MyUtil.midWord("msg\":\"","\",\"",ret);
                         if(msg!=null && !"".equals(msg)){
-                            MyUtil.print("关注失败："+ msg +"<>" +(index-1) ,Factor.getGui());
+                            MyUtil.print("关注失败："+ MyUtil.decodeUnicode(msg) +"<>" +(index-1) ,Factor.getGui());
                         }else{
                             MyUtil.print("关注成功："+ (index-1) ,Factor.getGui());
                         }
@@ -333,7 +333,7 @@ public class WeiboVote extends Weibo {
                     if(!MyUtil.isEmpty(ret)){
                         String msg=MyUtil.midWord("msg\":\"","\",\"",ret);
                         if(msg!=null && !"".equals(msg)){
-                            MyUtil.print("取消关注失败："+ msg +"<>" +(index-1) ,Factor.getGui());
+                            MyUtil.print("取消关注失败："+ MyUtil.decodeUnicode(msg) +"<>" +(index-1) ,Factor.getGui());
                         }else{
                             MyUtil.print("取消关注成功："+ (index-1) ,Factor.getGui());
                         }
