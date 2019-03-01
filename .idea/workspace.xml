@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9abbdadf-701b-48ae-a65c-cc692b127229" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/gui/About.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/gui/About.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="333" column="50" selection-start-line="333" selection-start-column="50" selection-end-line="333" selection-end-column="50" />
+            <state relative-caret-position="14">
+              <caret line="945" column="40" selection-start-line="945" selection-start-column="40" selection-end-line="945" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -59,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/About.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
+            <state relative-caret-position="256">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
             </state>
           </provider>
         </entry>
@@ -129,8 +129,8 @@
         <option value="$PROJECT_DIR$/src/com/sucre/service/WeiboImpl.java" />
         <option value="$PROJECT_DIR$/src/com/sucre/myNet/Nets.java" />
         <option value="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" />
-        <option value="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" />
         <option value="$PROJECT_DIR$/src/com/sucre/gui/About.java" />
+        <option value="$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java" />
       </list>
     </option>
   </component>
@@ -286,18 +286,18 @@
       <workItem from="1546776317568" duration="3025000" />
       <workItem from="1547380233484" duration="992000" />
       <workItem from="1551318008588" duration="5152000" />
-      <workItem from="1551357103112" duration="780000" />
+      <workItem from="1551357103112" duration="2066000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24250000" />
+    <option name="totallyTimeSpent" value="25536000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2685325" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2685325" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -316,7 +316,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.3065574" />
+      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.3065574" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -445,17 +445,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java">
+    <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/About.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="333" column="50" selection-start-line="333" selection-start-column="50" selection-end-line="333" selection-end-column="50" />
+        <state relative-caret-position="256">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/sucre/gui/About.java">
+    <entry file="file://$PROJECT_DIR$/src/com/sucre/service/WeiboVote.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
+        <state relative-caret-position="14">
+          <caret line="945" column="40" selection-start-line="945" selection-start-column="40" selection-end-line="945" selection-end-column="40" />
         </state>
       </provider>
     </entry>

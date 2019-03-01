@@ -941,9 +941,9 @@ public class WeiboVote extends Weibo {
         data.append("cp_abid: 2-1,1-102,18-100,1-10,24-101,5-200,2-201\r\n");
         data.append("cp_os: android\r\n");
         data.append("cp_channel: miaopai\r\n");
-        data.append("cp_sign: 1205d64c020b98692316c9e38d7efe3c\r\n");
+        data.append("cp_sign: 302bdfe800805e14a56ac7c73034928d\r\n");
         data.append("cp_sver: 6.0.1\r\n");
-        data.append("cp_time: 1551267834\r\n");
+        data.append("cp_time: 1551360014\r\n");
         data.append("cp_uuid: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
         data.append("cp_appid: 424\r\n");
         data.append("cp_ver: 7.1.92\r\n");
