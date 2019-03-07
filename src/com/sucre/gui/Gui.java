@@ -419,6 +419,7 @@ public class Gui extends JFrame implements Printer {
         lblUnion.setText(data);
         feedback.setText(feedback.getText() + data + "\r\n");
 
+
     }
 
     /**

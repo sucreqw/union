@@ -313,6 +313,31 @@ public class WeiboVote extends Weibo {
                         }
                     }
                     break;
+
+                case "秒拍关注":
+                    //因为秒拍cookie只有两项，以前代码设计直接当成id导入 ，为了兼容，这里直接取id就是cookie.
+                    ret=nets.GoHttp("b-api.ins.miaopai.com",80,miaopaiFollow(super.getId(),vid));
+                    if(!MyUtil.isEmpty(ret)){
+                        String msg=MyUtil.midWord("msg\":\"","\",\"",ret);
+                        if(msg!=null && !"".equals(msg)){
+                            MyUtil.print("关注失败："+ MyUtil.decodeUnicode(msg) +"<>" +(index-1) ,Factor.getGui());
+                        }else{
+                            MyUtil.print("关注成功："+ (index-1) ,Factor.getGui());
+                        }
+                    }
+                    break;
+                case "秒拍取消关注":
+                    //因为秒拍cookie只有两项，以前代码设计直接当成id导入 ，为了兼容，这里直接取id就是cookie.
+                    ret=nets.GoHttp("b-api.ins.miaopai.com",80,miaopaiUnFollow(super.getId(),vid));
+                    if(!MyUtil.isEmpty(ret)){
+                        String msg=MyUtil.midWord("msg\":\"","\",\"",ret);
+                        if(msg!=null && !"".equals(msg)){
+                            MyUtil.print("取消关注失败："+ MyUtil.decodeUnicode(msg) +"<>" +(index-1) ,Factor.getGui());
+                        }else{
+                            MyUtil.print("取消关注成功："+ (index-1) ,Factor.getGui());
+                        }
+                    }
+                    break;
             }// end of switch
 
         }
@@ -905,4 +930,66 @@ public class WeiboVote extends Weibo {
 
         return data.toString().getBytes();
     }
+
+    //miaopai follow......
+    private byte[] miaopaiFollow(String cookies, String uid) {
+        StringBuilder data = new StringBuilder(900);
+        String temp = "suid="+ uid +"\r\n";
+
+        data.append("POST http://b-api.ins.miaopai.com/1/relation/follow.json HTTP/1.1\r\n");
+        data.append("cp_vend: miaopai\r\n");
+        data.append("cp_uniqueId: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
+        data.append("cp_abid: 2-1,1-102,18-100,1-10,24-101,5-200,2-201\r\n");
+        data.append("cp_os: android\r\n");
+        data.append("cp_channel: miaopai\r\n");
+        data.append("cp_sign: 302bdfe800805e14a56ac7c73034928d\r\n");
+        data.append("cp_sver: 6.0.1\r\n");
+        data.append("cp_time: 1551360014\r\n");
+        data.append("cp_uuid: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
+        data.append("cp_appid: 424\r\n");
+        data.append("cp_ver: 7.1.92\r\n");
+        data.append("cp_token: "+ cookies +"\r\n");
+        data.append("Content-Type: application/x-www-form-urlencoded;charset=utf-8\r\n");
+        data.append("Host: b-api.ins.miaopai.com\r\n");
+        data.append("Connection: Keep-Alive\r\n");
+        data.append("User-Agent: okhttp/3.3.1\r\n");
+        data.append("Content-Length: "+ temp.length() +"\r\n");
+        data.append("X-Requested-With: com.baidu.searchbox\r\n");
+        data.append("\r\n");
+        data.append(temp);
+        data.append("\r\n");
+        data.append("\r\n");
+        return data.toString().getBytes();
+    }
+    //miaopai Unfollow......
+    private byte[] miaopaiUnFollow(String cookies, String uid) {
+        StringBuilder data = new StringBuilder(900);
+        String temp = "suid="+ uid +"\r\n";
+
+        data.append("POST http://b-api.ins.miaopai.com/1/relation/unfollow.json HTTP/1.1\r\n");
+        data.append("cp_vend: miaopai\r\n");
+        data.append("cp_uniqueId: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
+        data.append("cp_abid: 2-1,1-102,18-100,1-10,24-101,5-200,2-201\r\n");
+        data.append("cp_os: android\r\n");
+        data.append("cp_channel: miaopai\r\n");
+        data.append("cp_sign: eb5149721cb39ab7cd73f731f4152bd5\r\n");
+        data.append("cp_sver: 6.0.1\r\n");
+        data.append("cp_time: 1551267841\r\n");
+        data.append("cp_uuid: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
+        data.append("cp_appid: 424\r\n");
+        data.append("cp_ver: 7.1.92\r\n");
+        data.append("cp_token: "+ cookies +"\r\n");
+        data.append("Content-Type: application/x-www-form-urlencoded;charset=utf-8\r\n");
+        data.append("Host: b-api.ins.miaopai.com\r\n");
+        data.append("Connection: Keep-Alive\r\n");
+        data.append("User-Agent: okhttp/3.3.1\r\n");
+        data.append("Content-Length: "+ temp.length() +"\r\n");
+        data.append("X-Requested-With: com.baidu.searchbox\r\n");
+        data.append("\r\n");
+        data.append(temp);
+        data.append("\r\n");
+        data.append("\r\n");
+        return data.toString().getBytes();
+    }
+
 }
