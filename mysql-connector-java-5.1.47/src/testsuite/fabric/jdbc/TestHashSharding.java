@@ -33,7 +33,7 @@ import testsuite.fabric.BaseFabricTestCase;
 
 /**
  * @todo this hash sharding test is incompatible with the
- *       default Fabric configuration for these C/J Fabric tests.
+ * default Fabric configuration for these C/J Fabric tests.
  */
 public class TestHashSharding extends BaseFabricTestCase {
     private FabricMySQLDataSource ds;

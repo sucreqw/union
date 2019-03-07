@@ -26,16 +26,24 @@ package com.mysql.jdbc;
 import java.util.Map;
 
 public class CachedResultSetMetaData {
-    /** Map column names (and all of their permutations) to column indices */
+    /**
+     * Map column names (and all of their permutations) to column indices
+     */
     Map<String, Integer> columnNameToIndex = null;
 
-    /** Cached Field info */
+    /**
+     * Cached Field info
+     */
     Field[] fields;
 
-    /** Map of fully-specified column names to column indices */
+    /**
+     * Map of fully-specified column names to column indices
+     */
     Map<String, Integer> fullColumnNameToIndex = null;
 
-    /** Cached ResultSetMetaData */
+    /**
+     * Cached ResultSetMetaData
+     */
     java.sql.ResultSetMetaData metadata;
 
     public Map<String, Integer> getColumnNameToIndex() {

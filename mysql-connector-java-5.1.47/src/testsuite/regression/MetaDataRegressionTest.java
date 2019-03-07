@@ -64,9 +64,8 @@ import junit.framework.ComparisonFailure;
 public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Creates a new MetaDataRegressionTest.
-     * 
-     * @param name
-     *            the name of the test
+     *
+     * @param name the name of the test
      */
     public MetaDataRegressionTest(String name) {
         super(name);
@@ -74,7 +73,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -99,9 +98,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#2852, where RSMD is not returning correct (or matching)
      * types for TINYINT and SMALLINT.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug2852() throws Exception {
         try {
@@ -128,9 +126,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#2855, where RSMD is not returning correct (or matching)
      * types for FLOAT.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug2855() throws Exception {
         try {
@@ -153,9 +150,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#3570 -- inconsistent reporting of column type
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testBug3570() throws Exception {
         String createTableQuery = " CREATE TABLE testBug3570(field_tinyint TINYINT,field_smallint SMALLINT,field_mediumint MEDIUMINT"
@@ -195,9 +191,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests char/varchar bug
-     * 
-     * @throws Exception
-     *             if any errors occur
+     *
+     * @throws Exception if any errors occur
      */
     public void testCharVarchar() throws Exception {
         try {
@@ -223,9 +218,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#1673, where DatabaseMetaData.getColumns() is not
      * returning correct column ordinal info for non '%' column name patterns.
-     * 
-     * @throws Exception
-     *             if the test fails for any reason
+     *
+     * @throws Exception if the test fails for any reason
      */
     public void testFixForBug1673() throws Exception {
         try {
@@ -255,7 +249,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
             }
 
             assertTrue("Ordinal position in full column list of '" + ordinalPosOfCol2Full + "' != ordinal position in pattern search, '"
-                    + ordinalPosOfCol2Scoped + "'.",
+                            + ordinalPosOfCol2Scoped + "'.",
                     (ordinalPosOfCol2Full != 0) && (ordinalPosOfCol2Scoped != 0) && (ordinalPosOfCol2Scoped == ordinalPosOfCol2Full));
         } finally {
             this.stmt.executeUpdate("DROP TABLE IF EXISTS testBug1673");
@@ -264,9 +258,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests bug reported by OpenOffice team with getColumns and LONGBLOB
-     * 
-     * @throws Exception
-     *             if any errors occur
+     *
+     * @throws Exception if any errors occur
      */
     public void testGetColumns() throws Exception {
         try {
@@ -296,9 +289,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for Bug#
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testGetColumnsBug1099() throws Exception {
         try {
@@ -361,7 +353,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests whether or not unsigned columns are reported correctly in
      * DBMD.getColumns
-     * 
+     *
      * @throws Exception
      */
     public void testGetColumnsUnsigned() throws Exception {
@@ -384,9 +376,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests whether bogus parameters break Driver.getPropertyInfo().
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     public void testGetPropertyInfo() throws Exception {
         new Driver().getPropertyInfo("", null);
@@ -395,9 +386,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests whether ResultSetMetaData returns correct info for CHAR/VARCHAR
      * columns.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testIsCaseSensitive() throws Exception {
         try {
@@ -458,9 +448,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests whether or not DatabaseMetaData.getColumns() returns the correct
      * java.sql.Types info.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testLongText() throws Exception {
         try {
@@ -479,9 +468,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests for types being returned correctly
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     public void testTypes() throws Exception {
         try {
@@ -507,9 +495,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#4742, 'DOUBLE' mapped twice in getTypeInfo().
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug4742() throws Exception {
         HashMap<String, String> clashMap = new HashMap<String, String>();
@@ -526,16 +513,15 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#4138, getColumns() returns incorrect JDBC type for
      * unsigned columns.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug4138() throws Exception {
         try {
-            String[] typesToTest = new String[] { "TINYINT", "SMALLINT", "MEDIUMINT", "INT", "BIGINT", "FLOAT", "DOUBLE", "DECIMAL" };
+            String[] typesToTest = new String[]{"TINYINT", "SMALLINT", "MEDIUMINT", "INT", "BIGINT", "FLOAT", "DOUBLE", "DECIMAL"};
 
-            short[] jdbcMapping = new short[] { Types.TINYINT, Types.SMALLINT, Types.INTEGER, Types.INTEGER, Types.BIGINT, Types.REAL, Types.DOUBLE,
-                    Types.DECIMAL };
+            short[] jdbcMapping = new short[]{Types.TINYINT, Types.SMALLINT, Types.INTEGER, Types.INTEGER, Types.BIGINT, Types.REAL, Types.DOUBLE,
+                    Types.DECIMAL};
 
             this.stmt.executeUpdate("DROP TABLE IF EXISTS testBug4138");
 
@@ -610,9 +596,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Here for housekeeping only, the test is actually in testBug4138().
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug4860() throws Exception {
         testBug4138();
@@ -621,22 +606,21 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#4880 - RSMD.getPrecision() returns '0' for non-numeric
      * types.
-     * 
+     * <p>
      * Why-oh-why is this not in the spec, nor the api-docs, but in some
      * 'optional' book, _and_ it is a variance from both ODBC and the ANSI SQL
      * standard :p
-     * 
+     * <p>
      * (from the CTS testsuite)....
-     * 
+     * <p>
      * The getPrecision(int colindex) method returns an integer value
      * representing the number of decimal digits for number types,maximum length
      * in characters for character types,maximum length in bytes for JDBC binary
      * datatypes.
-     * 
+     * <p>
      * (See Section 27.3 of JDBC 2.0 API Reference & Tutorial 2nd edition)
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
 
     public void testBug4880() throws Exception {
@@ -681,9 +665,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#6399, ResultSetMetaData.getDisplaySize() is wrong for
      * multi-byte charsets.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug6399() throws Exception {
         if (versionMeetsMinimum(4, 1)) {
@@ -708,9 +691,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#7081, DatabaseMetaData.getIndexInfo() ignoring 'unique'
      * parameters.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug7081() throws Exception {
         String tableName = "testBug7081";
@@ -736,9 +718,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#7033 - PreparedStatements don't encode Big5 (and other
      * multibyte) character sets correctly in static SQL strings.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug7033() throws Exception {
         if (!this.DISABLED_testBug7033) {
@@ -792,9 +773,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for Bug#8812, DBMD.getIndexInfo() returning inverted values for
      * 'NON_UNIQUE' column.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug8812() throws Exception {
         String tableName = "testBug8812";
@@ -835,9 +815,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#8792 - DBMD.supportsResultSetConcurrency() not
      * returning true for forward-only/read-only result sets (we obviously
      * support this).
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug8792() throws Exception {
         DatabaseMetaData dbmd = this.conn.getMetaData();
@@ -881,9 +860,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#8803, 'DATA_TYPE' column from
      * DBMD.getBestRowIdentifier() causes ArrayIndexOutOfBoundsException when
      * accessed (and in fact, didn't return any value).
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug8803() throws Exception {
         String tableName = "testBug8803";
@@ -909,9 +887,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#9320 - PreparedStatement.getMetaData() inserts blank
      * row in database under certain conditions when not using server-side
      * prepared statements.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug9320() throws Exception {
         createTable("testBug9320", "(field1 int)");
@@ -924,19 +901,18 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#9778, DBMD.getTables() shouldn't return tables if views
      * are asked for, even if the database version doesn't support views.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug9778() throws Exception {
         String tableName = "testBug9778";
 
         try {
             createTable(tableName, "(field1 int)");
-            this.rs = this.conn.getMetaData().getTables(null, null, tableName, new String[] { "VIEW" });
+            this.rs = this.conn.getMetaData().getTables(null, null, tableName, new String[]{"VIEW"});
             assertEquals(false, this.rs.next());
 
-            this.rs = this.conn.getMetaData().getTables(null, null, tableName, new String[] { "TABLE" });
+            this.rs = this.conn.getMetaData().getTables(null, null, tableName, new String[]{"TABLE"});
             assertEquals(true, this.rs.next());
         } finally {
             if (this.rs != null) {
@@ -949,9 +925,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#9769 - Should accept null for procedureNamePattern,
      * even though it isn't JDBC compliant, for legacy's sake.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug9769() throws Exception {
         boolean defaultPatternConfig = ((com.mysql.jdbc.Connection) this.conn).getNullNamePatternMatchesAll();
@@ -990,9 +965,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#9917 - Should accept null for catalog in DBMD methods,
      * even though it's not JDBC-compliant for legacy's sake.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug9917() throws Exception {
         String tableName = "testBug9917";
@@ -1012,7 +986,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
             String currentCatalog = this.conn.getCatalog();
 
             try {
-                this.rs = this.conn.getMetaData().getTables(null, null, tableName, new String[] { "TABLE" });
+                this.rs = this.conn.getMetaData().getTables(null, null, tableName, new String[]{"TABLE"});
 
                 if (!defaultCatalogConfig) {
                     // we shouldn't have gotten here
@@ -1053,9 +1027,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#11575 -- DBMD.storesLower/Mixed/UpperIdentifiers()
      * reports incorrect values for servers deployed on Windows.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug11575() throws Exception {
         DatabaseMetaData dbmd = this.conn.getMetaData();
@@ -1158,9 +1131,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * "true" if foreign keys are supported by the datasource, even though this
      * method also covers support for check constraints, which MySQL _doesn't_
      * have.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug12975() throws Exception {
         assertEquals(false, this.conn.getMetaData().supportsIntegrityEnhancementFacility());
@@ -1184,7 +1156,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#13277 - RSMD for generated keys has NPEs when a
      * connection is referenced.
-     * 
+     *
      * @throws Exception
      */
     public void testBug13277() throws Exception {
@@ -1247,9 +1219,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests BUG13601 (which doesn't seem to be present in 3.1.11, but we'll
      * leave it in here for regression's-sake).
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug13601() throws Exception {
 
@@ -1272,9 +1243,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#14815 - DBMD.getColumns() doesn't return TABLE_NAME
      * correctly.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug14815() throws Exception {
         try {
@@ -1306,9 +1276,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#15854 - DBMD.getColumns() returns wrong type for BIT.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug15854() throws Exception {
         if (versionMeetsMinimum(5, 0)) {
@@ -1331,9 +1300,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#16277 - Invalid classname returned for
      * RSMD.getColumnClassName() for BIGINT type.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug16277() throws Exception {
         createTable("testBug16277", "(field1 BIGINT, field2 BIGINT UNSIGNED)");
@@ -1345,9 +1313,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#18554 - Aliased column names where length of name > 251
      * are corrupted.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug18554() throws Exception {
         testBug18554(249);
@@ -1406,7 +1373,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#21267, ParameterMetaData throws NullPointerException
      * when prepared SQL actually has a syntax error
-     * 
+     *
      * @throws Exception
      */
     public void testBug21267() throws Exception {
@@ -1441,9 +1408,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * as is the case when not using information_schema, thus leading to a
      * truncation exception that isn't present when not using
      * information_schema.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug21544() throws Exception {
         if (!versionMeetsMinimum(5, 0)) {
@@ -1477,9 +1443,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#22613 - DBMD.getColumns() does not return expected
      * COLUMN_SIZE for the SET type (fixed to be consistent with the ODBC
      * driver)
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug22613() throws Exception {
 
@@ -1530,9 +1495,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Fix for BUG#22628 - Driver.getPropertyInfo() throws NullPointerException
      * for URL that only specifies host and/or port.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug22628() throws Exception {
         DriverPropertyInfo[] dpi = new NonRegisteringDriver().getPropertyInfo("jdbc:mysql://bogus:9999", new Properties());
@@ -1592,7 +1556,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
         String tableName = quoteChar + "\u00e9\u0074\u00e9" + quoteChar;
         createTable(tableName, "(field1 int)");
-        this.rs = this.conn.getMetaData().getTables(this.conn.getCatalog(), null, tableName, new String[] { "TABLE" });
+        this.rs = this.conn.getMetaData().getTables(this.conn.getCatalog(), null, tableName, new String[]{"TABLE"});
         assertEquals(true, this.rs.next());
         System.out.println(this.rs.getString("TABLE_NAME"));
         System.out.println(new String(this.rs.getBytes("TABLE_NAME"), "UTF-8"));
@@ -1601,13 +1565,12 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#18258 - Nonexistent catalog/database causes
      * SQLException to be raised, rather than returning empty result set.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug18258() throws Exception {
         String bogusDatabaseName = "abcdefghijklmnopqrstuvwxyz";
-        this.conn.getMetaData().getTables(bogusDatabaseName, "%", "%", new String[] { "TABLE", "VIEW" });
+        this.conn.getMetaData().getTables(bogusDatabaseName, "%", "%", new String[]{"TABLE", "VIEW"});
         this.conn.getMetaData().getColumns(bogusDatabaseName, "%", "%", "%");
         this.conn.getMetaData().getProcedures(bogusDatabaseName, "%", "%");
     }
@@ -1615,9 +1578,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#23303 - DBMD.getSchemas() doesn't return a
      * TABLE_CATALOG column.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug23303() throws Exception {
 
@@ -1629,13 +1591,13 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#23304 - DBMD using "show" and DBMD using
      * information_schema do not return results consistent with eachother.
-     * 
+     * <p>
      * (note this fix only addresses the inconsistencies, not the issue that the
      * driver is treating schemas differently than some users expect.
-     * 
+     * <p>
      * We will revisit this behavior when there is full support for schemas in
      * MySQL).
-     * 
+     *
      * @throws Exception
      */
     public void testBug23304() throws Exception {
@@ -1675,14 +1637,14 @@ public class MetaDataRegressionTest extends BaseTestCase {
              * "%", new String[] {"TABLE", "VIEW"}); rsInfoSchema =
              * dbmdUsingInfoSchema.getTables(connInfoSchema.getCatalog(), null,
              * "%", new String[] {"TABLE", "VIEW"});
-             * 
+             *
              * compareResultSets(rsShow, rsInfoSchema);
-             * 
+             *
              * rsShow = dbmdUsingShow.getTables(null, null, "%", new String[]
              * {"TABLE", "VIEW"}); rsInfoSchema =
              * dbmdUsingInfoSchema.getTables(null, null, "%", new String[]
              * {"TABLE", "VIEW"});
-             * 
+             *
              * compareResultSets(rsShow, rsInfoSchema);
              */
 
@@ -1759,8 +1721,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
                             && (expected.getObject(i + 1) == null && actual.getString(i + 1).length() == 0)
                             || (expected.getString(i + 1).length() == 0 && actual.getObject(i + 1) == null)) {
                         continue; // known bug with SHOW FULL COLUMNS, and we
-                                 // can't distinguish between null and ''
-                                 // for a default
+                        // can't distinguish between null and ''
+                        // for a default
                     }
 
                     if ("CHAR_OCTET_LENGTH".equals(metadataExpected.getColumnName(i + 1))) {
@@ -1792,7 +1754,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#25624 - Whitespace surrounding storage/size specifiers
      * in stored procedure declaration causes NumberFormatException to be thrown
      * when calling stored procedure.
-     * 
+     *
      * @throws Exception
      */
     public void testBug25624() throws Exception {
@@ -1812,9 +1774,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#27867 - Schema objects with identifiers other than the
      * connection character aren't retrieved correctly in ResultSetMetadata.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug27867() throws Exception {
         if (!versionMeetsMinimum(4, 1)) {
@@ -1835,7 +1796,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Fixed BUG#27915 - DatabaseMetaData.getColumns() doesn't contain SCOPE_*
      * or IS_AUTOINCREMENT columns.
-     * 
+     *
      * @throws Exception
      */
     public void testBug27915() throws Exception {
@@ -1875,13 +1836,13 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#27916 - UNSIGNED types not reported via
      * DBMD.getTypeInfo(), and capitalization of types is not consistent between
      * DBMD.getColumns(), RSMD.getColumnTypeName() and DBMD.getTypeInfo().
-     * 
+     * <p>
      * This fix also ensures that the precision of UNSIGNED MEDIUMINT and
      * UNSIGNED BIGINT is reported correctly via DBMD.getColumns().
-     * 
+     * <p>
      * Second fix ensures that list values of ENUM and SET types containing
      * 'unsigned' are not taken in account.
-     * 
+     *
      * @throws Exception
      */
     public void testBug27916() throws Exception {
@@ -1965,7 +1926,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     }
 
     public void testBug20491() throws Exception {
-        String[] fields = { "field1_ae_\u00e4", "field2_ue_\u00fc", "field3_oe_\u00f6", "field4_sz_\u00df" };
+        String[] fields = {"field1_ae_\u00e4", "field2_ue_\u00fc", "field3_oe_\u00f6", "field4_sz_\u00df"};
 
         createTable("tst", "(`" + fields[0] + "` int(10) unsigned NOT NULL default '0', `" + fields[1] + "` varchar(45) default '', `" + fields[2]
                 + "` varchar(45) default '', `" + fields[3] + "` varchar(45) default '', PRIMARY KEY  (`" + fields[0] + "`))");
@@ -2036,13 +1997,13 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for Bug#33594 - When cursor fetch is enabled, wrong metadata is
      * returned from DBMD.
-     * 
+     * <p>
      * The fix is two parts.
-     * 
+     * <p>
      * First, when asking for the first column value twice from a cursor-fetched
      * row, the driver didn't re-position, and thus the "next" column was
      * returned.
-     * 
+     * <p>
      * Second, metadata statements and internal statements the driver uses
      * shouldn't use cursor-based fetching at all, so we've ensured that
      * internal statements have their fetch size set to "0".
@@ -2137,15 +2098,15 @@ public class MetaDataRegressionTest extends BaseTestCase {
             return; // no information schema
         }
 
-        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[] { "SYSTEM VIEW" });
+        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[]{"SYSTEM VIEW"});
         assertTrue(this.rs.next());
-        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[] { "SYSTEM TABLE" });
+        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[]{"SYSTEM TABLE"});
         assertFalse(this.rs.next());
-        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[] { "TABLE" });
+        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[]{"TABLE"});
         assertFalse(this.rs.next());
-        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[] { "VIEW" });
+        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[]{"VIEW"});
         assertFalse(this.rs.next());
-        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[] { "SYSTEM TABLE", "SYSTEM VIEW", "TABLE", "VIEW" });
+        this.rs = this.conn.getMetaData().getTables("information_schema", "null", "%", new String[]{"SYSTEM TABLE", "SYSTEM VIEW", "TABLE", "VIEW"});
         assertTrue(this.rs.next());
         this.rs = this.conn.getMetaData().getColumns("information_schema", null, "TABLES", "%");
         assertTrue(this.rs.next());
@@ -2166,7 +2127,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         // Bug#44862 - getBestRowIdentifier does not return resultset as per JDBC API specifications
         this.rs = md.getBestRowIdentifier(this.conn.getCatalog(), null, "returnTypesTest", DatabaseMetaData.bestRowSession, false);
 
-        int[] types = new int[] { Types.SMALLINT, // 1. SCOPE short => actual scope of result
+        int[] types = new int[]{Types.SMALLINT, // 1. SCOPE short => actual scope of result
                 Types.CHAR, // 2. COLUMN_NAME String => column name
                 Types.INTEGER, // 3. DATA_TYPE int => SQL data type from java.sql.Types
                 Types.CHAR, // 4. TYPE_NAME String => Data source dependent type name, for a UDT the type name is fully qualified
@@ -2181,7 +2142,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         // Bug#44683 - getVersionColumns does not return resultset as per JDBC API specifications
         this.rs = md.getVersionColumns(this.conn.getCatalog(), null, "returnTypesTest");
 
-        types = new int[] { Types.SMALLINT, // SCOPE short => is not used
+        types = new int[]{Types.SMALLINT, // SCOPE short => is not used
                 Types.CHAR, // COLUMN_NAME String => column name
                 Types.INTEGER, // DATA_TYPE int => SQL data type from java.sql.Types
                 Types.CHAR, // TYPE_NAME String => Data source-dependent type name
@@ -2196,7 +2157,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         // Bug#44865 - getColumns does not return resultset as per JDBC API specifications
         this.rs = md.getColumns(this.conn.getCatalog(), null, "returnTypesTest", "foo");
 
-        types = new int[] { Types.CHAR, // 1. TABLE_CAT String => table catalog (may be null)
+        types = new int[]{Types.CHAR, // 1. TABLE_CAT String => table catalog (may be null)
                 Types.CHAR, // 2. TABLE_SCHEM String => table schema (may be null)
                 Types.CHAR, // 3. TABLE_NAME String => table name
                 Types.CHAR, // 4. COLUMN_NAME String => column name
@@ -2230,7 +2191,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         // Bug#44868 - getTypeInfo does not return resultset as per JDBC API specifications
         this.rs = md.getTypeInfo();
 
-        types = new int[] { Types.CHAR, // 1. TYPE_NAME String => Type name
+        types = new int[]{Types.CHAR, // 1. TYPE_NAME String => Type name
                 Types.INTEGER, // 2. DATA_TYPE int => SQL data type from java.sql.Types
                 Types.INTEGER, // 3. PRECISION int => maximum precision
                 Types.CHAR, // 4. LITERAL_PREFIX String => prefix used to quote a literal (may be null)
@@ -2255,7 +2216,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         // Bug#44869 - getIndexInfo does not return resultset as per JDBC API specifications
         this.rs = md.getIndexInfo(this.conn.getCatalog(), null, "returnTypesTest", false, false);
 
-        types = new int[] { Types.CHAR, // 1. TABLE_CAT String => table catalog (may be null)
+        types = new int[]{Types.CHAR, // 1. TABLE_CAT String => table catalog (may be null)
                 Types.CHAR, // 2. TABLE_SCHEM String => table schema (may be null)
                 Types.CHAR, // 3. TABLE_NAME String => table name
                 Types.BOOLEAN, // 4. NON_UNIQUE boolean => Can index values be non-unique. false when TYPE is tableIndexStatistic
@@ -2278,7 +2239,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         // Bug#44867 - getImportedKeys/exportedKeys/crossReference doesn't have correct type for DEFERRABILITY
         this.rs = md.getImportedKeys(this.conn.getCatalog(), null, "returnTypesTest");
 
-        types = new int[] { Types.CHAR, // PKTABLE_CAT String => primary key table catalog being imported (may be null)
+        types = new int[]{Types.CHAR, // PKTABLE_CAT String => primary key table catalog being imported (may be null)
                 Types.CHAR, // PKTABLE_SCHEM String => primary key table schema being imported (may be null)
                 Types.CHAR, // PKTABLE_NAME String => primary key table name being imported
                 Types.CHAR, // PKCOLUMN_NAME String => primary key column name being imported
@@ -2298,7 +2259,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
         this.rs = md.getExportedKeys(this.conn.getCatalog(), null, "returnTypesTest");
 
-        types = new int[] { Types.CHAR, // PKTABLE_CAT String => primary key table catalog being imported (may be null)
+        types = new int[]{Types.CHAR, // PKTABLE_CAT String => primary key table catalog being imported (may be null)
                 Types.CHAR, // PKTABLE_SCHEM String => primary key table schema being imported (may be null)
                 Types.CHAR, // PKTABLE_NAME String => primary key table name being imported
                 Types.CHAR, // PKCOLUMN_NAME String => primary key column name being imported
@@ -2318,7 +2279,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
         this.rs = md.getCrossReference(this.conn.getCatalog(), null, "returnTypesTest", this.conn.getCatalog(), null, "bar");
 
-        types = new int[] { Types.CHAR, // PKTABLE_CAT String => primary key table catalog being imported (may be null)
+        types = new int[]{Types.CHAR, // PKTABLE_CAT String => primary key table catalog being imported (may be null)
                 Types.CHAR, // PKTABLE_SCHEM String => primary key table schema being imported (may be null)
                 Types.CHAR, // PKTABLE_NAME String => primary key table name being imported
                 Types.CHAR, // PKCOLUMN_NAME String => primary key column name being imported
@@ -2441,7 +2402,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#52167 - Can't parse parameter list with special
      * characters inside
-     * 
+     *
      * @throws Exception
      */
     public void testBug52167() throws Exception {
@@ -2463,9 +2424,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#51912 - Passing NULL as cat. param to
      * getProcedureColumns with nullCatalogMeansCurrent = false
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug51912() throws Exception {
         if (!versionMeetsMinimum(5, 0)) {
@@ -2497,9 +2457,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * assertTrue("Parameter " + columnName + " do not allow null arguments",
      * columnNullable.intValue() == java.sql.DatabaseMetaData.procedureNullable);
      * was failing for no good reason.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
 
     public void testBug38367() throws Exception {
@@ -2528,9 +2487,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * for DATE field with value 0000-00-00
      * in getDate() although
      * zeroDateTimeBehavior is convertToNull.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug57808() throws Exception {
         try {
@@ -2573,9 +2531,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * to fix the bug in server where SHOW CREATE PROCEDURE was not respecting
      * lower-case table names is misbehaving when connection is not attached to
      * database and on non-casesensitive OS.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug61150() throws Exception {
         NonRegisteringDriver driver = new NonRegisteringDriver();
@@ -2638,9 +2595,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * Tests fix for BUG#61332 - Check if "LIKE" or "=" is sent
      * to server in I__S query when no wildcards are supplied
      * for schema parameter.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug61332() throws Exception {
         Properties props = new Properties();
@@ -2682,9 +2638,9 @@ public class MetaDataRegressionTest extends BaseTestCase {
         String unquotedCatalog = this.conn.getCatalog();
 
         DatabaseMetaData dbmd = this.conn.getMetaData();
-        this.rs = dbmd.getTables(quotedCatalog, null, "testQuotedGunk", new String[] { "TABLE" });
+        this.rs = dbmd.getTables(quotedCatalog, null, "testQuotedGunk", new String[]{"TABLE"});
         assertTrue(this.rs.next());
-        this.rs = dbmd.getTables(unquotedCatalog, null, "testQuotedGunk", new String[] { "TABLE" });
+        this.rs = dbmd.getTables(unquotedCatalog, null, "testQuotedGunk", new String[]{"TABLE"});
         assertTrue(this.rs.next());
         this.rs = dbmd.getColumns(quotedCatalog, null, "testQuotedGunk", "field1");
         assertTrue(this.rs.next());
@@ -2695,9 +2651,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#61203 - noAccessToProcedureBodies does not work anymore.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug61203() throws Exception {
         if (!versionMeetsMinimum(5, 0)) {
@@ -2802,9 +2757,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#63456 - MetaData precision is different when using UTF8 or Latin1 tables
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug63456() throws Exception {
 
@@ -2833,9 +2787,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#63800 - getVersionColumns() does not return timestamp fields; always empty.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug63800() throws Exception {
         try {
@@ -2845,7 +2798,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
                 fail("No database selected");
             }
 
-            for (String prop : new String[] { "dummyProp", "useInformationSchema" }) {
+            for (String prop : new String[]{"dummyProp", "useInformationSchema"}) {
                 props = new Properties();
                 if (versionMeetsMinimum(5, 7, 4)) {
                     props.put("jdbcCompliantTruncation", "false");
@@ -3049,9 +3002,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#16436511 - getDriverName() returns a string with company name "MySQL-AB"
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug16436511() throws Exception {
         DatabaseMetaData dbmd = this.conn.getMetaData();
@@ -3060,15 +3012,14 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Test fix for BUG#68098 - DatabaseMetaData.getIndexInfo sorts results incorrectly.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug68098() throws Exception {
-        String[] testStepDescription = new String[] { "MySQL MetaData", "I__S MetaData" };
+        String[] testStepDescription = new String[]{"MySQL MetaData", "I__S MetaData"};
         Connection connUseIS = getConnectionWithProps("useInformationSchema=true");
-        Connection[] testConnections = new Connection[] { this.conn, connUseIS };
-        String[] expectedIndexesOrder = new String[] { "index_1", "index_1", "index_3", "PRIMARY", "index_2", "index_2", "index_4" };
+        Connection[] testConnections = new Connection[]{this.conn, connUseIS};
+        String[] expectedIndexesOrder = new String[]{"index_1", "index_1", "index_3", "PRIMARY", "index_2", "index_2", "index_4"};
 
         this.stmt.execute("DROP TABLE IF EXISTS testBug68098");
 
@@ -3095,14 +3046,13 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#68307 - getFunctionColumns() returns incorrect "COLUMN_TYPE" information. This JDBC4
      * feature required some changes in method getProcedureColumns().
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug68307() throws Exception {
-        String[] testStepDescription = new String[] { "MySQL MetaData", "I__S MetaData" };
+        String[] testStepDescription = new String[]{"MySQL MetaData", "I__S MetaData"};
         Connection connUseIS = getConnectionWithProps("useInformationSchema=true");
-        Connection[] testConnections = new Connection[] { this.conn, connUseIS };
+        Connection[] testConnections = new Connection[]{this.conn, connUseIS};
 
         createFunction("testBug68307_func", "(func_param_in INT) RETURNS INT DETERMINISTIC RETURN 1");
 
@@ -3135,16 +3085,15 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#44451 - getTables does not return resultset with expected columns.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug44451() throws Exception {
         String methodName;
         List<String> expectedFields;
-        String[] testStepDescription = new String[] { "MySQL MetaData", "I__S MetaData" };
+        String[] testStepDescription = new String[]{"MySQL MetaData", "I__S MetaData"};
         Connection connUseIS = getConnectionWithProps("useInformationSchema=true");
-        Connection[] testConnections = new Connection[] { this.conn, connUseIS };
+        Connection[] testConnections = new Connection[]{this.conn, connUseIS};
 
         methodName = "getColumns()";
         expectedFields = Arrays.asList("TABLE_CAT", "TABLE_SCHEM", "TABLE_NAME", "COLUMN_NAME", "DATA_TYPE", "TYPE_NAME", "COLUMN_SIZE", "BUFFER_LENGTH",
@@ -3214,9 +3163,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
      * "`dbname`" in unquoted form (`dbname`) driver handles it as quoted by "`" symbol. To handle such
      * identifiers correctly a new behavior was added to pedantic mode (connection property pedantic=true),
      * now if it set to true methods like DatabaseMetaData.getColumns() treat all parameters as unquoted.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug65871() throws Exception {
         createTable("testbug65871_foreign",
@@ -3312,7 +3260,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
     }
 
     private void testBug65871_testTable(String unquotedDbName, String quotedDbName, String unquotedTableName, String quotedTableName, Connection conn1,
-            Statement st1) throws Exception {
+                                        Statement st1) throws Exception {
 
         StringBuilder failedTests = new StringBuilder();
         try {
@@ -3429,7 +3377,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
             // 10. getTables(...)
             try {
-                this.rs = conn1.getMetaData().getTables(unquotedDbName, null, unquotedTableName, new String[] { "TABLE" });
+                this.rs = conn1.getMetaData().getTables(unquotedDbName, null, unquotedTableName, new String[]{"TABLE"});
                 if (!this.rs.next()) {
                     failedTests.append("conn.getMetaData.getTables(unquotedDbName, null, unquotedTableName, new String[] {\"TABLE\"});\n");
                 }
@@ -3463,9 +3411,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#69298 - Different outcome from DatabaseMetaData.getFunctions() when using I__S.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug69298() throws Exception {
         if (Util.isJdbc4()) {
@@ -3596,9 +3543,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#17248345 - GETFUNCTIONCOLUMNS() METHOD RETURNS COLUMNS OF PROCEDURE. (this happens when
      * functions and procedures have a common name)
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug17248345() throws Exception {
         if (Util.isJdbc4()) {
@@ -3675,24 +3621,23 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#69290 - JDBC Table type "SYSTEM TABLE" is used inconsistently.
-     * 
+     * <p>
      * Tests DatabaseMetaData.getTableTypes() and DatabaseMetaData.getTables() against schemas: mysql,
      * information_schema, performance_schema, test.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug69290() throws Exception {
-        String[] testStepDescription = new String[] { "MySQL MetaData", "I__S MetaData" };
+        String[] testStepDescription = new String[]{"MySQL MetaData", "I__S MetaData"};
         Connection connUseIS = getConnectionWithProps("useInformationSchema=true");
         Connection connNullAll = getConnectionWithProps("nullCatalogMeansCurrent=false");
         Connection connUseISAndNullAll = getConnectionWithProps("useInformationSchema=true,nullCatalogMeansCurrent=false");
         final String testCatalog = this.conn.getCatalog();
 
-        Connection[] testConnections = new Connection[] { this.conn, connUseIS };
+        Connection[] testConnections = new Connection[]{this.conn, connUseIS};
 
         // check table types returned in getTableTypes()
-        final List<String> tableTypes = Arrays.asList(new String[] { "LOCAL TEMPORARY", "SYSTEM TABLE", "SYSTEM VIEW", "TABLE", "VIEW" });
+        final List<String> tableTypes = Arrays.asList(new String[]{"LOCAL TEMPORARY", "SYSTEM TABLE", "SYSTEM VIEW", "TABLE", "VIEW"});
 
         for (int i = 0; i < testStepDescription.length; i++) {
             DatabaseMetaData testDbMetaData = testConnections[i].getMetaData();
@@ -3712,7 +3657,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         createTable("testBug69290_table", "(c1 INT)");
         createView("testBug69290_view", "AS SELECT * FROM testBug69290_table WHERE c1 > 1");
 
-        int[][] countResults = new int[][] { { 0, 0, 0 }, { 0, 0, 0 } };
+        int[][] countResults = new int[][]{{0, 0, 0}, {0, 0, 0}};
 
         // check table types returned in getTables() for each catalog/schema
         for (int i = 0; i < testStepDescription.length; i++) {
@@ -3760,8 +3705,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
         assertTrue("The number of results from getTables() MySQl(" + countResults[0][2] + ") and I__S(" + countResults[1][2]
                 + ") should be the same for 'performance_schema' catalog/schema.", countResults[0][2] == countResults[1][2]);
 
-        testConnections = new Connection[] { connNullAll, connUseISAndNullAll };
-        countResults = new int[][] { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 } };
+        testConnections = new Connection[]{connNullAll, connUseISAndNullAll};
+        countResults = new int[][]{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
 
         // check table types returned in getTables() for all catalogs/schemas and filter by table type (tested with property nullCatalogMeansCurrent=false)
         for (int i = 0; i < testStepDescription.length; i++) {
@@ -3770,7 +3715,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
             // check table type filters
             for (String tableType : tableTypes) {
-                this.rs = testDbMetaData.getTables(null, null, "%", new String[] { tableType });
+                this.rs = testDbMetaData.getTables(null, null, "%", new String[]{tableType});
                 while (this.rs.next()) {
                     assertEquals(
                             testStepDescription[i] + ", table type filter '" + tableType + "', wrong table type for '" + this.rs.getString("TABLE_NAME") + "'.",
@@ -3792,9 +3737,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#35115 - yearIsDateType=false has no effect on result's column type and class.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug35115() throws Exception {
         Connection testConnection = null;
@@ -3841,9 +3785,9 @@ public class MetaDataRegressionTest extends BaseTestCase {
     /*
      * Tests DatabaseMetaData.getSQLKeywords().
      * (Related to BUG#70701 - DatabaseMetaData.getSQLKeywords() doesn't match MySQL 5.6 reserved words)
-     * 
+     *
      * The keywords list that this method returns depends on JDBC version.
-     * 
+     *
      * @throws Exception if the test fails.
      */
     public void testReservedWords() throws Exception {
@@ -3865,11 +3809,10 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#20504139 - GETFUNCTIONCOLUMNS() AND GETPROCEDURECOLUMNS() RETURNS ERROR FOR VALID INPUTS.
-     * 
+     * <p>
      * Test duplicated in testsuite.regression.jdbc4.MetaDataRegressionTest.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug20504139() throws Exception {
         if (Util.isJdbc4()) {
@@ -3902,7 +3845,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
                  */
                 int i = 1;
                 try {
-                    for (String name : new String[] { "testBug20504139f", "testBug20504139`f" }) {
+                    for (String name : new String[]{"testBug20504139f", "testBug20504139`f"}) {
                         testRs = dbmd.getProcedureColumns(null, "", name, "%");
 
                         assertTrue(testRs.next());
@@ -3928,7 +3871,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
                  */
                 i = 1;
                 try {
-                    for (String name : new String[] { "testBug20504139p", "testBug20504139`p" }) {
+                    for (String name : new String[]{"testBug20504139p", "testBug20504139`p"}) {
                         testRs = dbmd.getProcedureColumns(null, "", name, "%");
 
                         assertTrue(testRs.next());
@@ -3953,13 +3896,12 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#21215151 - DATABASEMETADATA.GETCATALOGS() FAILS TO SORT RESULTS.
-     * 
+     * <p>
      * DatabaseMetaData.GetCatalogs() relies on the results of 'SHOW DATABASES' which deliver a sorted list of databases except for 'information_schema' which
      * is always returned in the first position.
      * This test creates set of databases around the relative position of 'information_schema' and checks the ordering of the final ResultSet.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug21215151() throws Exception {
         createDatabase("z_testBug21215151");
@@ -3989,15 +3931,14 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#19803348 - GETPROCEDURES() RETURNS INCORRECT O/P WHEN USEINFORMATIONSCHEMA=FALSE.
-     * 
+     * <p>
      * Composed by two parts:
      * 1. Confirm that getProcedures() and getProcedureColumns() aren't returning more results than expected (as per reported bug).
      * 2. Confirm that the results from getProcedures() and getProcedureColumns() are in the right order (secondary bug).
-     * 
+     * <p>
      * Test duplicated in testsuite.regression.jdbc4.MetaDataRegressionTest.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug19803348() throws Exception {
         Connection testConn = null;
@@ -4104,11 +4045,10 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#20727196 - GETPROCEDURECOLUMNS() RETURNS EXCEPTION FOR FUNCTION WHICH RETURNS ENUM/SET TYPE.
-     * 
+     * <p>
      * Test duplicated in testsuite.regression.jdbc4.MetaDataRegressionTest.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug20727196() throws Exception {
         createFunction("testBug20727196_f1",
@@ -4118,7 +4058,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
                 "(p ENUM ('Yes', 'No')) RETURNS ENUM ('Yes', 'No') DETERMINISTIC BEGIN RETURN IF(p='Yes', 'Yes', if(p='No', 'No', '?')); END");
         createProcedure("testBug20727196_p1", "(p ENUM ('Yes', 'No')) BEGIN SELECT IF(p='Yes', 'Yay!', if(p='No', 'Ney!', 'What?')); END");
 
-        for (String connProps : new String[] { "useInformationSchema=false", "useInformationSchema=true" }) {
+        for (String connProps : new String[]{"useInformationSchema=false", "useInformationSchema=true"}) {
 
             Connection testConn = null;
             try {
@@ -4174,9 +4114,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#76187 (20675539), getTypeInfo report maximum precision of 255 for varchar.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug76187() throws Exception {
 
@@ -4196,9 +4135,8 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#21978216, GETTYPEINFO REPORT MAXIMUM PRECISION OF 255 FOR VARBINARY
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug21978216() throws Exception {
 
@@ -4253,7 +4191,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for Bug#73775 - DBMD.getProcedureColumns()/.getFunctionColumns() fail to filter by columnPattern
-     * 
+     * <p>
      * Test duplicated in testsuite.regression.jdbc4.MetaDataRegressionTest.
      */
     public void testBug73775() throws Exception {
@@ -4288,7 +4226,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
             assertEquals(testCase, "param2", this.rs.getString(4));
             assertFalse(testCase, this.rs.next());
 
-            for (String ptn : new String[] { "param1", "_____1", "%1", "p_r_m%1" }) {
+            for (String ptn : new String[]{"param1", "_____1", "%1", "p_r_m%1"}) {
                 this.rs = dbmd.getProcedureColumns(null, "", "testBug73775%", ptn);
                 assertTrue(this.rs.next());
                 assertEquals(testCase, "testBug73775f", this.rs.getString(3));
@@ -4303,7 +4241,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
                 assertFalse(testCase, this.rs.next());
             }
 
-            for (String ptn : new String[] { "param2", "_____2", "%2", "p_r_m%2" }) {
+            for (String ptn : new String[]{"param2", "_____2", "%2", "p_r_m%2"}) {
                 this.rs = dbmd.getProcedureColumns(null, "", "testBug73775%", ptn);
                 assertTrue(this.rs.next());
                 assertEquals(testCase, "testBug73775f", this.rs.getString(3));

@@ -45,7 +45,7 @@ import testsuite.BaseTestCase;
 public class StringRegressionTest extends BaseTestCase {
     /**
      * Creates a new StringTest object.
-     * 
+     *
      * @param name
      */
     public StringRegressionTest(String name) {
@@ -54,7 +54,7 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -63,9 +63,8 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests character conversion bug.
-     * 
-     * @throws Exception
-     *             if there is an internal error (which is a bug).
+     *
+     * @throws Exception if there is an internal error (which is a bug).
      */
     public void testAsciiCharConversion() throws Exception {
         byte[] buf = new byte[10];
@@ -94,9 +93,8 @@ public class StringRegressionTest extends BaseTestCase {
      * Tests fix for BUG#4010 -- GBK encoding getting escaped doubly when
      * database default character set is GBK. Requires version older than 4.1.0
      * and server set to default character set of 'gbk' to run.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug4010() throws Exception {
         if (!versionMeetsMinimum(4, 1)) {
@@ -139,9 +137,8 @@ public class StringRegressionTest extends BaseTestCase {
     /**
      * Tests for regression of encoding forced by user, reported by Jive
      * Software
-     * 
-     * @throws Exception
-     *             when encoding is not supported (which is a bug)
+     *
+     * @throws Exception when encoding is not supported (which is a bug)
      */
     public void testEncodingRegression() throws Exception {
         Properties props = new Properties();
@@ -152,9 +149,8 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#879
-     * 
-     * @throws Exception
-     *             if the bug resurfaces.
+     *
+     * @throws Exception if the bug resurfaces.
      */
     public void testEscapeSJISDoubleEscapeBug() throws Exception {
         String testString = "'It\\'s a boy!'";
@@ -167,7 +163,7 @@ public class StringRegressionTest extends BaseTestCase {
 
         assertTrue(testString.equals(escapedString));
 
-        byte[] origByteStream = new byte[] { (byte) 0x95, (byte) 0x5c, (byte) 0x8e, (byte) 0x96, (byte) 0x5c, (byte) 0x62, (byte) 0x5c };
+        byte[] origByteStream = new byte[]{(byte) 0x95, (byte) 0x5c, (byte) 0x8e, (byte) 0x96, (byte) 0x5c, (byte) 0x62, (byte) 0x5c};
 
         String origString = "\u955c\u8e96\u5c62\\";
 
@@ -176,7 +172,7 @@ public class StringRegressionTest extends BaseTestCase {
         assertTrue((newByteStream.length == (origByteStream.length + 2)) && (newByteStream[1] == 0x5c) && (newByteStream[2] == 0x5c)
                 && (newByteStream[5] == 0x5c) && (newByteStream[6] == 0x5c));
 
-        origByteStream = new byte[] { (byte) 0x8d, (byte) 0xb2, (byte) 0x93, (byte) 0x91, (byte) 0x81, (byte) 0x40, (byte) 0x8c, (byte) 0x5c };
+        origByteStream = new byte[]{(byte) 0x8d, (byte) 0xb2, (byte) 0x93, (byte) 0x91, (byte) 0x81, (byte) 0x40, (byte) 0x8c, (byte) 0x5c};
 
         testString = new String(origByteStream, "SJIS");
 
@@ -240,12 +236,11 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests that 'latin1' character conversion works correctly.
-     * 
-     * @throws Exception
-     *             if any errors occur
+     *
+     * @throws Exception if any errors occur
      */
     public void testLatin1Encoding() throws Exception {
-        char[] latin1Charset = { 0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x000B, 0x000C, 0x000D, 0x000E, 0x000F,
+        char[] latin1Charset = {0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x000B, 0x000C, 0x000D, 0x000E, 0x000F,
                 0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017, 0x0018, 0x0019, 0x001A, 0x001B, 0x001C, 0x001D, 0x001E, 0x001F, 0x0020, 0x0021,
                 0x0022, 0x0023, 0x0024, 0x0025, 0x0026, 0x0027, 0x0028, 0x0029, 0x002A, 0x002B, 0x002C, 0x002D, 0x002E, 0x002F, 0x0030, 0x0031, 0x0032, 0x0033,
                 0x0034, 0x0035, 0x0036, 0x0037, 0x0038, 0x0039, 0x003A, 0x003B, 0x003C, 0x003D, 0x003E, 0x003F, 0x0040, 0x0041, 0x0042, 0x0043, 0x0044, 0x0045,
@@ -259,7 +254,7 @@ public class StringRegressionTest extends BaseTestCase {
                 0x00C4, 0x00C5, 0x00C6, 0x00C7, 0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x00CC, 0x00CD, 0x00CE, 0x00CF, 0x00D0, 0x00D1, 0x00D2, 0x00D3, 0x00D4, 0x00D5,
                 0x00D6, 0x00D7, 0x00D8, 0x00D9, 0x00DA, 0x00DB, 0x00DC, 0x00DD, 0x00DE, 0x00DF, 0x00E0, 0x00E1, 0x00E2, 0x00E3, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
                 0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x00EC, 0x00ED, 0x00EE, 0x00EF, 0x00F0, 0x00F1, 0x00F2, 0x00F3, 0x00F4, 0x00F5, 0x00F6, 0x00F7, 0x00F8, 0x00F9,
-                0x00FA, 0x00FB, 0x00FC, 0x00FD, 0x00FE, 0x00FF };
+                0x00FA, 0x00FB, 0x00FC, 0x00FD, 0x00FE, 0x00FF};
 
         String latin1String = new String(latin1Charset);
         Connection latin1Conn = null;
@@ -309,9 +304,8 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests newline being treated correctly.
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testNewlines() throws Exception {
         String newlineStr = "Foo\nBar\n\rBaz";
@@ -333,7 +327,7 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests that single-byte character conversion works correctly.
-     * 
+     *
      * @throws Exception
      *             if any errors occur
      */
@@ -348,12 +342,11 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests that the 0x5c escaping works (we didn't use to have this).
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     public void testSjis5c() throws Exception {
-        byte[] origByteStream = new byte[] { (byte) 0x95, (byte) 0x5c, (byte) 0x8e, (byte) 0x96 };
+        byte[] origByteStream = new byte[]{(byte) 0x95, (byte) 0x5c, (byte) 0x8e, (byte) 0x96};
 
         //
         // Print the hex values of the string
@@ -439,9 +432,8 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests that UTF-8 character conversion works correctly.
-     * 
-     * @throws Exception
-     *             if any errors occur
+     *
+     * @throws Exception if any errors occur
      */
     public void testUtf8Encoding() throws Exception {
         Properties props = new Properties();
@@ -543,9 +535,8 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#7601, '+' duplicated in fixDecimalExponent().
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug7601() throws Exception {
         assertTrue("1.5E+7".equals(StringUtils.fixDecimalExponent("1.5E+7")));
@@ -640,9 +631,8 @@ public class StringRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#11614 - StringUtils.getBytes() doesn't work when using
      * multibyte character encodings and a length in _characters_ is specified.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug11614() throws Exception {
         if (versionMeetsMinimum(4, 1)) {
@@ -697,7 +687,7 @@ public class StringRegressionTest extends BaseTestCase {
              * from
              * ftp://ftp.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/
              * CP1252.TXT
-             * 
+             *
              * 0x80 0x20AC #EURO SIGN 0x81 #UNDEFINED 0x82 0x201A #SINGLE LOW-9
              * QUOTATION MARK 0x83 0x0192 #LATIN SMALL LETTER F WITH HOOK 0x84
              * 0x201E #DOUBLE LOW-9 QUOTATION MARK 0x85 0x2026 #HORIZONTAL
@@ -708,8 +698,8 @@ public class StringRegressionTest extends BaseTestCase {
              * CAPITAL LIGATURE OE 0x8D #UNDEFINED 0x8E 0x017D #LATIN CAPITAL
              * LETTER Z WITH CARON 0x8F #UNDEFINED 0x90 #UNDEFINED
              */
-            String codePage1252 = new String(new byte[] { (byte) 0x80, (byte) 0x82, (byte) 0x83, (byte) 0x84, (byte) 0x85, (byte) 0x86, (byte) 0x87,
-                    (byte) 0x88, (byte) 0x89, (byte) 0x8a, (byte) 0x8b, (byte) 0x8c, (byte) 0x8e }, "Cp1252");
+            String codePage1252 = new String(new byte[]{(byte) 0x80, (byte) 0x82, (byte) 0x83, (byte) 0x84, (byte) 0x85, (byte) 0x86, (byte) 0x87,
+                    (byte) 0x88, (byte) 0x89, (byte) 0x8a, (byte) 0x8b, (byte) 0x8c, (byte) 0x8e}, "Cp1252");
 
             System.out.println(codePage1252);
 
@@ -728,9 +718,8 @@ public class StringRegressionTest extends BaseTestCase {
      * Tests fix for BUG#23645 - Some collations/character sets reported as
      * "unknown" (specifically cias variants of existing character sets), and
      * inability to override the detected server character set.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug23645() throws Exception {
         if (versionMeetsMinimum(4, 1)) {
@@ -776,9 +765,8 @@ public class StringRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#24840 - character encoding of "US-ASCII" doesn't map
      * correctly for 4.1 or newer
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug24840() throws Exception {
         Properties props = new Properties();
@@ -789,11 +777,10 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#25047 - StringUtils.indexOfIgnoreCaseRespectQuotes() isn't case-insensitive on the first character of the target.
-     * 
+     * <p>
      * UPD: Method StringUtils.indexOfIgnoreCaseRespectQuotes() was replaced by StringUtils.indexOfIgnoreCase()
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug25047() throws Exception {
         assertEquals(26, StringUtils.indexOfIgnoreCase(0, "insert into Test (TestID) values (?)", "VALUES", "`", "`", StringUtils.SEARCH_MODE__MRK_COM_WS));
@@ -807,9 +794,8 @@ public class StringRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#64731 - StringUtils.getBytesWrapped throws StringIndexOutOfBoundsException.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug64731() throws Exception {
         byte[] data = StringUtils.getBytesWrapped("0f0f0702", '\'', '\'', null, "gbk", "latin1", false, null);
@@ -818,30 +804,30 @@ public class StringRegressionTest extends BaseTestCase {
 
     public void testBase64Decoder() throws Exception {
         testBase64DecoderItem("TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0\n"
-                + "aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1\n"
-                + "c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0\n"
-                + "aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl\n"
-                + "LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=",
+                        + "aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1\n"
+                        + "c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0\n"
+                        + "aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl\n"
+                        + "LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=",
 
                 "Man is distinguished, not only by his reason, but by this singular passion"
                         + " from other animals, which is a lust of the mind, that by a perseverance of"
                         + " delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.");
 
         testBase64DecoderItem("TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0\n"
-                + "aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1\n"
-                + "c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0\n"
-                + "aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl\n"
-                + "LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZQ==",
+                        + "aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1\n"
+                        + "c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0\n"
+                        + "aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl\n"
+                        + "LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZQ==",
 
                 "Man is distinguished, not only by his reason, but by this singular passion"
                         + " from other animals, which is a lust of the mind, that by a perseverance of"
                         + " delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure");
 
         testBase64DecoderItem("TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0\n"
-                + "aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1\n"
-                + "c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0\n"
-                + "aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl\n"
-                + "LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3Vy",
+                        + "aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1\n"
+                        + "c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0\n"
+                        + "aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdl\n"
+                        + "LCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3Vy",
 
                 "Man is distinguished, not only by his reason, but by this singular passion"
                         + " from other animals, which is a lust of the mind, that by a perseverance of"

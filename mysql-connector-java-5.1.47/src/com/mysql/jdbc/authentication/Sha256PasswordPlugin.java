@@ -91,7 +91,7 @@ public class Sha256PasswordPlugin implements AuthenticationPlugin {
 
         if (this.password == null || this.password.length() == 0 || fromServer == null) {
             // no password
-            Buffer bresp = new Buffer(new byte[] { 0 });
+            Buffer bresp = new Buffer(new byte[]{0});
             toServer.add(bresp);
 
         } else if (((MySQLConnection) this.connection).getIO().isSSLEstablished()) {
@@ -100,7 +100,7 @@ public class Sha256PasswordPlugin implements AuthenticationPlugin {
             try {
                 bresp = new Buffer(StringUtils.getBytes(this.password, this.connection.getPasswordCharacterEncoding()));
             } catch (UnsupportedEncodingException e) {
-                throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.3", new Object[] { this.connection.getPasswordCharacterEncoding() }),
+                throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.3", new Object[]{this.connection.getPasswordCharacterEncoding()}),
                         SQLError.SQL_STATE_GENERAL_ERROR, null);
             }
             bresp.setPosition(bresp.getBufLength());
@@ -135,7 +135,7 @@ public class Sha256PasswordPlugin implements AuthenticationPlugin {
             } else {
                 // build and send Public Key Retrieval packet
                 this.seed = fromServer.readString();
-                Buffer bresp = new Buffer(new byte[] { 1 });
+                Buffer bresp = new Buffer(new byte[]{1});
                 toServer.add(bresp);
                 this.publicKeyRequested = true;
             }
@@ -151,9 +151,9 @@ public class Sha256PasswordPlugin implements AuthenticationPlugin {
         byte[] input = null;
         try {
             input = this.password != null ? StringUtils.getBytesNullTerminated(this.password, this.connection.getPasswordCharacterEncoding())
-                    : new byte[] { 0 };
+                    : new byte[]{0};
         } catch (UnsupportedEncodingException e) {
-            throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.3", new Object[] { this.connection.getPasswordCharacterEncoding() }),
+            throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.3", new Object[]{this.connection.getPasswordCharacterEncoding()}),
                     SQLError.SQL_STATE_GENERAL_ERROR, null);
         }
         byte[] mysqlScrambleBuff = new byte[input.length];
@@ -185,10 +185,10 @@ public class Sha256PasswordPlugin implements AuthenticationPlugin {
         } catch (IOException ioEx) {
 
             if (connection.getParanoid()) {
-                throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.0", new Object[] { "" }), SQLError.SQL_STATE_ILLEGAL_ARGUMENT,
+                throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.0", new Object[]{""}), SQLError.SQL_STATE_ILLEGAL_ARGUMENT,
                         connection.getExceptionInterceptor());
             }
-            throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.0", new Object[] { "'" + pkPath + "'" }),
+            throw SQLError.createSQLException(Messages.getString("Sha256PasswordPlugin.0", new Object[]{"'" + pkPath + "'"}),
                     SQLError.SQL_STATE_ILLEGAL_ARGUMENT, ioEx, connection.getExceptionInterceptor());
 
         } finally {

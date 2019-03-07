@@ -88,7 +88,7 @@ public class MysqlNativePasswordPlugin implements AuthenticationPlugin {
             throw SQLError.createSQLException(Messages.getString("MysqlIO.91") + Messages.getString("MysqlIO.92"), SQLError.SQL_STATE_GENERAL_ERROR, null);
         } catch (UnsupportedEncodingException e) {
             throw SQLError.createSQLException(
-                    Messages.getString("MysqlNativePasswordPlugin.1", new Object[] { this.connection.getPasswordCharacterEncoding() }),
+                    Messages.getString("MysqlNativePasswordPlugin.1", new Object[]{this.connection.getPasswordCharacterEncoding()}),
                     SQLError.SQL_STATE_GENERAL_ERROR, null);
         }
 

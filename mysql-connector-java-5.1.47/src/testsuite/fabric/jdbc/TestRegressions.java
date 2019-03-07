@@ -51,7 +51,7 @@ public class TestRegressions extends BaseFabricTestCase {
 
     /**
      * Test for Bug#73070 - prepareCall() throws NPE
-     * 
+     * <p>
      * To test this, we create a basic stored procedure with a
      * parameter, call it and check the result.
      */
@@ -165,7 +165,7 @@ public class TestRegressions extends BaseFabricTestCase {
     /**
      * Test Bug#21296840 - CONNECTION DATA IS NOT UPDATED DURING FAILOVER.
      * Test Bug#17910835 - SERVER INFORMATION FROM FABRIC NOT REFRESHED WITH SHORTER TTL.
-     * 
+     * <p>
      * Test that the local cache is refreshed after expired TTL. This test connects to the master of "ha_config1_group" and requires the master to be changed
      * manually during the wait period. The Fabric must also be setup to communicate a TTL of less than 10s to the client.
      */
@@ -211,7 +211,7 @@ public class TestRegressions extends BaseFabricTestCase {
 
     /**
      * Test Bug#82094 - ConcurrentModificationException on Fabric connections after topology changes.
-     * 
+     * <p>
      * This test requires a Fabric instance running with a HA group (ha_config1_group) containing three servers, one promoted to master and failure detection
      * turned on.
      * Note that removing one or the other secondary server is a distinct case and only one of them causes the reported failure. This is so because of the order
@@ -260,7 +260,7 @@ public class TestRegressions extends BaseFabricTestCase {
 
     /**
      * Test Bug#22750465 - CONNECTOR/J HANGS WHEN FABRIC NODE IS DOWN.
-     * 
+     * <p>
      * This test connects to the master of "ha_config1_group" and requires the master to be changed manually during the first wait period. The fabric node must
      * be shut down during the second wait period. The Fabric must also be setup to communicate a TTL of less than 10s to the client.
      */

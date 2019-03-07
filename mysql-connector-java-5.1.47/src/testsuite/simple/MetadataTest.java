@@ -45,7 +45,7 @@ import testsuite.BaseTestCase;
 public class MetadataTest extends BaseTestCase {
     /**
      * Creates a new MetadataTest object.
-     * 
+     *
      * @param name
      */
     public MetadataTest(String name) {
@@ -54,7 +54,7 @@ public class MetadataTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -228,12 +228,11 @@ public class MetadataTest extends BaseTestCase {
 
     /**
      * Tests the implementation of metadata for views.
-     * 
+     * <p>
      * This test automatically detects whether or not the server it is running
      * against supports the creation of views.
-     * 
-     * @throws SQLException
-     *             if the test fails.
+     *
+     * @throws SQLException if the test fails.
      */
     public void testViewMetaData() throws SQLException {
         try {
@@ -249,7 +248,7 @@ public class MetadataTest extends BaseTestCase {
                     ResultSet tablesRs = null;
 
                     try {
-                        tablesRs = this.conn.getMetaData().getTables(this.conn.getCatalog(), null, "%ViewMetaData", new String[] { "TABLE", "VIEW" });
+                        tablesRs = this.conn.getMetaData().getTables(this.conn.getCatalog(), null, "%ViewMetaData", new String[]{"TABLE", "VIEW"});
                         assertTrue(tablesRs.next());
                         assertTrue("testViewMetaData".equalsIgnoreCase(tablesRs.getString(3)));
                         assertTrue(tablesRs.next());
@@ -262,7 +261,7 @@ public class MetadataTest extends BaseTestCase {
                     }
 
                     try {
-                        tablesRs = this.conn.getMetaData().getTables(this.conn.getCatalog(), null, "%ViewMetaData", new String[] { "TABLE" });
+                        tablesRs = this.conn.getMetaData().getTables(this.conn.getCatalog(), null, "%ViewMetaData", new String[]{"TABLE"});
                         assertTrue(tablesRs.next());
                         assertTrue("testViewMetaData".equalsIgnoreCase(tablesRs.getString(3)));
                         assertTrue(!tablesRs.next());
@@ -285,9 +284,8 @@ public class MetadataTest extends BaseTestCase {
 
     /**
      * Tests detection of read-only fields when the server is 4.1.0 or newer.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testRSMDIsReadOnly() throws Exception {
         try {
@@ -735,9 +733,9 @@ public class MetadataTest extends BaseTestCase {
 
     /**
      * WL#411 - Generated columns.
-     * 
+     * <p>
      * Test for new syntax and support in DatabaseMetaData.getColumns().
-     * 
+     * <p>
      * New syntax for CREATE TABLE, introduced in MySQL 5.7.6:
      * -col_name data_type [GENERATED ALWAYS] AS (expression) [VIRTUAL | STORED] [UNIQUE [KEY]] [COMMENT comment] [[NOT] NULL] [[PRIMARY] KEY]
      */
@@ -767,7 +765,7 @@ public class MetadataTest extends BaseTestCase {
         assertEquals(5d, this.rs.getDouble("side_c_vir"));
         assertFalse(this.rs.next());
 
-        for (String connProps : new String[] { "useInformationSchema=false", "useInformationSchema=true" }) {
+        for (String connProps : new String[]{"useInformationSchema=false", "useInformationSchema=true"}) {
             Connection testConn = null;
             testConn = getConnectionWithProps(connProps);
             DatabaseMetaData dbmd = testConn.getMetaData();

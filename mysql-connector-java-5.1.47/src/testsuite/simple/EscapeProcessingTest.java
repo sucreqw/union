@@ -35,9 +35,8 @@ import testsuite.BaseTestCase;
 public class EscapeProcessingTest extends BaseTestCase {
     /**
      * Constructor for EscapeProcessingTest.
-     * 
-     * @param name
-     *            the test to run
+     *
+     * @param name the test to run
      */
     public EscapeProcessingTest(String name) {
         super(name);
@@ -45,15 +44,14 @@ public class EscapeProcessingTest extends BaseTestCase {
 
     /**
      * Tests the escape processing functionality
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testEscapeProcessing() throws Exception {
         String results = "select dayname (abs(now())),   -- Today    \n" //
                 + "           '1997-05-24',  -- a date                    \n" + "           '10:30:29',  -- a time                     \n"
                 + (versionMeetsMinimum(5, 6, 4) ? "           '1997-05-24 10:30:29.123', -- a timestamp  \n"
-                        : "           '1997-05-24 10:30:29', -- a timestamp  \n")
+                : "           '1997-05-24 10:30:29', -- a timestamp  \n")
                 + "          '{string data with { or } will not be altered'   \n" + "--  Also note that you can safely include { and } in comments";
 
         String exSql = "select {fn dayname ({fn abs({fn now()})})},   -- Today    \n" //
@@ -69,7 +67,7 @@ public class EscapeProcessingTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -78,9 +76,8 @@ public class EscapeProcessingTest extends BaseTestCase {
 
     /**
      * JDBC-4.0 spec will allow either SQL_ or not for type in {fn convert ...}
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testConvertEscape() throws Exception {
         assertEquals(this.conn.nativeSQL("{fn convert(abcd, SQL_INTEGER)}"), this.conn.nativeSQL("{fn convert(abcd, INTEGER)}"));
@@ -89,9 +86,8 @@ public class EscapeProcessingTest extends BaseTestCase {
     /**
      * Tests that the escape tokenizer converts timestamp values
      * wrt. timezones when useTimezone=true.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testTimestampConversion() throws Exception {
         TimeZone currentTimezone = TimeZone.getDefault();
@@ -123,7 +119,7 @@ public class EscapeProcessingTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#51313 - Escape processing is confused by multiple backslashes.
-     * 
+     *
      * @throws Exception
      */
     public void testBug51313() throws Exception {

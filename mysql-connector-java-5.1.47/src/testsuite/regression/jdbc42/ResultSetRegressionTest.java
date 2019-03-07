@@ -36,7 +36,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     public ResultSetRegressionTest(String name) {
         super(name);
     }
-    
+
     /**
      * Tests fix for Bug#84189 - Allow null when extracting java.time.* classes from ResultSet.
      */

@@ -59,8 +59,7 @@ public class WeiboVote extends Weibo {
                                         MyUtil.print("打榜成功！" + super.getId() + "|" + super.getPass() + "|" + name + "|"
                                                 + userScore + "|", Factor.getGui());
 
-                                        return 1;
-                                    } else if (ret.indexOf("382023") != -1) {
+                                        return 1;                                    } else if (ret.indexOf("382023") != -1) {
                                         // 要拖码
                                         MyUtil.print("要拖码" + super.getId() + "|" + super.getPass() + "|" + userScore,
                                                 Factor.getGui());
@@ -260,8 +259,8 @@ public class WeiboVote extends Weibo {
                     }
                     break;
 
-                case "跑步" :
-                    ret = nets.goPost("utils.sports.sina.cn", 443, paotuan(super.getCookie(),super.getUid(),vid));
+                case "跑步":
+                    ret = nets.goPost("utils.sports.sina.cn", 443, paotuan(super.getCookie(), super.getUid(), vid));
                     if (!MyUtil.isEmpty(ret)) {
                         if (ret.indexOf("msg\":\"Succ") != -1) {
                             MyUtil.succcounts++;
@@ -275,16 +274,16 @@ public class WeiboVote extends Weibo {
                     break;
 
                 case "春节":
-                    ret = nets.goPost("movie.weibo.com", 443, votepopvid(super.getCookie(),vid));
+                    ret = nets.goPost("movie.weibo.com", 443, votepopvid(super.getCookie(), vid));
                     if (!MyUtil.isEmpty(ret)) {
 
                         //String temp = MyUtil.midWord("option_id=" + vid, "&", ret);
                         String sig = "";
 
-                        sig =MyUtil.midWord("sig=", "&", ret) ;
+                        sig = MyUtil.midWord("sig=", "&", ret);
 
 
-                        ret = nets.goPost("movie.weibo.com", 443, votepop(super.getCookie(),sig,vid));
+                        ret = nets.goPost("movie.weibo.com", 443, votepop(super.getCookie(), sig, vid));
                         if (!MyUtil.isEmpty(ret)) {
                             MyUtil.counts++;
                             if (ret.indexOf("success") != -1) {
@@ -301,7 +300,7 @@ public class WeiboVote extends Weibo {
                     break;
 
                 case "LPL战队":
-                    ret=nets.goPost("sports.weibo.com",443,lpl(super.getCookie(),vid));
+                    ret = nets.goPost("sports.weibo.com", 443, lpl(super.getCookie(), vid));
                     if (!MyUtil.isEmpty(ret)) {
                         MyUtil.counts++;
                         if (ret.indexOf("送奖杯成功") != -1) {
@@ -320,17 +319,19 @@ public class WeiboVote extends Weibo {
 
         return 0;
     }
+
     //取指定的cookie
-    public String getcookieIndex(String cookies,int index){
+    public String getcookieIndex(String cookies, int index) {
         String[] cookiess = cookies.split("\\^");
         String cookie = "";
         if (cookiess.length > 2) {
             cookie = cookiess[index];
-        }else{
-            cookie=cookies;
+        } else {
+            cookie = cookies;
         }
         return cookie;
     }
+
     // 设置识别完成后的pid
     public void setPid(String pid) {
         this.picId = pid;
@@ -392,7 +393,7 @@ public class WeiboVote extends Weibo {
         StringBuilder data = new StringBuilder(900);
         name = URLEncoder.encode(name);
         String temp = "topic_name=" + name + "&page_id=" + vid + "&score=" + score + "&is_pub=0&cur_rank=" + rank
-                + "&ctg_id=2&topic_score=" + topic_score + "&index=select256&user_score=" + score + "\r\n";
+                + "&ctg_id=2&topic_score=" + topic_score + "&index=select256&user_score=" + score + "&aid=01Ai_Ybs9GSdJgvbEElXhD3iicHPrnbl74iEgzxUZcjKpyYWs.&device=%7B%22timezone%22%3A%22America%2FChicago%22%2C%22lang%22%3A%22zh-CN%22%2C%22plat%22%3A%22Linux+i686%22%2C%22ua%22%3A%22Mozilla%2F5.0+(Linux%3B+Android+6.0.1%3B+MuMu+Build%2FV417IR%3B+wv)+AppleWebKit%2F537.36+(KHTML%2C+like+Gecko)+Version%2F4.0+Chrome%2F52.0.2743.100+Mobile+Safari%2F537.36+Weibo+(Netease-MuMu__weibo__9.0.0__android__android6.0.1)%22%2C%22screen%22%3A%22854*480%22%2C%22aid%22%3A%2201Ai_Ybs9GSdJgvbEElXhD3iicHPrnbl74iEgzxUZcjKpyYWs.%22%2C%22from%22%3A%221090095010%22%7D\r\n";
         data.append("POST /aj/super/picktop HTTP/1.1\r\n");
         data.append("Host: huati.weibo.cn\r\n");
         data.append("Connection: keep-alive\r\n");
@@ -813,7 +814,7 @@ public class WeiboVote extends Weibo {
 
     //跑步活动 http://sports.sina.cn/running/paotuan/2018/vip.d.html?tid=14745&from=groupmessage
 
-    private byte[] paotuan(String cookies,String uid,String vid) {
+    private byte[] paotuan(String cookies, String uid, String vid) {
         String[] cookiess = cookies.split("\\^");
         String cookie = "";
         if (cookiess.length > 2) {
@@ -821,11 +822,11 @@ public class WeiboVote extends Weibo {
         }
 
         StringBuilder data = new StringBuilder(900);
-        String temp = "app_res_id="+ vid +"&uid="+ uid +"&callback=ijax_"+ MyUtil.getTime()+"_82491727&\r\n";
+        String temp = "app_res_id=" + vid + "&uid=" + uid + "&callback=ijax_" + MyUtil.getTime() + "_82491727&\r\n";
         //paotuan2018_14745
-        data.append("POST /digg/index/dayMultiIncrMany?callback=ijax_"+ MyUtil.getTime()+ "_82491727& HTTP/1.1\r\n");
+        data.append("POST /digg/index/dayMultiIncrMany?callback=ijax_" + MyUtil.getTime() + "_82491727& HTTP/1.1\r\n");
         data.append("Host: utils.sports.sina.cn\r\n");
-        data.append("Content-Length: "+ temp.length() +"\r\n");
+        data.append("Content-Length: " + temp.length() + "\r\n");
         data.append("Cache-Control: max-age=0\r\n");
         data.append("Origin: http://sports.sina.cn\r\n");
         data.append("Upgrade-Insecure-Requests: 1\r\n");
@@ -834,7 +835,7 @@ public class WeiboVote extends Weibo {
         data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\r\n");
         data.append("Referer: http://sports.sina.cn/running/paotuan/2018/vip.d.html?tid=14745&from=groupmessage\r\n");
         data.append("Accept-Language: en-US,en;q=0.9\r\n");
-        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("Cookie: " + cookie + "\r\n");
         data.append("\r\n");
         data.append(temp);
         data.append("\r\n");
@@ -843,12 +844,12 @@ public class WeiboVote extends Weibo {
         return data.toString().getBytes();
     }
 
-    private byte[] votepopvid(String cookie ,String vid){
-        StringBuilder data =new StringBuilder(900);
+    private byte[] votepopvid(String cookie, String vid) {
+        StringBuilder data = new StringBuilder(900);
 
-        cookie=getcookieIndex(cookie,2);
+        cookie = getcookieIndex(cookie, 2);
 
-        data.append("GET https://movie.weibo.com/movie/commonvote/votepop?ua=HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1&from=108A395010&option_id="+ vid +"&theme_id=241 HTTP/1.1\r\n");
+        data.append("GET https://movie.weibo.com/movie/commonvote/votepop?ua=HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1&from=108A395010&option_id=" + vid + "&theme_id=241 HTTP/1.1\r\n");
         data.append("Host: movie.weibo.com\r\n");
         data.append("Connection: keep-alive\r\n");
         data.append("Upgrade-Insecure-Requests: 1\r\n");
@@ -856,7 +857,7 @@ public class WeiboVote extends Weibo {
         data.append("x-user-agent: HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1\r\n");
         data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n");
         data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
-        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("Cookie: " + cookie + "\r\n");
         data.append("\r\n");
         data.append("\r\n");
         data.append("\r\n");
@@ -864,19 +865,19 @@ public class WeiboVote extends Weibo {
         return data.toString().getBytes();
     }
 
-    private byte[]  votepop(String cookie,String sig ,String vid){
-        StringBuilder data =new StringBuilder(900);
+    private byte[] votepop(String cookie, String sig, String vid) {
+        StringBuilder data = new StringBuilder(900);
 
-        cookie=getcookieIndex(cookie,2);
+        cookie = getcookieIndex(cookie, 2);
 
-        data.append("GET https://movie.weibo.com/movie/commonvote/voteByH5PopWindows?theme_id=241&option_id="+ vid +"&sig="+ sig +"&num=8& HTTP/1.1\r\n");
+        data.append("GET https://movie.weibo.com/movie/commonvote/voteByH5PopWindows?theme_id=241&option_id=" + vid + "&sig=" + sig + "&num=8& HTTP/1.1\r\n");
         data.append("Host: movie.weibo.com\r\n");
         data.append("Connection: keep-alive\r\n");
         data.append("Accept: application/json, text/plain, */*\r\n");
         data.append("User-Agent: Mozilla/5.0 (Linux; Android 6.0.1; VKY_AL00 Build/V417IR; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.100 Mobile Safari/537.36 Weibo (HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1)\r\n");
         data.append("Referer: https://movie.weibo.com/movie/commonvote/votepop?ua=HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1&from=108A395010&option_id=2906&theme_id=241\r\n");
         data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
-        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("Cookie: " + cookie + "\r\n");
         data.append("\r\n");
         data.append("\r\n");
         data.append("\r\n");
@@ -884,12 +885,12 @@ public class WeiboVote extends Weibo {
         return data.toString().getBytes();
     }
 
-    private byte[] lpl(String cookie,String vid){
-        StringBuilder data =new StringBuilder(900);
+    private byte[] lpl(String cookie, String vid) {
+        StringBuilder data = new StringBuilder(900);
 
-        cookie=getcookieIndex(cookie,0);
+        cookie = getcookieIndex(cookie, 0);
 
-        data.append("GET https://sports.weibo.com/vote/h5voteresult?vid="+ vid +"&themeid=92&status=100000&sinainternalbrowser=topnav HTTP/1.1\r\n");
+        data.append("GET https://sports.weibo.com/vote/h5voteresult?vid=" + vid + "&themeid=92&status=100000&sinainternalbrowser=topnav HTTP/1.1\r\n");
         data.append("Host: sports.weibo.com\r\n");
         data.append("Connection: keep-alive\r\n");
         data.append("Upgrade-Insecure-Requests: 1\r\n");
@@ -897,7 +898,7 @@ public class WeiboVote extends Weibo {
         data.append("x-user-agent: HUAWEI-VKY_AL00__weibo__8.10.3__android__android6.0.1\r\n");
         data.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n");
         data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
-        data.append("Cookie: "+ cookie +"\r\n");
+        data.append("Cookie: " + cookie + "\r\n");
         data.append("X-Requested-With: com.baidu.searchbox\r\n");
         data.append("\r\n");
         data.append("\r\n");

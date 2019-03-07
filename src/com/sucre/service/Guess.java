@@ -5,26 +5,27 @@ import com.sucre.dao.weiboDao;
 import com.sucre.myThread.Thread4Net;
 import com.sucre.utils.MyUtil;
 
-public class Guess extends Thread4Net{
-	private weiboDao weibo;
-	private weiboGuess w;
-	public Guess(int l,int u, boolean isCircle,weiboDao weibo) {
-		super(l,u, isCircle);
-		this.weibo=weibo;
-	}
+public class Guess extends Thread4Net {
+    private weiboDao weibo;
+    private weiboGuess w;
 
-	@Override
-	public int doWork(int index) {
-		w=new weiboGuess();
-		w=(weiboGuess) weibo.get(index,w);
+    public Guess(int l, int u, boolean isCircle, weiboDao weibo) {
+        super(l, u, isCircle);
+        this.weibo = weibo;
+    }
 
-		int ret=w.Actions(index,"");
+    @Override
+    public int doWork(int index) {
+        w = new weiboGuess();
+        w = (weiboGuess) weibo.get(index, w);
 
-		while(Controller.getInstance().isStop()){
-			MyUtil.sleeps(1000);
-		}
-		return 0;
-	}
-	
+        int ret = w.Actions(index, "");
+
+        while (Controller.getInstance().isStop()) {
+            MyUtil.sleeps(1000);
+        }
+        return 0;
+    }
+
 
 }

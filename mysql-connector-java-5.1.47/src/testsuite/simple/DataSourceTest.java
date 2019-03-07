@@ -48,7 +48,7 @@ public class DataSourceTest extends BaseTestCase {
 
     /**
      * Creates a new DataSourceTest object.
-     * 
+     *
      * @param name
      */
     public DataSourceTest(String name) {
@@ -57,7 +57,7 @@ public class DataSourceTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -67,9 +67,8 @@ public class DataSourceTest extends BaseTestCase {
     /**
      * Sets up this test, calling registerDataSource() to bind a DataSource into
      * JNDI, using the FSContext JNDI provider from Sun
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     @Override
     public void setUp() throws Exception {
@@ -79,9 +78,8 @@ public class DataSourceTest extends BaseTestCase {
 
     /**
      * Un-binds the DataSource, and cleans up the filesystem
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     @Override
     public void tearDown() throws Exception {
@@ -97,9 +95,8 @@ public class DataSourceTest extends BaseTestCase {
     /**
      * Tests that we can get a connection from the DataSource bound in JNDI
      * during test setup
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testDataSource() throws Exception {
         NameParser nameParser = this.ctx.getNameParser("");
@@ -128,9 +125,8 @@ public class DataSourceTest extends BaseTestCase {
     /**
      * Tests whether Connection.changeUser() (and thus pooled connections)
      * restore character set information correctly.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testChangeUserAndCharsets() throws Exception {
         if (versionMeetsMinimum(4, 1)) {
@@ -186,9 +182,8 @@ public class DataSourceTest extends BaseTestCase {
 
     /**
      * Tests whether XADataSources can be bound into JNDI
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testXADataSource() throws Exception {
 
@@ -207,9 +202,8 @@ public class DataSourceTest extends BaseTestCase {
      * This method is separated from the rest of the example since you normally
      * would NOT register a JDBC driver in your code. It would likely be
      * configered into your naming and directory service using some GUI.
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     private void registerDataSource() throws Exception {
         this.tempDir = File.createTempFile("jnditest", null);

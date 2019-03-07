@@ -25,7 +25,7 @@ package com.mysql.fabric;
 
 /**
  * Sharding type. The algorithm by which rows are distributed across servers.
- * 
+ *
  * @see HashShardMapping
  * @see RangeShardMapping
  * @see ListShardMapping

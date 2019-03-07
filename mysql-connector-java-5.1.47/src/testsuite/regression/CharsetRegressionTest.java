@@ -45,10 +45,10 @@ public class CharsetRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for Bug#73663 (19479242), utf8mb4 does not work for connector/j >=5.1.13
-     * 
+     * <p>
      * This test is only run when character_set_server=utf8mb4 and collation-server set to one of utf8mb4 collations (it's better to test two configurations:
      * with default utf8mb4_general_ci and one of non-default, say utf8mb4_bin)
-     * 
+     *
      * @throws Exception
      */
     public void testBug73663() throws Exception {
@@ -86,7 +86,7 @@ public class CharsetRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for Bug#72630 (18758686), NullPointerException during handshake in some situations
-     * 
+     *
      * @throws Exception
      */
     public void testBug72630() throws Exception {
@@ -125,7 +125,7 @@ public class CharsetRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for Bug#25504578, CONNECT FAILS WHEN CONNECTIONCOLLATION=ISO-8859-13
-     * 
+     *
      * @throws Exception
      */
     public void testBug25504578() throws Exception {
@@ -139,7 +139,7 @@ public class CharsetRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for Bug#81196 (23227334), CONNECTOR/J NOT FOLLOWING DATABASE CHARACTER SET.
-     * 
+     *
      * @throws Exception
      */
     public void testBug81196() throws Exception {

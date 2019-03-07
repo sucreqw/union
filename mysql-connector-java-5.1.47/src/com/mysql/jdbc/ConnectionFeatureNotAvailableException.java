@@ -42,7 +42,7 @@ public class ConnectionFeatureNotAvailableException extends CommunicationsExcept
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Throwable#getMessage()
      */
     @Override
@@ -52,7 +52,7 @@ public class ConnectionFeatureNotAvailableException extends CommunicationsExcept
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.sql.SQLException#getSQLState()
      */
     @Override

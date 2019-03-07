@@ -30,7 +30,7 @@ import java.util.Set;
  */
 public class ShardMappingFactory {
     public ShardMapping createShardMapping(int mappingId, ShardingType shardingType, String globalGroupName, Set<ShardTable> shardTables,
-            Set<ShardIndex> shardIndices) {
+                                           Set<ShardIndex> shardIndices) {
         ShardMapping sm = null;
         switch (shardingType) {
             case RANGE:

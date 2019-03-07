@@ -83,7 +83,7 @@ public class TestFabricMySQLConnectionSharding extends BaseFabricTestCase {
 
         // check other groups for table
         ResultSet rs;
-        String groupsToTest[] = new String[] { "fabric_test1_shard1", "fabric_test1_shard2", "fabric_test1_global" };
+        String groupsToTest[] = new String[]{"fabric_test1_shard1", "fabric_test1_shard2", "fabric_test1_global"};
         for (String groupName : groupsToTest) {
             System.out.println("Testing data present in group `" + groupName + "'");
             this.conn.setServerGroupName(groupName);

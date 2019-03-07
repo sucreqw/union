@@ -43,7 +43,7 @@ import java.util.TimeZone;
 /**
  * A RowHolder implementation that holds one row packet (which is re-used by the driver, and thus saves memory allocations), and tries when possible to avoid
  * allocations to break out the results as individual byte[]s.
- * 
+ * <p>
  * (this isn't possible when doing things like reading floating point values).
  */
 public class BufferRow extends ResultSetRow {
@@ -324,7 +324,7 @@ public class BufferRow extends ResultSetRow {
                 return null;
 
             case MysqlDefs.FIELD_TYPE_TINY:
-                return new byte[] { this.rowFromServer.readByte() };
+                return new byte[]{this.rowFromServer.readByte()};
 
             case MysqlDefs.FIELD_TYPE_SHORT:
             case MysqlDefs.FIELD_TYPE_YEAR:
@@ -545,7 +545,7 @@ public class BufferRow extends ResultSetRow {
 
     @Override
     public Timestamp getTimestampFast(int columnIndex, Calendar targetCalendar, TimeZone tz, boolean rollForward, MySQLConnection conn, ResultSetImpl rs,
-            boolean useGmtMillis, boolean useJDBCCompliantTimezoneShift) throws SQLException {
+                                      boolean useGmtMillis, boolean useJDBCCompliantTimezoneShift) throws SQLException {
         if (isNull(columnIndex)) {
             return null;
         }
@@ -711,7 +711,7 @@ public class BufferRow extends ResultSetRow {
 
     @Override
     public Object getNativeDateTimeValue(int columnIndex, Calendar targetCalendar, int jdbcType, int mysqlType, TimeZone tz, boolean rollForward,
-            MySQLConnection conn, ResultSetImpl rs) throws SQLException {
+                                         MySQLConnection conn, ResultSetImpl rs) throws SQLException {
         if (isNull(columnIndex)) {
             return null;
         }

@@ -120,7 +120,7 @@ public class ByteArrayRow extends ResultSetRow {
 
     @Override
     public Timestamp getTimestampFast(int columnIndex, Calendar targetCalendar, TimeZone tz, boolean rollForward, MySQLConnection conn, ResultSetImpl rs,
-            boolean useGmtMillis, boolean useJDBCCompliantTimezoneShift) throws SQLException {
+                                      boolean useGmtMillis, boolean useJDBCCompliantTimezoneShift) throws SQLException {
         byte[] columnValue = this.internalRowData[columnIndex];
 
         if (columnValue == null) {
@@ -246,7 +246,7 @@ public class ByteArrayRow extends ResultSetRow {
 
     @Override
     public Object getNativeDateTimeValue(int columnIndex, Calendar targetCalendar, int jdbcType, int mysqlType, TimeZone tz, boolean rollForward,
-            MySQLConnection conn, ResultSetImpl rs) throws SQLException {
+                                         MySQLConnection conn, ResultSetImpl rs) throws SQLException {
         byte[] columnValue = this.internalRowData[columnIndex];
 
         if (columnValue == null) {

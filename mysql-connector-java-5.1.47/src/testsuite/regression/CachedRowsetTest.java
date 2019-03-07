@@ -36,9 +36,8 @@ import testsuite.BaseTestCase;
 public class CachedRowsetTest extends BaseTestCase {
     /**
      * Creates a new CachedRowsetTest
-     * 
-     * @param name
-     *            the name of the test to run
+     *
+     * @param name the name of the test to run
      */
     public CachedRowsetTest(String name) {
         super(name);
@@ -46,7 +45,7 @@ public class CachedRowsetTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -56,7 +55,7 @@ public class CachedRowsetTest extends BaseTestCase {
     /**
      * Tests fix for BUG#5188, CachedRowSet errors using PreparedStatement. Uses
      * Sun's "com.sun.rowset.CachedRowSetImpl"
-     * 
+     *
      * @throws Exception
      */
     public void testBug5188() throws Exception {
@@ -69,7 +68,7 @@ public class CachedRowsetTest extends BaseTestCase {
             System.out.println("skipping testBug5188. Requires: " + implClass);
             return;
         }
-        populate = c.getMethod("populate", new Class[] { ResultSet.class });
+        populate = c.getMethod("populate", new Class[]{ResultSet.class});
 
         createTable("testBug5188", "(ID int NOT NULL AUTO_INCREMENT, datafield VARCHAR(64), PRIMARY KEY(ID))");
 
@@ -83,7 +82,7 @@ public class CachedRowsetTest extends BaseTestCase {
         // create a CachedRowSet and populate it
         RowSet cachedRowSet = (RowSet) c.newInstance();
         // cachedRowSet.populate(rs);
-        populate.invoke(cachedRowSet, new Object[] { this.rs });
+        populate.invoke(cachedRowSet, new Object[]{this.rs});
 
         // scroll through CachedRowSet ...
         assertTrue(cachedRowSet.next());

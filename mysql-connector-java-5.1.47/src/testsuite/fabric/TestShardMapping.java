@@ -52,7 +52,7 @@ public class TestShardMapping extends TestCase {
     public void testRangeShardMappingKeyLookup() throws Exception {
         final String globalGroupName = "My global group";
 
-        final int lowerBounds[] = new int[] { 1, 10000, 1001, 400, 1000, 470 };
+        final int lowerBounds[] = new int[]{1, 10000, 1001, 400, 1000, 470};
 
         final int lowestLowerBound = 1;
 
@@ -92,8 +92,8 @@ public class TestShardMapping extends TestCase {
     public void testHashShardMappingKeyLookup() throws Exception {
         final String globalGroupName = "My global group";
 
-        final String lowerBounds[] = new String[] { /* 0 = */"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", /* 1 = */"66666666666666666666666666666666",
-                /* 2 = */"2809A05A22A4A9C1882A580BCC0AD8A6", /* 3 = */"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD" };
+        final String lowerBounds[] = new String[]{ /* 0 = */"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", /* 1 = */"66666666666666666666666666666666",
+                /* 2 = */"2809A05A22A4A9C1882A580BCC0AD8A6", /* 3 = */"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"};
 
         // setup the mapping
         Set<ShardIndex> shardIndices = new HashSet<ShardIndex>();
@@ -106,15 +106,15 @@ public class TestShardMapping extends TestCase {
         ShardMapping mapping = new HashShardMapping(5000, ShardingType.HASH, globalGroupName, null, shardIndices);
 
         // test lookups mapping of test value to the group it maps to test values are hashed with MD5 and compared to lowerBounds values
-        String testPairs[][] = new String[][] {
+        String testPairs[][] = new String[][]{
                 // exact match should be in that shard
-                new String[] { "Jess", "server_group_2" }, // hash = 2809a05a22a4a9c1882a580bcc0ad8a6
-                new String[] { "x", "server_group_1" }, // hash = 9dd4e461268c8034f5c8564e155c67a6
-                new String[] { "X", "server_group_3" }, // hash = 02129bb861061d1a052c592e2dc6b383
-                new String[] { "Y", "server_group_2" }, // hash = 57cec4137b614c87cb4e24a3d003a3e0
-                new String[] { "g", "server_group_0" }, // hash = b2f5ff47436671b6e533d8dc3614845d
+                new String[]{"Jess", "server_group_2"}, // hash = 2809a05a22a4a9c1882a580bcc0ad8a6
+                new String[]{"x", "server_group_1"}, // hash = 9dd4e461268c8034f5c8564e155c67a6
+                new String[]{"X", "server_group_3"}, // hash = 02129bb861061d1a052c592e2dc6b383
+                new String[]{"Y", "server_group_2"}, // hash = 57cec4137b614c87cb4e24a3d003a3e0
+                new String[]{"g", "server_group_0"}, // hash = b2f5ff47436671b6e533d8dc3614845d
                 // leading zeroes
-                new String[] { "168", "server_group_3" }, // hash = 006f52e9102a8d3be2fe5614f42ba989
+                new String[]{"168", "server_group_3"}, // hash = 006f52e9102a8d3be2fe5614f42ba989
         };
 
         for (String[] testPair : testPairs) {
@@ -131,7 +131,7 @@ public class TestShardMapping extends TestCase {
 
     /**
      * Tests fix for Bug#82203 - com.mysql.fabric.HashShardMapping is not thread safe.
-     * 
+     * <p>
      * This test is non-deterministic but most runs used to fail before 5 to 10 seconds. This test runs at most for 30 seconds.
      */
     public void testBug82203() throws Throwable {

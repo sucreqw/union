@@ -74,7 +74,7 @@ public class DigestAuthentication {
      * Calculate the request digest for algorithm=MD5.
      */
     public static String calculateMD5RequestDigest(String uri, String username, String password, String realm, String nonce, String nc, String cnonce,
-            String qop) {
+                                                   String qop) {
         String reqA1 = username + ":" + realm + ":" + password;
         // valid only for qop="auth"
         String reqA2 = "POST:" + uri;

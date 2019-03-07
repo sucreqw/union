@@ -80,9 +80,9 @@ public class EmployeesJdbc {
         FabricMySQLConnection connection = (FabricMySQLConnection) rawConnection;
 
         // example data used to create employee records
-        Integer ids[] = new Integer[] { 1, 2, 10001, 10002 };
-        String firstNames[] = new String[] { "John", "Jane", "Andy", "Alice" };
-        String lastNames[] = new String[] { "Doe", "Doe", "Wiley", "Wein" };
+        Integer ids[] = new Integer[]{1, 2, 10001, 10002};
+        String firstNames[] = new String[]{"John", "Jane", "Andy", "Alice"};
+        String lastNames[] = new String[]{"Doe", "Doe", "Wiley", "Wein"};
 
         // insert employee data
         PreparedStatement ps = connection.prepareStatement("INSERT INTO employees.employees VALUES (?,?,?)");

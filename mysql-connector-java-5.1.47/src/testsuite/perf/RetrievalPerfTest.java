@@ -37,9 +37,8 @@ public class RetrievalPerfTest extends BaseTestCase {
 
     /**
      * Constructor for RetrievalPerfTest.
-     * 
-     * @param name
-     *            name of the test to run
+     *
+     * @param name name of the test to run
      */
     public RetrievalPerfTest(String name) {
         super(name);
@@ -47,9 +46,8 @@ public class RetrievalPerfTest extends BaseTestCase {
 
     /**
      * Runs all tests.
-     * 
-     * @param args
-     *            ignored
+     *
+     * @param args ignored
      */
     public static void main(String[] args) {
         new RetrievalPerfTest("testRetrievalMyIsam").run();
@@ -76,9 +74,8 @@ public class RetrievalPerfTest extends BaseTestCase {
 
     /**
      * Tests retrieval from the query cache
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testRetrievalCached() throws Exception {
         if (!((ConnectionImpl) this.conn).isQueryCacheEnabled()) {
@@ -125,9 +122,8 @@ public class RetrievalPerfTest extends BaseTestCase {
 
     /**
      * Tests retrieval from HEAP tables
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testRetrievalHeap() throws Exception {
         double fullBegin = System.currentTimeMillis();
@@ -169,9 +165,8 @@ public class RetrievalPerfTest extends BaseTestCase {
 
     /**
      * Tests retrieval speed from MyISAM type tables
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testRetrievalMyIsam() throws Exception {
         double fullBegin = System.currentTimeMillis();

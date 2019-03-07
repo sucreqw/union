@@ -86,18 +86,13 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <li><B>IS_GRANTABLE</B> String => "YES" if grantee is permitted to grant to others; "NO" if not; null if unknown</li>
      * </ol>
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schema
-     *            a schema name; "" retrieves those without a schema
-     * @param table
-     *            a table name
-     * @param columnNamePattern
-     *            a column name pattern
+     *
+     * @param catalog           a catalog name; "" retrieves those without a catalog
+     * @param schema            a schema name; "" retrieves those without a schema
+     * @param table             a table name
+     * @param columnNamePattern a column name pattern
      * @return ResultSet each row is a column privilege description
-     * @throws SQLException
-     *             if a database access error occurs
+     * @throws SQLException if a database access error occurs
      * @see #getSearchStringEscape
      */
     @Override
@@ -136,10 +131,10 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
             pStmt.setString(3, columnNamePattern);
 
             ResultSet rs = executeMetadataQuery(pStmt);
-            ((com.mysql.jdbc.ResultSetInternalMethods) rs).redefineFieldsForDBMD(new Field[] { new Field("", "TABLE_CAT", Types.CHAR, 64),
+            ((com.mysql.jdbc.ResultSetInternalMethods) rs).redefineFieldsForDBMD(new Field[]{new Field("", "TABLE_CAT", Types.CHAR, 64),
                     new Field("", "TABLE_SCHEM", Types.CHAR, 1), new Field("", "TABLE_NAME", Types.CHAR, 64), new Field("", "COLUMN_NAME", Types.CHAR, 64),
                     new Field("", "GRANTOR", Types.CHAR, 77), new Field("", "GRANTEE", Types.CHAR, 77), new Field("", "PRIVILEGE", Types.CHAR, 64),
-                    new Field("", "IS_GRANTABLE", Types.CHAR, 3) });
+                    new Field("", "IS_GRANTABLE", Types.CHAR, 3)});
 
             return rs;
         } finally {
@@ -323,26 +318,19 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <li><B>PK_NAME</B> String => primary key identifier (may be null)</li>
      * </ol>
      * </p>
-     * 
-     * @param primaryCatalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param primarySchema
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param primaryTable
-     *            a table name
-     * @param foreignCatalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param foreignSchema
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param foreignTable
-     *            a table name
+     *
+     * @param primaryCatalog a catalog name; "" retrieves those without a catalog
+     * @param primarySchema  a schema name pattern; "" retrieves those without a schema
+     * @param primaryTable   a table name
+     * @param foreignCatalog a catalog name; "" retrieves those without a catalog
+     * @param foreignSchema  a schema name pattern; "" retrieves those without a schema
+     * @param foreignTable   a table name
      * @return ResultSet each row is a foreign key column description
-     * @throws SQLException
-     *             if a database access error occurs
+     * @throws SQLException if a database access error occurs
      */
     @Override
     public java.sql.ResultSet getCrossReference(String primaryCatalog, String primarySchema, String primaryTable, String foreignCatalog, String foreignSchema,
-            String foreignTable) throws SQLException {
+                                                String foreignTable) throws SQLException {
         if (primaryTable == null) {
             throw SQLError.createSQLException("Table not specified.", SQLError.SQL_STATE_ILLEGAL_ARGUMENT, getExceptionInterceptor());
         }
@@ -435,16 +423,12 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <li><B>PK_NAME</B> String => primary key identifier (may be null)</li>
      * </ol>
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schema
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param table
-     *            a table name
+     *
+     * @param catalog a catalog name; "" retrieves those without a catalog
+     * @param schema  a schema name pattern; "" retrieves those without a schema
+     * @param table   a table name
      * @return ResultSet each row is a foreign key column description
-     * @throws SQLException
-     *             if a database access error occurs
+     * @throws SQLException if a database access error occurs
      * @see #getImportedKeys
      */
     @Override
@@ -554,16 +538,12 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <li><B>PK_NAME</B> String => primary key name (may be null)</li>
      * </ol>
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schema
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param table
-     *            a table name
+     *
+     * @param catalog a catalog name; "" retrieves those without a catalog
+     * @param schema  a schema name pattern; "" retrieves those without a schema
+     * @param table   a table name
      * @return ResultSet each row is a primary key column description
-     * @throws SQLException
-     *             if a database access error occurs
+     * @throws SQLException if a database access error occurs
      * @see #getExportedKeys
      */
     @Override
@@ -644,19 +624,14 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <li><B>FILTER_CONDITION</B> String => Filter condition, if any. (may be null)</li>
      * </ol>
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schema
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param table
-     *            a table name
-     * @param unique
-     *            when true, return only indices for unique values; when false,
-     *            return indices regardless of whether unique or not
-     * @param approximate
-     *            when true, result is allowed to reflect approximate or out of
-     *            data values; when false, results are requested to be accurate
+     *
+     * @param catalog     a catalog name; "" retrieves those without a catalog
+     * @param schema      a schema name pattern; "" retrieves those without a schema
+     * @param table       a table name
+     * @param unique      when true, return only indices for unique values; when false,
+     *                    return indices regardless of whether unique or not
+     * @param approximate when true, result is allowed to reflect approximate or out of
+     *                    data values; when false, results are requested to be accurate
      * @return ResultSet each row is an index column description
      * @throws SQLException
      */
@@ -718,13 +693,10 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <li><B>PK_NAME</B> String => primary key name (may be null)</li>
      * </ol>
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schema
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param table
-     *            a table name
+     *
+     * @param catalog a catalog name; "" retrieves those without a catalog
+     * @param schema  a schema name pattern; "" retrieves those without a schema
+     * @param table   a table name
      * @return ResultSet each row is a primary key column description
      * @throws SQLException
      */
@@ -759,9 +731,9 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
             pStmt.setString(2, table);
 
             ResultSet rs = executeMetadataQuery(pStmt);
-            ((com.mysql.jdbc.ResultSetInternalMethods) rs).redefineFieldsForDBMD(new Field[] { new Field("", "TABLE_CAT", Types.CHAR, 255),
+            ((com.mysql.jdbc.ResultSetInternalMethods) rs).redefineFieldsForDBMD(new Field[]{new Field("", "TABLE_CAT", Types.CHAR, 255),
                     new Field("", "TABLE_SCHEM", Types.CHAR, 0), new Field("", "TABLE_NAME", Types.CHAR, 255), new Field("", "COLUMN_NAME", Types.CHAR, 32),
-                    new Field("", "KEY_SEQ", Types.SMALLINT, 5), new Field("", "PK_NAME", Types.CHAR, 32) });
+                    new Field("", "KEY_SEQ", Types.SMALLINT, 5), new Field("", "PK_NAME", Types.CHAR, 32)});
 
             return rs;
         } finally {
@@ -795,16 +767,12 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * </li>
      * </ol>
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schemaPattern
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param procedureNamePattern
-     *            a procedure name pattern
+     *
+     * @param catalog              a catalog name; "" retrieves those without a catalog
+     * @param schemaPattern        a schema name pattern; "" retrieves those without a schema
+     * @param procedureNamePattern a procedure name pattern
      * @return ResultSet each row is a procedure description
-     * @throws SQLException
-     *             if a database access error occurs
+     * @throws SQLException if a database access error occurs
      * @see #getSearchStringEscape
      */
     @Override
@@ -862,7 +830,7 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Returns a condition to be injected in the query that returns metadata for procedures only. Overridden by
      * subclasses when needed. When not empty must end with "AND ".
-     * 
+     *
      * @return String with the condition to be injected.
      */
     protected String getRoutineTypeConditionForGetProcedures() {
@@ -872,12 +840,12 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Retrieves a description of the given catalog's stored procedure parameter
      * and result columns.
-     * 
-     * <P>
+     *
+     * <p>
      * Only descriptions matching the schema, procedure and parameter name criteria are returned. They are ordered by PROCEDURE_SCHEM and PROCEDURE_NAME. Within
      * this, the return value, if any, is first. Next are the parameter descriptions in call order. The column descriptions follow in column number order.
-     * 
-     * <P>
+     *
+     * <p>
      * Each row in the <code>ResultSet</code> is a parameter description or column description with the following fields:
      * <OL>
      * <LI><B>PROCEDURE_CAT</B> String => procedure catalog (may be <code>null</code>)
@@ -907,29 +875,24 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * </UL>
      * <LI><B>REMARKS</B> String => comment describing parameter/column
      * </OL>
-     * 
-     * <P>
+     *
+     * <p>
      * <B>Note:</B> Some databases may not return the column descriptions for a procedure. Additional columns beyond REMARKS can be defined by the database.
-     * 
-     * @param catalog
-     *            a catalog name; must match the catalog name as it
-     *            is stored in the database; "" retrieves those without a catalog; <code>null</code> means that the catalog name should not be used to narrow
-     *            the search
-     * @param schemaPattern
-     *            a schema name pattern; must match the schema name
-     *            as it is stored in the database; "" retrieves those without a schema; <code>null</code> means that the schema name should not be used to
-     *            narrow
-     *            the search
-     * @param procedureNamePattern
-     *            a procedure name pattern; must match the
-     *            procedure name as it is stored in the database
-     * @param columnNamePattern
-     *            a column name pattern; must match the column name
-     *            as it is stored in the database
+     *
+     * @param catalog              a catalog name; must match the catalog name as it
+     *                             is stored in the database; "" retrieves those without a catalog; <code>null</code> means that the catalog name should not be used to narrow
+     *                             the search
+     * @param schemaPattern        a schema name pattern; must match the schema name
+     *                             as it is stored in the database; "" retrieves those without a schema; <code>null</code> means that the schema name should not be used to
+     *                             narrow
+     *                             the search
+     * @param procedureNamePattern a procedure name pattern; must match the
+     *                             procedure name as it is stored in the database
+     * @param columnNamePattern    a column name pattern; must match the column name
+     *                             as it is stored in the database
      * @return <code>ResultSet</code> - each row describes a stored procedure parameter or
-     *         column
-     * @exception SQLException
-     *                if a database access error occurs
+     * column
+     * @throws SQLException if a database access error occurs
      * @see #getSearchStringEscape
      */
     @Override
@@ -1036,7 +999,7 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
 
     /**
      * Redirects to another implementation of #getProcedureColumns. Subclasses may need to override this method.
-     * 
+     *
      * @see getProcedureColumns
      */
     protected ResultSet getProcedureColumnsNoISParametersView(String catalog, String schemaPattern, String procedureNamePattern, String columnNamePattern)
@@ -1047,7 +1010,7 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Returns a condition to be injected in the query that returns metadata for procedure columns only. Overridden by
      * subclasses when needed. When not empty must end with "AND ".
-     * 
+     *
      * @return String with the condition to be injected.
      */
     protected String getRoutineTypeConditionForGetProcedureColumns() {
@@ -1074,15 +1037,11 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <P>
      * <B>Note:</B> Some databases may not return information for all tables.
      * </p>
-     * 
-     * @param catalog
-     *            a catalog name; "" retrieves those without a catalog
-     * @param schemaPattern
-     *            a schema name pattern; "" retrieves those without a schema
-     * @param tableNamePattern
-     *            a table name pattern
-     * @param types
-     *            a list of table types to include; null returns all types
+     *
+     * @param catalog          a catalog name; "" retrieves those without a catalog
+     * @param schemaPattern    a schema name pattern; "" retrieves those without a schema
+     * @param tableNamePattern a table name pattern
+     * @param types            a list of table types to include; null returns all types
      * @return ResultSet each row is a table description
      * @throws SQLException
      * @see #getSearchStringEscape
@@ -1244,10 +1203,10 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
             pStmt.setString(2, table);
 
             ResultSet rs = executeMetadataQuery(pStmt);
-            ((com.mysql.jdbc.ResultSetInternalMethods) rs).redefineFieldsForDBMD(new Field[] { new Field("", "SCOPE", Types.SMALLINT, 5),
+            ((com.mysql.jdbc.ResultSetInternalMethods) rs).redefineFieldsForDBMD(new Field[]{new Field("", "SCOPE", Types.SMALLINT, 5),
                     new Field("", "COLUMN_NAME", Types.CHAR, 32), new Field("", "DATA_TYPE", Types.INTEGER, 5), new Field("", "TYPE_NAME", Types.CHAR, 16),
                     new Field("", "COLUMN_SIZE", Types.INTEGER, 16), new Field("", "BUFFER_LENGTH", Types.INTEGER, 16),
-                    new Field("", "DECIMAL_DIGITS", Types.SMALLINT, 16), new Field("", "PSEUDO_COLUMN", Types.SMALLINT, 5) });
+                    new Field("", "DECIMAL_DIGITS", Types.SMALLINT, 16), new Field("", "PSEUDO_COLUMN", Types.SMALLINT, 5)});
 
             return rs;
         } finally {
@@ -1264,13 +1223,13 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Retrieves a description of the given catalog's system or user
      * function parameters and return type.
-     * 
-     * <P>
+     *
+     * <p>
      * Only descriptions matching the schema, function and parameter name criteria are returned. They are ordered by <code>FUNCTION_CAT</code>,
      * <code>FUNCTION_SCHEM</code>, <code>FUNCTION_NAME</code> and <code>SPECIFIC_ NAME</code>. Within this, the return value, if any, is first. Next are the
      * parameter descriptions in call order. The column descriptions follow in column number order.
-     * 
-     * <P>
+     *
+     * <p>
      * Each row in the <code>ResultSet</code> is a parameter description, column description or return type description with the following fields:
      * <OL>
      * <LI><B>FUNCTION_CAT</B> String => function catalog (may be <code>null</code>)
@@ -1312,33 +1271,27 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * <LI><B>SPECIFIC_NAME</B> String => the name which uniquely identifies this function within its schema. This is a user specified, or DBMS generated, name
      * that may be different then the <code>FUNCTION_NAME</code> for example with overload functions
      * </OL>
-     * 
+     *
      * <p>
      * The PRECISION column represents the specified column size for the given parameter or column. For numeric data, this is the maximum precision. For
      * character data, this is the length in characters. For datetime datatypes, this is the length in characters of the String representation (assuming the
      * maximum allowed precision of the fractional seconds component). For binary data, this is the length in bytes. For the ROWID datatype, this is the length
      * in bytes. Null is returned for data types where the column size is not applicable.
-     * 
-     * @param catalog
-     *            a catalog name; must match the catalog name as it
-     *            is stored in the database; "" retrieves those without a catalog; <code>null</code> means that the catalog name should not be used to narrow
-     *            the search
-     * @param schemaPattern
-     *            a schema name pattern; must match the schema name
-     *            as it is stored in the database; "" retrieves those without a schema; <code>null</code> means that the schema name should not be used to
-     *            narrow
-     *            the search
-     * @param functionNamePattern
-     *            a procedure name pattern; must match the
-     *            function name as it is stored in the database
-     * @param columnNamePattern
-     *            a parameter name pattern; must match the
-     *            parameter or column name as it is stored in the database
+     *
+     * @param catalog             a catalog name; must match the catalog name as it
+     *                            is stored in the database; "" retrieves those without a catalog; <code>null</code> means that the catalog name should not be used to narrow
+     *                            the search
+     * @param schemaPattern       a schema name pattern; must match the schema name
+     *                            as it is stored in the database; "" retrieves those without a schema; <code>null</code> means that the schema name should not be used to
+     *                            narrow
+     *                            the search
+     * @param functionNamePattern a procedure name pattern; must match the
+     *                            function name as it is stored in the database
+     * @param columnNamePattern   a parameter name pattern; must match the
+     *                            parameter or column name as it is stored in the database
      * @return <code>ResultSet</code> - each row describes a
-     *         user function parameter, column or return type
-     * 
-     * @exception SQLException
-     *                if a database access error occurs
+     * user function parameter, column or return type
+     * @throws SQLException if a database access error occurs
      * @see #getSearchStringEscape
      * @since 1.6
      */
@@ -1450,10 +1403,8 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Getter to JDBC4 DatabaseMetaData.function* constants.
      * This method must be overridden by JDBC4 subclasses. this implementation should never be called.
-     * 
-     * @param constant
-     *            the constant id from DatabaseMetaData fields to return.
-     * 
+     *
+     * @param constant the constant id from DatabaseMetaData fields to return.
      * @return 0
      */
     protected int getJDBC4FunctionConstant(JDBC4FunctionConstant constant) {
@@ -1463,11 +1414,11 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Retrieves a description of the system and user functions available
      * in the given catalog.
-     * <P>
+     * <p>
      * Only system and user function descriptions matching the schema and function name criteria are returned. They are ordered by <code>FUNCTION_CAT</code>,
      * <code>FUNCTION_SCHEM</code>, <code>FUNCTION_NAME</code> and <code>SPECIFIC_ NAME</code>.
-     * 
-     * <P>
+     *
+     * <p>
      * Each function description has the the following columns:
      * <OL>
      * <LI><B>FUNCTION_CAT</B> String => function catalog (may be <code>null</code>)
@@ -1485,22 +1436,18 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * </OL>
      * <p>
      * A user may not have permission to execute any of the functions that are returned by <code>getFunctions</code>
-     * 
-     * @param catalog
-     *            a catalog name; must match the catalog name as it
-     *            is stored in the database; "" retrieves those without a catalog; <code>null</code> means that the catalog name should not be used to narrow
-     *            the search
-     * @param schemaPattern
-     *            a schema name pattern; must match the schema name
-     *            as it is stored in the database; "" retrieves those without a schema; <code>null</code> means that the schema name should not be used to
-     *            narrow
-     *            the search
-     * @param functionNamePattern
-     *            a function name pattern; must match the
-     *            function name as it is stored in the database
+     *
+     * @param catalog             a catalog name; must match the catalog name as it
+     *                            is stored in the database; "" retrieves those without a catalog; <code>null</code> means that the catalog name should not be used to narrow
+     *                            the search
+     * @param schemaPattern       a schema name pattern; must match the schema name
+     *                            as it is stored in the database; "" retrieves those without a schema; <code>null</code> means that the schema name should not be used to
+     *                            narrow
+     *                            the search
+     * @param functionNamePattern a function name pattern; must match the
+     *                            function name as it is stored in the database
      * @return <code>ResultSet</code> - each row is a function description
-     * @exception SQLException
-     *                if a database access error occurs
+     * @throws SQLException if a database access error occurs
      * @see #getSearchStringEscape
      * @since 1.6
      */
@@ -1541,9 +1488,9 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
 
             ResultSet rs = executeMetadataQuery(pStmt);
             ((com.mysql.jdbc.ResultSetInternalMethods) rs)
-                    .redefineFieldsForDBMD(new Field[] { new Field("", "FUNCTION_CAT", Types.CHAR, 255), new Field("", "FUNCTION_SCHEM", Types.CHAR, 255),
+                    .redefineFieldsForDBMD(new Field[]{new Field("", "FUNCTION_CAT", Types.CHAR, 255), new Field("", "FUNCTION_SCHEM", Types.CHAR, 255),
                             new Field("", "FUNCTION_NAME", Types.CHAR, 255), new Field("", "REMARKS", Types.CHAR, 255),
-                            new Field("", "FUNCTION_TYPE", Types.SMALLINT, 6), new Field("", "SPECIFIC_NAME", Types.CHAR, 255) });
+                            new Field("", "FUNCTION_TYPE", Types.SMALLINT, 6), new Field("", "SPECIFIC_NAME", Types.CHAR, 255)});
 
             return rs;
         } finally {
@@ -1556,7 +1503,7 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
     /**
      * Getter to JDBC4 DatabaseMetaData.functionNoTable constant.
      * This method must be overridden by JDBC4 subclasses. this implementation should never be called.
-     * 
+     *
      * @return 0
      */
     @Override

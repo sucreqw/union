@@ -43,9 +43,8 @@ public class UtilsRegressionTest extends BaseTestCase {
 
     /**
      * Creates a new UtilsRegressionTest.
-     * 
-     * @param name
-     *            the name of the test
+     *
+     * @param name the name of the test
      */
     public UtilsRegressionTest(String name) {
         super(name);
@@ -53,7 +52,7 @@ public class UtilsRegressionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -62,16 +61,15 @@ public class UtilsRegressionTest extends BaseTestCase {
 
     /**
      * Tests all TimeZone mappings supported.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testTimeZones() throws Exception {
         /*
          * Time Zones can be identified by many different ways according to Unicode CLDR database. The following map contain the correspondence between
          * alternative Time Zone designations to Standard Time Zones ID (IANA/Olson database). This data was generated from IANA Time Zone database v. 2015f
          * (http://www.iana.org/time-zones) and Unicode CLDR v.28 (http://cldr.unicode.org/)
-         * 
+         *
          * Both the file com/mysql/jdbc/TimeZoneMapping.properties and the following data are generated from a MySQL Connector/J internal utility.
          */
 
@@ -573,9 +571,8 @@ public class UtilsRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#70436 - Incorrect mapping of windows timezone to Olson timezone.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug70436() throws Exception {
         assertEquals("Asia/Yerevan", TimeUtil.getCanonicalTimezone("Caucasus Standard Time", null));

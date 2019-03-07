@@ -82,21 +82,31 @@ public abstract class BaseTestCase extends TestCase {
      */
     protected static String sha256Url = null;
 
-    /** Instance counter */
+    /**
+     * Instance counter
+     */
     private static int instanceCount = 1;
 
-    /** Connection to server, initialized in setUp() Cleaned up in tearDown(). */
+    /**
+     * Connection to server, initialized in setUp() Cleaned up in tearDown().
+     */
     protected Connection conn = null;
 
     protected Connection sha256Conn = null;
 
-    /** list of schema objects to be dropped in tearDown */
+    /**
+     * list of schema objects to be dropped in tearDown
+     */
     private List<String[]> createdObjects;
 
-    /** The driver to use */
+    /**
+     * The driver to use
+     */
     protected String dbClass = "com.mysql.jdbc.Driver";
 
-    /** My instance number */
+    /**
+     * My instance number
+     */
     private int myInstanceNumber = 0;
 
     /**
@@ -124,9 +134,8 @@ public abstract class BaseTestCase extends TestCase {
 
     /**
      * Creates a new BaseTestCase object.
-     * 
-     * @param name
-     *            The name of the JUnit test case
+     *
+     * @param name The name of the JUnit test case
      */
     public BaseTestCase(String name) {
         super(name);
@@ -163,7 +172,7 @@ public abstract class BaseTestCase extends TestCase {
 
     protected void createSchemaObject(Statement st, String objectType, String objectName, String columnsAndOtherStuff) throws SQLException {
         if (st != null) {
-            this.createdObjects.add(new String[] { objectType, objectName });
+            this.createdObjects.add(new String[]{objectType, objectName});
             try {
                 dropSchemaObject(st, objectType, objectName);
             } catch (SQLException ex) {
@@ -359,13 +368,10 @@ public abstract class BaseTestCase extends TestCase {
 
     /**
      * Returns a new connection with the given properties
-     * 
-     * @param props
-     *            the properties to use (the URL will come from the standard for
-     *            this testcase).
-     * 
+     *
+     * @param props the properties to use (the URL will come from the standard for
+     *              this testcase).
      * @return a new connection using the given properties.
-     * 
      * @throws SQLException
      */
     public Connection getConnectionWithProps(Properties props) throws SQLException {
@@ -392,7 +398,7 @@ public abstract class BaseTestCase extends TestCase {
     /**
      * Returns the per-instance counter (for messages when multi-threading
      * stress tests)
-     * 
+     *
      * @return int the instance number
      */
     protected int getInstanceNumber() {
@@ -417,14 +423,10 @@ public abstract class BaseTestCase extends TestCase {
 
     /**
      * Returns the named MySQL variable from the currently connected server.
-     * 
-     * @param variableName
-     *            the name of the variable to return
-     * 
+     *
+     * @param variableName the name of the variable to return
      * @return the value of the given variable, or NULL if it doesn't exist
-     * 
-     * @throws SQLException
-     *             if an error occurs
+     * @throws SQLException if an error occurs
      */
     protected String getMysqlVariable(String variableName) throws SQLException {
         return getMysqlVariable(this.conn, variableName);
@@ -433,11 +435,9 @@ public abstract class BaseTestCase extends TestCase {
     /**
      * Returns the properties that represent the default URL used for
      * connections for all testcases.
-     * 
+     *
      * @return properties parsed from com.mysql.jdbc.testsuite.url
-     * 
-     * @throws SQLException
-     *             if parsing fails
+     * @throws SQLException if parsing fails
      */
     protected Properties getPropertiesFromTestsuiteUrl() throws SQLException {
         return getPropertiesFromUrl(dbUrl);
@@ -610,10 +610,8 @@ public abstract class BaseTestCase extends TestCase {
     /**
      * Checks whether a certain system property is defined, in order to
      * run/not-run certain tests
-     * 
-     * @param propName
-     *            the property name to check for
-     * 
+     *
+     * @param propName the property name to check for
      * @return true if the property is defined.
      */
     protected boolean runTestIfSysPropDefined(String propName) {
@@ -628,9 +626,8 @@ public abstract class BaseTestCase extends TestCase {
 
     /**
      * Creates resources used by all tests.
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     @Override
     public void setUp() throws Exception {
@@ -789,16 +786,11 @@ public abstract class BaseTestCase extends TestCase {
     /**
      * Checks whether the database we're connected to meets the given version
      * minimum
-     * 
-     * @param major
-     *            the major version to meet
-     * @param minor
-     *            the minor version to meet
-     * 
+     *
+     * @param major the major version to meet
+     * @param minor the minor version to meet
      * @return boolean if the major/minor is met
-     * 
-     * @throws SQLException
-     *             if an error occurs.
+     * @throws SQLException if an error occurs.
      */
     protected boolean versionMeetsMinimum(int major, int minor) throws SQLException {
         return versionMeetsMinimum(major, minor, 0);
@@ -807,16 +799,11 @@ public abstract class BaseTestCase extends TestCase {
     /**
      * Checks whether the database we're connected to meets the given version
      * minimum
-     * 
-     * @param major
-     *            the major version to meet
-     * @param minor
-     *            the minor version to meet
-     * 
+     *
+     * @param major the major version to meet
+     * @param minor the minor version to meet
      * @return boolean if the major/minor is met
-     * 
-     * @throws SQLException
-     *             if an error occurs.
+     * @throws SQLException if an error occurs.
      */
     protected boolean versionMeetsMinimum(int major, int minor, int subminor) throws SQLException {
         return (((com.mysql.jdbc.Connection) this.conn).versionMeetsMinimum(major, minor, subminor));
@@ -993,10 +980,9 @@ public abstract class BaseTestCase extends TestCase {
 
     /**
      * Asserts the most recent history of connection attempts from the global data in UnreliableSocketFactory.
-     * 
-     * @param expectedConnectionsHistory
-     *            The list of expected events. Use UnreliableSocketFactory.getHostConnectedStatus(String), UnreliableSocketFactory.getHostFailedStatus(String)
-     *            and UnreliableSocketFactory.getHostUnknownStatus(String) to build proper syntax for host+status identification.
+     *
+     * @param expectedConnectionsHistory The list of expected events. Use UnreliableSocketFactory.getHostConnectedStatus(String), UnreliableSocketFactory.getHostFailedStatus(String)
+     *                                   and UnreliableSocketFactory.getHostUnknownStatus(String) to build proper syntax for host+status identification.
      */
     protected static void assertConnectionsHistory(String... expectedConnectionsHistory) {
         List<String> actualConnectionsHistory = UnreliableSocketFactory.getHostsFromLastConnections(expectedConnectionsHistory.length);

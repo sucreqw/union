@@ -60,9 +60,9 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
             try {
                 String jdbc4ClassName = Util.isJdbc42() ? "com.mysql.jdbc.JDBC42CallableStatement" : "com.mysql.jdbc.JDBC4CallableStatement";
                 JDBC_4_CSTMT_2_ARGS_CTOR = Class.forName(jdbc4ClassName)
-                        .getConstructor(new Class[] { MySQLConnection.class, CallableStatementParamInfo.class });
+                        .getConstructor(new Class[]{MySQLConnection.class, CallableStatementParamInfo.class});
                 JDBC_4_CSTMT_4_ARGS_CTOR = Class.forName(jdbc4ClassName)
-                        .getConstructor(new Class[] { MySQLConnection.class, String.class, String.class, Boolean.TYPE });
+                        .getConstructor(new Class[]{MySQLConnection.class, String.class, String.class, Boolean.TYPE});
             } catch (SecurityException e) {
                 throw new RuntimeException(e);
             } catch (NoSuchMethodException e) {
@@ -100,7 +100,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
         String typeName;
 
         CallableStatementParam(String name, int idx, boolean in, boolean out, int jdbcType, String typeName, int precision, int scale, short nullability,
-                int inOutModifier) {
+                               int inOutModifier) {
             this.paramName = name;
             this.isIn = in;
             this.isOut = out;
@@ -116,7 +116,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#clone()
          */
         @Override
@@ -151,10 +151,9 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
         /**
          * Constructor that converts a full list of parameter metadata into one
          * that only represents the placeholders present in the {CALL ()}.
-         * 
-         * @param fullParamInfo
-         *            the metadata for all parameters for this stored
-         *            procedure or function.
+         *
+         * @param fullParamInfo the metadata for all parameters for this stored
+         *                      procedure or function.
          */
         CallableStatementParamInfo(CallableStatementParamInfo fullParamInfo) {
             this.nativeSql = CallableStatement.this.originalSql;
@@ -277,7 +276,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#clone()
          */
         @Override
@@ -434,14 +433,10 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /**
      * Creates a new CallableStatement
-     * 
-     * @param conn
-     *            the connection creating this statement
-     * @param paramInfo
-     *            the SQL to prepare
-     * 
-     * @throws SQLException
-     *             if an error occurs
+     *
+     * @param conn      the connection creating this statement
+     * @param paramInfo the SQL to prepare
+     * @throws SQLException if an error occurs
      */
     public CallableStatement(MySQLConnection conn, CallableStatementParamInfo paramInfo) throws SQLException {
         super(conn, paramInfo.nativeSql, paramInfo.catalogInUse);
@@ -468,7 +463,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
             return new CallableStatement(conn, sql, catalog, isFunctionCall);
         }
 
-        return (CallableStatement) Util.handleNewInstance(JDBC_4_CSTMT_4_ARGS_CTOR, new Object[] { conn, sql, catalog, Boolean.valueOf(isFunctionCall) },
+        return (CallableStatement) Util.handleNewInstance(JDBC_4_CSTMT_4_ARGS_CTOR, new Object[]{conn, sql, catalog, Boolean.valueOf(isFunctionCall)},
                 conn.getExceptionInterceptor());
     }
 
@@ -484,7 +479,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
             return new CallableStatement(conn, paramInfo);
         }
 
-        return (CallableStatement) Util.handleNewInstance(JDBC_4_CSTMT_2_ARGS_CTOR, new Object[] { conn, paramInfo }, conn.getExceptionInterceptor());
+        return (CallableStatement) Util.handleNewInstance(JDBC_4_CSTMT_2_ARGS_CTOR, new Object[]{conn, paramInfo}, conn.getExceptionInterceptor());
 
     }
 
@@ -545,16 +540,11 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /**
      * Creates a new CallableStatement
-     * 
-     * @param conn
-     *            the connection creating this statement
-     * @param sql
-     *            the SQL to prepare
-     * @param catalog
-     *            the current catalog
-     * 
-     * @throws SQLException
-     *             if an error occurs
+     *
+     * @param conn    the connection creating this statement
+     * @param sql     the SQL to prepare
+     * @param catalog the current catalog
+     * @throws SQLException if an error occurs
      */
     public CallableStatement(MySQLConnection conn, String sql, String catalog, boolean isFunctionCall) throws SQLException {
         super(conn, sql, catalog);
@@ -582,7 +572,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.sql.PreparedStatement#addBatch()
      */
     @Override
@@ -639,7 +629,6 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /**
      * @param paramIndex
-     * 
      * @throws SQLException
      */
     private void checkParameterIndexBounds(int paramIndex) throws SQLException {
@@ -652,7 +641,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
      * Checks whether or not this statement is supposed to be providing
      * streamable result sets...If output parameters are registered, the driver
      * can not stream the results.
-     * 
+     *
      * @throws SQLException
      */
     private void checkStreamability() throws SQLException {
@@ -679,9 +668,8 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
     /**
      * Used to fake up some metadata when we don't have access to
      * SHOW CREATE PROCEDURE or mysql.proc.
-     * 
-     * @throws SQLException
-     *             if we can't build the metadata.
+     *
+     * @throws SQLException if we can't build the metadata.
      */
     private void fakeParameterTypes(boolean isReallyProcedure) throws SQLException {
         synchronized (checkClosed().getConnectionMutex()) {
@@ -821,7 +809,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.sql.PreparedStatement#execute()
      */
     @Override
@@ -855,7 +843,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.sql.PreparedStatement#executeQuery()
      */
     @Override
@@ -879,7 +867,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.sql.PreparedStatement#executeUpdate()
      */
     @Override
@@ -924,21 +912,17 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /**
      * Adds 'at' symbol to beginning of parameter names if needed.
-     * 
-     * @param paramNameIn
-     *            the parameter name to 'fix'
-     * 
+     *
+     * @param paramNameIn the parameter name to 'fix'
      * @return the parameter name with an 'a' prepended, if needed
-     * 
-     * @throws SQLException
-     *             if the parameter name is null or empty.
+     * @throws SQLException if the parameter name is null or empty.
      */
     protected String fixParameterName(String paramNameIn) throws SQLException {
         synchronized (checkClosed().getConnectionMutex()) {
             //Fixed for 5.5+
             if (((paramNameIn == null) || (paramNameIn.length() == 0)) && (!hasParametersView())) {
                 throw SQLError.createSQLException(((Messages.getString("CallableStatement.0") + paramNameIn) == null)
-                        ? Messages.getString("CallableStatement.15") : Messages.getString("CallableStatement.16"), SQLError.SQL_STATE_ILLEGAL_ARGUMENT,
+                                ? Messages.getString("CallableStatement.15") : Messages.getString("CallableStatement.16"), SQLError.SQL_STATE_ILLEGAL_ARGUMENT,
                         getExceptionInterceptor());
             }
 
@@ -1003,9 +987,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
     /**
      * @param parameterIndex
      * @param scale
-     * 
      * @throws SQLException
-     * 
      * @see java.sql.CallableStatement#getBigDecimal(int, int)
      * @deprecated
      */
@@ -1496,12 +1478,10 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
     /**
      * Returns the ResultSet that holds the output parameters, or throws an
      * appropriate exception if none exist, or they weren't returned.
-     * 
+     *
      * @return the ResultSet that holds the output parameters
-     * 
-     * @throws SQLException
-     *             if no output parameters were defined, or if no output
-     *             parameters were returned.
+     * @throws SQLException if no output parameters were defined, or if no output
+     *                      parameters were returned.
      */
     protected ResultSetInternalMethods getOutputParameters(int paramIndex) throws SQLException {
         synchronized (checkClosed().getConnectionMutex()) {
@@ -1847,9 +1827,8 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /**
      * Issues a second query to retrieve all output parameters.
-     * 
-     * @throws SQLException
-     *             if an error occurs.
+     *
+     * @throws SQLException if an error occurs.
      */
     private void retrieveOutParams() throws SQLException {
         synchronized (checkClosed().getConnectionMutex()) {
@@ -1869,7 +1848,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
                 boolean firstParam = true;
                 boolean hadOutputParams = false;
 
-                for (Iterator<CallableStatementParam> paramIter = this.paramInfo.iterator(); paramIter.hasNext();) {
+                for (Iterator<CallableStatementParam> paramIter = this.paramInfo.iterator(); paramIter.hasNext(); ) {
                     CallableStatementParam retrParamInfo = paramIter.next();
 
                     if (retrParamInfo.isOut) {
@@ -2005,7 +1984,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
     private void setInOutParamsOnServer() throws SQLException {
         synchronized (checkClosed().getConnectionMutex()) {
             if (this.paramInfo.numParameters > 0) {
-                for (Iterator<CallableStatementParam> paramIter = this.paramInfo.iterator(); paramIter.hasNext();) {
+                for (Iterator<CallableStatementParam> paramIter = this.paramInfo.iterator(); paramIter.hasNext(); ) {
 
                     CallableStatementParam inParamInfo = paramIter.next();
 
@@ -2122,7 +2101,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
     private void setOutParams() throws SQLException {
         synchronized (checkClosed().getConnectionMutex()) {
             if (this.paramInfo.numParameters > 0) {
-                for (Iterator<CallableStatementParam> paramIter = this.paramInfo.iterator(); paramIter.hasNext();) {
+                for (Iterator<CallableStatementParam> paramIter = this.paramInfo.iterator(); paramIter.hasNext(); ) {
                     CallableStatementParam outParamInfo = paramIter.next();
 
                     if (!this.callingStoredFunction && outParamInfo.isOut) {
@@ -2309,7 +2288,7 @@ public class CallableStatement extends PreparedStatement implements java.sql.Cal
 
     /**
      * Check whether the stored procedure alters any data or is safe for read-only usage.
-     * 
+     *
      * @return true if procedure does not alter data
      * @throws SQLException
      */

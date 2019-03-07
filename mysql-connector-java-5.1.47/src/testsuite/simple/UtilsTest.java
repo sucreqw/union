@@ -46,9 +46,8 @@ import testsuite.BaseTestCase;
 public class UtilsTest extends BaseTestCase {
     /**
      * Creates a new UtilsTest.
-     * 
-     * @param name
-     *            the name of the test
+     *
+     * @param name the name of the test
      */
     public UtilsTest(String name) {
         super(name);
@@ -56,7 +55,7 @@ public class UtilsTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -65,7 +64,7 @@ public class UtilsTest extends BaseTestCase {
 
     /**
      * Tests Util.isJdbcInterface()
-     * 
+     *
      * @throws Exception
      */
     public void testIsJdbcInterface() throws Exception {
@@ -74,7 +73,7 @@ public class UtilsTest extends BaseTestCase {
         assertTrue(Util.isJdbcInterface(StatementImpl.class));
         assertTrue(Util.isJdbcInterface(Statement.class));
         assertTrue(Util.isJdbcInterface(ResultSetImpl.class));
-        Statement s = (Statement) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class<?>[] { Statement.class }, new InvocationHandler() {
+        Statement s = (Statement) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{Statement.class}, new InvocationHandler() {
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 return null;
             }
@@ -89,7 +88,7 @@ public class UtilsTest extends BaseTestCase {
 
     /**
      * Tests Util.isJdbcPackage()
-     * 
+     *
      * @throws Exception
      */
     public void testIsJdbcPackage() throws Exception {
@@ -110,7 +109,7 @@ public class UtilsTest extends BaseTestCase {
 
     /**
      * Tests Util.isJdbcPackage()
-     * 
+     *
      * @throws Exception
      */
     public void testGetImplementedInterfaces() throws Exception {
@@ -118,7 +117,7 @@ public class UtilsTest extends BaseTestCase {
         ifaces = Util.getImplementedInterfaces(Statement.class);
         assertEquals(2, ifaces.length);
         List<Class<?>> ifacesList = Arrays.asList(ifaces);
-        for (Class<?> clazz : new Class<?>[] { java.sql.Statement.class, Wrapper.class }) {
+        for (Class<?> clazz : new Class<?>[]{java.sql.Statement.class, Wrapper.class}) {
             assertTrue(ifacesList.contains(clazz));
         }
 
@@ -129,7 +128,7 @@ public class UtilsTest extends BaseTestCase {
         ifaces = Util.getImplementedInterfaces(ConnectionImpl.class);
         assertEquals(3, ifaces.length);
         ifacesList = Arrays.asList(ifaces);
-        for (Class<?> clazz : new Class<?>[] { MySQLConnection.class, Serializable.class, ConnectionProperties.class }) {
+        for (Class<?> clazz : new Class<?>[]{MySQLConnection.class, Serializable.class, ConnectionProperties.class}) {
             assertTrue(ifacesList.contains(clazz));
         }
     }

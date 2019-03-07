@@ -33,7 +33,9 @@ import testsuite.BaseTestCase;
  * Simple performance testing unit test.
  */
 public class LoadStorePerfTest extends BasePerfTest {
-    /** The table type to use (only for MySQL), 'HEAP' by default */
+    /**
+     * The table type to use (only for MySQL), 'HEAP' by default
+     */
     private String tableType = "HEAP";
 
     private boolean takeMeasurements = false;
@@ -44,9 +46,8 @@ public class LoadStorePerfTest extends BasePerfTest {
 
     /**
      * Constructor for LoadStorePerfTest.
-     * 
-     * @param name
-     *            the name of the test to run
+     *
+     * @param name the name of the test to run
      */
     public LoadStorePerfTest(String name) {
         super(name);
@@ -64,12 +65,9 @@ public class LoadStorePerfTest extends BasePerfTest {
 
     /**
      * Runs all tests in this test case
-     * 
-     * @param args
-     *            ignored
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @param args ignored
+     * @throws Exception if an error occurs
      */
     public static void main(String[] args) throws Exception {
         new LoadStorePerfTest("test1000Transactions").run();
@@ -164,9 +162,8 @@ public class LoadStorePerfTest extends BasePerfTest {
 
     /**
      * Tests and times 1000 load/store type transactions
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void test1000Transactions() throws Exception {
         this.takeMeasurements = false;
@@ -179,7 +176,7 @@ public class LoadStorePerfTest extends BasePerfTest {
 
     /**
      * Runs one iteration of the test.
-     * 
+     *
      * @see testsuite.perf.BasePerfTest#doOneIteration()
      */
     @Override
@@ -309,9 +306,8 @@ public class LoadStorePerfTest extends BasePerfTest {
 
     /**
      * Runs the test 10 times to get JIT going, and GC going
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     protected void warmUp() throws Exception {
         try {

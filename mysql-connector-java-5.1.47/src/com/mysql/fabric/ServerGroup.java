@@ -47,7 +47,7 @@ public class ServerGroup {
 
     /**
      * Find the master server for this group.
-     * 
+     *
      * @return the master server, or null if there's no master for the current group state
      */
     public Server getMaster() {
@@ -61,7 +61,7 @@ public class ServerGroup {
 
     /**
      * Lookup a server in this group for the matching host:port string.
-     * 
+     *
      * @return the server, if found. null otherwise
      */
     public Server getServer(String hostPortString) {

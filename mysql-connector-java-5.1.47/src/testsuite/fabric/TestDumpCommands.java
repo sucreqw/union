@@ -38,7 +38,7 @@ import com.mysql.fabric.proto.xmlrpc.XmlRpcClient;
 
 /**
  * Tests for `mysqlfabric dump.*'.
- * 
+ * <p>
  * Depends on standard Fabric test setup (which as of yet is not defined).
  * Updates to this test setup will require changes to the tests.
  */

@@ -36,7 +36,7 @@ public class SimpleTransformer implements ConnectionPropertiesTransform {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.mysql.jdbc.ConnectionPropertiesTransform#transformProperties(java.util.Properties)
      */
     public Properties transformProperties(Properties props) throws SQLException {

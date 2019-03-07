@@ -92,7 +92,7 @@ public class InternalXmlRpcMethodCaller implements XmlRpcMethodCaller {
         MethodCall methodCall = new MethodCall();
         Params p = new Params();
         if (args == null) {
-            args = new Object[] {};
+            args = new Object[]{};
         }
         for (int i = 0; i < args.length; ++i) {
             if (args[i] == null) {

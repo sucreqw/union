@@ -134,9 +134,8 @@ public class ConnectionGroup {
 
     /**
      * Remove the given host (host:port pair) from this Connection Group.
-     * 
-     * @param hostPortPair
-     *            The host:port pair to remove.
+     *
+     * @param hostPortPair The host:port pair to remove.
      * @throws SQLException
      */
     public void removeHost(String hostPortPair) throws SQLException {
@@ -145,11 +144,9 @@ public class ConnectionGroup {
 
     /**
      * Remove the given host (host:port pair) from this Connection Group.
-     * 
-     * @param hostPortPair
-     *            The host:port pair to remove.
-     * @param removeExisting
-     *            Whether affects existing load-balanced connections or only new ones.
+     *
+     * @param hostPortPair   The host:port pair to remove.
+     * @param removeExisting Whether affects existing load-balanced connections or only new ones.
      * @throws SQLException
      */
     public void removeHost(String hostPortPair, boolean removeExisting) throws SQLException {
@@ -158,14 +155,11 @@ public class ConnectionGroup {
 
     /**
      * Remove the given host (host:port pair) from this Connection Group and, consequently, from all the load-balanced connections it holds.
-     * 
-     * @param hostPortPair
-     *            The host:port pair to remove.
-     * @param removeExisting
-     *            Whether affects existing load-balanced connections or only new ones.
-     * @param waitForGracefulFailover
-     *            If true instructs the load-balanced connections to fail-over the underlying active connection before removing this host, otherwise remove
-     *            immediately.
+     *
+     * @param hostPortPair            The host:port pair to remove.
+     * @param removeExisting          Whether affects existing load-balanced connections or only new ones.
+     * @param waitForGracefulFailover If true instructs the load-balanced connections to fail-over the underlying active connection before removing this host, otherwise remove
+     *                                immediately.
      * @throws SQLException
      */
     public synchronized void removeHost(String hostPortPair, boolean removeExisting, boolean waitForGracefulFailover) throws SQLException {
@@ -199,9 +193,8 @@ public class ConnectionGroup {
 
     /**
      * Add the given host (host:port pair) to this Connection Group.
-     * 
-     * @param hostPortPair
-     *            The host:port pair to add.
+     *
+     * @param hostPortPair The host:port pair to add.
      * @throws SQLException
      */
     public void addHost(String hostPortPair) {
@@ -210,11 +203,9 @@ public class ConnectionGroup {
 
     /**
      * Add the given host (host:port pair) to this Connection Group and, consequently, to all the load-balanced connections it holds.
-     * 
-     * @param hostPortPair
-     *            The host:port pair to add.
-     * @param forExisting
-     *            Whether affects existing load-balanced connections or only new ones.
+     *
+     * @param hostPortPair The host:port pair to add.
+     * @param forExisting  Whether affects existing load-balanced connections or only new ones.
      */
     public void addHost(String hostPortPair, boolean forExisting) {
         synchronized (this) {

@@ -38,7 +38,9 @@ public class FabricMySQLDataSource extends MysqlDataSource implements FabricMySQ
 
     private static final long serialVersionUID = 1L;
 
-    /** Driver used to create connections. */
+    /**
+     * Driver used to create connections.
+     */
     private final static Driver driver;
 
     static {
@@ -54,14 +56,10 @@ public class FabricMySQLDataSource extends MysqlDataSource implements FabricMySQ
      * copied directly from MysqlDataSource.getConnection().
      * No easy way to override the static `mysqlDriver' without
      * globally affecting the driver.
-     * 
-     * @param props
-     *            the properties to connect with
-     * 
+     *
+     * @param props the properties to connect with
      * @return a connection to the database
-     * 
-     * @throws SQLException
-     *             if an error occurs
+     * @throws SQLException if an error occurs
      */
     @Override
     protected java.sql.Connection getConnection(Properties props) throws SQLException {

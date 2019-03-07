@@ -49,9 +49,8 @@ public class StressRegressionTest extends BaseTestCase {
 
     /**
      * Creates a new StressRegressionTest
-     * 
-     * @param name
-     *            the name of the test.
+     *
+     * @param name the name of the test.
      */
     public StressRegressionTest(String name) {
         super(name);
@@ -59,7 +58,7 @@ public class StressRegressionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -94,7 +93,7 @@ public class StressRegressionTest extends BaseTestCase {
                 threads[i].start();
             }
 
-            for (;;) {
+            for (; ; ) {
                 try {
                     wait();
 
@@ -309,18 +308,17 @@ public class StressRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#67760 - Deadlock when concurrently executing prepared statements with Timestamp objects
-     * 
+     * <p>
      * Concurrent execution of Timestamp, Date and Time related setters and getters from a PreparedStatement and ResultSet object obtained from a same shared
      * Connection may result in a deadlock.
-     * 
+     * <p>
      * This test exploits a non-deterministic situation that can end in a deadlock. It executes two concurrent jobs for 10 seconds while stressing the referred
      * methods. The deadlock was observed before 3 seconds have elapsed, all times, in development environment.
-     * 
+     * <p>
      * WARNING! If this test fails there is no guarantee that the JVM will remain stable and won't affect any other tests. It is imperative that this test
      * passes to ensure other tests results.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug67760() throws Exception {
         /*

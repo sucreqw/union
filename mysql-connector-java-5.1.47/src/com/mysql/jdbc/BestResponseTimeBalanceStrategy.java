@@ -42,13 +42,13 @@ public class BestResponseTimeBalanceStrategy implements BalanceStrategy {
     }
 
     public ConnectionImpl pickConnection(LoadBalancedConnectionProxy proxy, List<String> configuredHosts, Map<String, ConnectionImpl> liveConnections,
-            long[] responseTimes, int numRetries) throws SQLException {
+                                         long[] responseTimes, int numRetries) throws SQLException {
 
         Map<String, Long> blackList = proxy.getGlobalBlacklist();
 
         SQLException ex = null;
 
-        for (int attempts = 0; attempts < numRetries;) {
+        for (int attempts = 0; attempts < numRetries; ) {
             long minResponseTime = Long.MAX_VALUE;
 
             int bestHostIndex = 0;

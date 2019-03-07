@@ -48,9 +48,9 @@ import com.mysql.jdbc.StandardSocketFactory;
  * Configure "socketFactory" to use this class in your JDBC URL, and it will operate as normal, unless you map some host aliases to actual IP addresses, and
  * then have the test driver call hangOnConnect/Read/Write() which simulate the given failure condition for the host with the <b>alias</b> argument, and will
  * honor connect or socket timeout properties.
- * 
+ * <p>
  * You can also cause a host to be immediately-downed by calling downHost() with an alias.
- * 
+ * <p>
  * ATTENTION! This class is *NOT* thread safe.
  */
 public class UnreliableSocketFactory extends StandardSocketFactory {

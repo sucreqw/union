@@ -29,10 +29,9 @@ public interface ConnectionProperties {
 
     /**
      * Returns a description of the connection properties as an XML document.
-     * 
+     *
      * @return the connection properties as an XML document.
-     * @throws SQLException
-     *             if an error occurs.
+     * @throws SQLException if an error occurs.
      */
     public String exposeAsXml() throws SQLException;
 
@@ -221,7 +220,7 @@ public interface ConnectionProperties {
     /**
      * Returns the number of queries that metadata can be cached if caching is
      * enabled.
-     * 
+     *
      * @return the number of queries to cache metadata for.
      */
     public int getMetadataCacheSize();
@@ -286,7 +285,7 @@ public interface ConnectionProperties {
 
     /**
      * Returns whether or not hosts will be picked in a round-robin fashion.
-     * 
+     *
      * @return Returns the roundRobinLoadBalance property.
      */
     public boolean getRoundRobinLoadBalance();
@@ -300,7 +299,7 @@ public interface ConnectionProperties {
 
     /**
      * Returns the 'serverTimezone' property.
-     * 
+     *
      * @return the configured server timezone property.
      */
     public String getServerTimezone();
@@ -392,7 +391,7 @@ public interface ConnectionProperties {
 
     /**
      * Returns whether or not the driver advises of proper usage.
-     * 
+     *
      * @return the value of useUsageAdvisor
      */
     public boolean getUseUsageAdvisor();
@@ -412,82 +411,71 @@ public interface ConnectionProperties {
     public void setAllowMultiQueries(boolean property);
 
     /**
-     * @param allowNanAndInf
-     *            The allowNanAndInf to set.
+     * @param allowNanAndInf The allowNanAndInf to set.
      */
     public void setAllowNanAndInf(boolean flag);
 
     /**
-     * @param allowUrlInLocalInfile
-     *            The allowUrlInLocalInfile to set.
+     * @param allowUrlInLocalInfile The allowUrlInLocalInfile to set.
      */
     public void setAllowUrlInLocalInfile(boolean flag);
 
     /**
-     * @param alwaysSendSetIsolation
-     *            The alwaysSendSetIsolation to set.
+     * @param alwaysSendSetIsolation The alwaysSendSetIsolation to set.
      */
     public void setAlwaysSendSetIsolation(boolean flag);
 
     /**
-     * @param autoDeserialize
-     *            The autoDeserialize to set.
+     * @param autoDeserialize The autoDeserialize to set.
      */
     public void setAutoDeserialize(boolean flag);
 
     public void setAutoGenerateTestcaseScript(boolean flag);
 
     /**
-     * @param flag
-     *            The autoReconnect to set.
+     * @param flag The autoReconnect to set.
      */
     public void setAutoReconnect(boolean flag);
 
     public void setAutoReconnectForConnectionPools(boolean property);
 
     /**
-     * @param flag
-     *            The autoReconnectForPools to set.
+     * @param flag The autoReconnectForPools to set.
      */
     public void setAutoReconnectForPools(boolean flag);
 
     /**
-     * @param blobSendChunkSize
-     *            The blobSendChunkSize to set.
+     * @param blobSendChunkSize The blobSendChunkSize to set.
      */
     public void setBlobSendChunkSize(String value) throws SQLException;
 
     /**
-     * @param flag
-     *            The cacheCallableStatements to set.
+     * @param flag The cacheCallableStatements to set.
      */
     public void setCacheCallableStatements(boolean flag);
 
     /**
-     * @param flag
-     *            The cachePreparedStatements to set.
+     * @param flag The cachePreparedStatements to set.
      */
     public void setCachePreparedStatements(boolean flag);
 
     /**
      * Sets whether or not we should cache result set metadata.
-     * 
+     *
      * @param property
      */
     public void setCacheResultSetMetadata(boolean property);
 
     /**
-     * @param cacheServerConfiguration
-     *            The cacheServerConfiguration to set.
+     * @param cacheServerConfiguration The cacheServerConfiguration to set.
      */
     public void setCacheServerConfiguration(boolean flag);
 
     /**
      * Configures the number of callable statements to cache. (this is
      * configurable during the life of the connection).
-     * 
-     * @param size
-     *            The callableStatementCacheSize to set.
+     *
+     * @param size The callableStatementCacheSize to set.
      * @throws SQLException
      */
     public void setCallableStatementCacheSize(int size) throws SQLException;
@@ -495,34 +483,29 @@ public interface ConnectionProperties {
     public void setCapitalizeDBMDTypes(boolean property);
 
     /**
-     * @param flag
-     *            The capitalizeTypeNames to set.
+     * @param flag The capitalizeTypeNames to set.
      */
     public void setCapitalizeTypeNames(boolean flag);
 
     /**
-     * @param encoding
-     *            The characterEncoding to set.
+     * @param encoding The characterEncoding to set.
      */
     public void setCharacterEncoding(String encoding);
 
     /**
-     * @param characterSet
-     *            The characterSetResults to set.
+     * @param characterSet The characterSetResults to set.
      */
     public void setCharacterSetResults(String characterSet);
 
     /**
-     * @param flag
-     *            The clobberStreamingResults to set.
+     * @param flag The clobberStreamingResults to set.
      */
     public void setClobberStreamingResults(boolean flag);
 
     public void setClobCharacterEncoding(String encoding);
 
     /**
-     * @param collation
-     *            The connectionCollation to set.
+     * @param collation The connectionCollation to set.
      */
     public void setConnectionCollation(String collation);
 
@@ -547,26 +530,22 @@ public interface ConnectionProperties {
     public void setDetectServerPreparedStmts(boolean property);
 
     /**
-     * @param dontTrackOpenResources
-     *            The dontTrackOpenResources to set.
+     * @param dontTrackOpenResources The dontTrackOpenResources to set.
      */
     public void setDontTrackOpenResources(boolean flag);
 
     /**
-     * @param flag
-     *            The dumpQueriesOnException to set.
+     * @param flag The dumpQueriesOnException to set.
      */
     public void setDumpQueriesOnException(boolean flag);
 
     /**
-     * @param dynamicCalendars
-     *            The dynamicCalendars to set.
+     * @param dynamicCalendars The dynamicCalendars to set.
      */
     public void setDynamicCalendars(boolean flag);
 
     /**
-     * @param flag
-     *            The elideSetAutoCommits to set.
+     * @param flag The elideSetAutoCommits to set.
      */
     public void setElideSetAutoCommits(boolean flag);
 
@@ -578,14 +557,12 @@ public interface ConnectionProperties {
     public void setEmulateLocators(boolean property);
 
     /**
-     * @param emulateUnsupportedPstmts
-     *            The emulateUnsupportedPstmts to set.
+     * @param emulateUnsupportedPstmts The emulateUnsupportedPstmts to set.
      */
     public void setEmulateUnsupportedPstmts(boolean flag);
 
     /**
-     * @param flag
-     *            The enablePacketDebug to set.
+     * @param flag The enablePacketDebug to set.
      */
     public void setEnablePacketDebug(boolean flag);
 
@@ -595,26 +572,22 @@ public interface ConnectionProperties {
     public void setEncoding(String property);
 
     /**
-     * @param flag
-     *            The explainSlowQueries to set.
+     * @param flag The explainSlowQueries to set.
      */
     public void setExplainSlowQueries(boolean flag);
 
     /**
-     * @param flag
-     *            The failOverReadOnly to set.
+     * @param flag The failOverReadOnly to set.
      */
     public void setFailOverReadOnly(boolean flag);
 
     /**
-     * @param flag
-     *            The gatherPerformanceMetrics to set.
+     * @param flag The gatherPerformanceMetrics to set.
      */
     public void setGatherPerformanceMetrics(boolean flag);
 
     /**
-     * @param holdResultsOpenOverStatementClose
-     *            The holdResultsOpenOverStatementClose to set.
+     * @param holdResultsOpenOverStatementClose The holdResultsOpenOverStatementClose to set.
      */
     public void setHoldResultsOpenOverStatementClose(boolean flag);
 
@@ -635,14 +608,12 @@ public interface ConnectionProperties {
     public void setIsInteractiveClient(boolean property);
 
     /**
-     * @param flag
-     *            The jdbcCompliantTruncation to set.
+     * @param flag The jdbcCompliantTruncation to set.
      */
     public void setJdbcCompliantTruncation(boolean flag);
 
     /**
-     * @param locatorFetchBufferSize
-     *            The locatorFetchBufferSize to set.
+     * @param locatorFetchBufferSize The locatorFetchBufferSize to set.
      */
     public void setLocatorFetchBufferSize(String value) throws SQLException;
 
@@ -652,22 +623,19 @@ public interface ConnectionProperties {
     public void setLogger(String property);
 
     /**
-     * @param className
-     *            The loggerClassName to set.
+     * @param className The loggerClassName to set.
      */
     public void setLoggerClassName(String className);
 
     /**
-     * @param flag
-     *            The logSlowQueries to set.
+     * @param flag The logSlowQueries to set.
      */
     public void setLogSlowQueries(boolean flag);
 
     public void setMaintainTimeStats(boolean flag);
 
     /**
-     * @param sizeInBytes
-     *            The maxQuerySizeToLog to set.
+     * @param sizeInBytes The maxQuerySizeToLog to set.
      * @throws SQLException
      */
     public void setMaxQuerySizeToLog(int sizeInBytes) throws SQLException;
@@ -687,16 +655,14 @@ public interface ConnectionProperties {
     /**
      * Sets the number of queries that metadata can be cached if caching is
      * enabled.
-     * 
-     * @param value
-     *            the number of queries to cache metadata for.
+     *
+     * @param value the number of queries to cache metadata for.
      * @throws SQLException
      */
     public void setMetadataCacheSize(int value) throws SQLException;
 
     /**
-     * @param noDatetimeStringSync
-     *            The noDatetimeStringSync to set.
+     * @param noDatetimeStringSync The noDatetimeStringSync to set.
      */
     public void setNoDatetimeStringSync(boolean flag);
 
@@ -705,8 +671,7 @@ public interface ConnectionProperties {
     public void setNullNamePatternMatchesAll(boolean value);
 
     /**
-     * @param size
-     *            The packetDebugBufferSize to set.
+     * @param size The packetDebugBufferSize to set.
      * @throws SQLException
      */
     public void setPacketDebugBufferSize(int size) throws SQLException;
@@ -722,15 +687,13 @@ public interface ConnectionProperties {
     public void setPedantic(boolean property);
 
     /**
-     * @param cacheSize
-     *            The preparedStatementCacheSize to set.
+     * @param cacheSize The preparedStatementCacheSize to set.
      * @throws SQLException
      */
     public void setPreparedStatementCacheSize(int cacheSize) throws SQLException;
 
     /**
-     * @param cacheSqlLimit
-     *            The preparedStatementCacheSqlLimit to set.
+     * @param cacheSqlLimit The preparedStatementCacheSqlLimit to set.
      * @throws SQLException
      */
     public void setPreparedStatementCacheSqlLimit(int cacheSqlLimit) throws SQLException;
@@ -741,14 +704,12 @@ public interface ConnectionProperties {
     public void setProfileSql(boolean property);
 
     /**
-     * @param flag
-     *            The profileSQL to set.
+     * @param flag The profileSQL to set.
      */
     public void setProfileSQL(boolean flag);
 
     /**
-     * @param propertiesTransform
-     *            The propertiesTransform to set.
+     * @param propertiesTransform The propertiesTransform to set.
      */
     public void setPropertiesTransform(String value);
 
@@ -769,8 +730,7 @@ public interface ConnectionProperties {
     public void setRelaxAutoCommit(boolean property);
 
     /**
-     * @param millis
-     *            The reportMetricsIntervalMillis to set.
+     * @param millis The reportMetricsIntervalMillis to set.
      * @throws SQLException
      */
     public void setReportMetricsIntervalMillis(int millis) throws SQLException;
@@ -783,22 +743,19 @@ public interface ConnectionProperties {
     public void setRetainStatementAfterResultSetClose(boolean flag);
 
     /**
-     * @param rollbackOnPooledClose
-     *            The rollbackOnPooledClose to set.
+     * @param rollbackOnPooledClose The rollbackOnPooledClose to set.
      */
     public void setRollbackOnPooledClose(boolean flag);
 
     /**
      * Sets whether or not hosts will be picked in a round-robin fashion.
-     * 
-     * @param flag
-     *            The roundRobinLoadBalance property to set.
+     *
+     * @param flag The roundRobinLoadBalance property to set.
      */
     public void setRoundRobinLoadBalance(boolean flag);
 
     /**
-     * @param runningCTS13
-     *            The runningCTS13 to set.
+     * @param runningCTS13 The runningCTS13 to set.
      */
     public void setRunningCTS13(boolean flag);
 
@@ -814,14 +771,12 @@ public interface ConnectionProperties {
     public void setServerTimezone(String property);
 
     /**
-     * @param sessionVariables
-     *            The sessionVariables to set.
+     * @param sessionVariables The sessionVariables to set.
      */
     public void setSessionVariables(String variables);
 
     /**
-     * @param millis
-     *            The slowQueryThresholdMillis to set.
+     * @param millis The slowQueryThresholdMillis to set.
      * @throws SQLException
      */
     public void setSlowQueryThresholdMillis(int millis) throws SQLException;
@@ -848,14 +803,12 @@ public interface ConnectionProperties {
     public void setStrictUpdates(boolean property);
 
     /**
-     * @param tinyInt1isBit
-     *            The tinyInt1isBit to set.
+     * @param tinyInt1isBit The tinyInt1isBit to set.
      */
     public void setTinyInt1isBit(boolean flag);
 
     /**
-     * @param flag
-     *            The logProtocol to set.
+     * @param flag The logProtocol to set.
      */
     public void setTraceProtocol(boolean flag);
 
@@ -867,8 +820,7 @@ public interface ConnectionProperties {
     public void setUseCompression(boolean property);
 
     /**
-     * @param useFastIntParsing
-     *            The useFastIntParsing to set.
+     * @param useFastIntParsing The useFastIntParsing to set.
      */
     public void setUseFastIntParsing(boolean flag);
 
@@ -880,38 +832,32 @@ public interface ConnectionProperties {
     public void setUseInformationSchema(boolean flag);
 
     /**
-     * @param useLocalSessionState
-     *            The useLocalSessionState to set.
+     * @param useLocalSessionState The useLocalSessionState to set.
      */
     public void setUseLocalSessionState(boolean flag);
 
     /**
-     * @param useOldUTF8Behavior
-     *            The useOldUTF8Behavior to set.
+     * @param useOldUTF8Behavior The useOldUTF8Behavior to set.
      */
     public void setUseOldUTF8Behavior(boolean flag);
 
     /**
-     * @param useOnlyServerErrorMessages
-     *            The useOnlyServerErrorMessages to set.
+     * @param useOnlyServerErrorMessages The useOnlyServerErrorMessages to set.
      */
     public void setUseOnlyServerErrorMessages(boolean flag);
 
     /**
-     * @param useReadAheadInput
-     *            The useReadAheadInput to set.
+     * @param useReadAheadInput The useReadAheadInput to set.
      */
     public void setUseReadAheadInput(boolean flag);
 
     /**
-     * @param flag
-     *            The detectServerPreparedStmts to set.
+     * @param flag The detectServerPreparedStmts to set.
      */
     public void setUseServerPreparedStmts(boolean flag);
 
     /**
-     * @param flag
-     *            The useSqlStateCodes to set.
+     * @param flag The useSqlStateCodes to set.
      */
     public void setUseSqlStateCodes(boolean flag);
 
@@ -936,30 +882,26 @@ public interface ConnectionProperties {
     public void setUseUltraDevWorkAround(boolean property);
 
     /**
-     * @param flag
-     *            The useUnbufferedInput to set.
+     * @param flag The useUnbufferedInput to set.
      */
     public void setUseUnbufferedInput(boolean flag);
 
     /**
-     * @param flag
-     *            The useUnicode to set.
+     * @param flag The useUnicode to set.
      */
     public void setUseUnicode(boolean flag);
 
     /**
      * Sets whether or not the driver advises of proper usage.
-     * 
-     * @param useUsageAdvisorFlag
-     *            whether or not the driver advises of proper usage.
+     *
+     * @param useUsageAdvisorFlag whether or not the driver advises of proper usage.
      */
     public void setUseUsageAdvisor(boolean useUsageAdvisorFlag);
 
     public void setYearIsDateType(boolean flag);
 
     /**
-     * @param zeroDateTimeBehavior
-     *            The zeroDateTimeBehavior to set.
+     * @param zeroDateTimeBehavior The zeroDateTimeBehavior to set.
      */
     public void setZeroDateTimeBehavior(String behavior);
 

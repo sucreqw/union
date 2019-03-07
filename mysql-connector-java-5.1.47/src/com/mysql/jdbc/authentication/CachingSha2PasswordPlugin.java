@@ -70,7 +70,7 @@ public class CachingSha2PasswordPlugin extends Sha256PasswordPlugin {
 
         if (this.password == null || this.password.length() == 0 || fromServer == null) {
             // no password
-            Buffer bresp = new Buffer(new byte[] { 0 });
+            Buffer bresp = new Buffer(new byte[]{0});
             toServer.add(bresp);
 
         } else {
@@ -110,7 +110,7 @@ public class CachingSha2PasswordPlugin extends Sha256PasswordPlugin {
                     bresp = new Buffer(StringUtils.getBytes(this.password, this.connection.getPasswordCharacterEncoding()));
                 } catch (UnsupportedEncodingException e) {
                     throw SQLError.createSQLException(
-                            Messages.getString("Sha256PasswordPlugin.3", new Object[] { this.connection.getPasswordCharacterEncoding() }),
+                            Messages.getString("Sha256PasswordPlugin.3", new Object[]{this.connection.getPasswordCharacterEncoding()}),
                             SQLError.SQL_STATE_GENERAL_ERROR, null);
                 }
                 bresp.setPosition(bresp.getBufLength());
@@ -143,7 +143,7 @@ public class CachingSha2PasswordPlugin extends Sha256PasswordPlugin {
                     this.publicKeyRequested = false;
                 } else {
                     // build and send Public Key Retrieval packet
-                    Buffer bresp = new Buffer(new byte[] { 2 }); //was 1 in sha256_password
+                    Buffer bresp = new Buffer(new byte[]{2}); //was 1 in sha256_password
                     toServer.add(bresp);
                     this.publicKeyRequested = true;
                 }

@@ -61,9 +61,8 @@ public class MultiHostConnectionTest extends BaseTestCase {
 
     /**
      * Creates a new MultiHostConnectionTest.
-     * 
-     * @param name
-     *            the name of the test
+     *
+     * @param name the name of the test
      */
     public MultiHostConnectionTest(String name) {
         super(name);
@@ -71,7 +70,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -80,13 +79,10 @@ public class MultiHostConnectionTest extends BaseTestCase {
 
     /**
      * Asserts the execution and return for a simple single value query.
-     * 
-     * @param testStmt
-     *            The statement instance that runs the query.
-     * @param query
-     *            The query.
-     * @param result
-     *            The expected result.
+     *
+     * @param testStmt The statement instance that runs the query.
+     * @param query    The query.
+     * @param result   The expected result.
      */
     private static void assertSingleValueQuery(Statement testStmt, String query, Object result) throws Exception {
         ResultSet testRs = testStmt.executeQuery(query);
@@ -98,13 +94,10 @@ public class MultiHostConnectionTest extends BaseTestCase {
 
     /**
      * Asserts the SQLException thrown for connection commit() or rollback();
-     * 
-     * @param testConn
-     *            The connection instance where to issue the command.
-     * @param command
-     *            The command to issue.
-     * @param messageRegEx
-     *            The expected message regular expression pattern.
+     *
+     * @param testConn     The connection instance where to issue the command.
+     * @param command      The command to issue.
+     * @param messageRegEx The expected message regular expression pattern.
      */
     private static void assertSQLException(final Connection testConn, final String command, String messageRegEx) {
         assertThrows(SQLException.class, messageRegEx, new Callable<Void>() {
@@ -121,13 +114,10 @@ public class MultiHostConnectionTest extends BaseTestCase {
 
     /**
      * Asserts the SQLException thrown for a query execution.
-     * 
-     * @param testStmt
-     *            The statement instance that runs the query.
-     * @param query
-     *            The query.
-     * @param messageRegEx
-     *            The expected message regular expression pattern.
+     *
+     * @param testStmt     The statement instance that runs the query.
+     * @param query        The query.
+     * @param messageRegEx The expected message regular expression pattern.
      */
     private static void assertSQLException(final Statement testStmt, final String query, String messageRegEx) {
         assertThrows(SQLException.class, messageRegEx, new Callable<Void>() {
@@ -229,19 +219,14 @@ public class MultiHostConnectionTest extends BaseTestCase {
 
     /**
      * Tests a failover transition.
-     * 
-     * @param fromHost
-     *            The host where initially connected to. In order to connect to an host other than the primary all previous hosts must be downed (pinpoint them
-     *            in the 'downedHosts' set).
-     * @param toHost
-     *            The host where to failover. In order to correctly connect to this host, all hosts between (and eventually before) 'fromHost' and 'toHost' must
-     *            be downed.
-     * @param downedHosts
-     *            The set of hosts initially down.
-     * @param recoverHost
-     *            The host that recovers after first connection.
-     * @param expectedConnectionsHistory
-     *            The expected connection attempts sequence.
+     *
+     * @param fromHost                   The host where initially connected to. In order to connect to an host other than the primary all previous hosts must be downed (pinpoint them
+     *                                   in the 'downedHosts' set).
+     * @param toHost                     The host where to failover. In order to correctly connect to this host, all hosts between (and eventually before) 'fromHost' and 'toHost' must
+     *                                   be downed.
+     * @param downedHosts                The set of hosts initially down.
+     * @param recoverHost                The host that recovers after first connection.
+     * @param expectedConnectionsHistory The expected connection attempts sequence.
      */
     private void testFailoverTransition(String fromHost, String toHost, Set<String> downedHosts, String recoverHost, String... expectedConnectionsHistory)
             throws Exception {
@@ -251,7 +236,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
         String fromHostOk = UnreliableSocketFactory.STATUS_CONNECTED + fromHost;
         String toHostOk = UnreliableSocketFactory.STATUS_CONNECTED + toHost;
 
-        Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props, downedHosts);
+        Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props, downedHosts);
         Statement testStmt = null;
 
         try {
@@ -307,14 +292,14 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [/HOST_1 : /HOST_2 : /HOST_3]
      * - [/HOST_1 : /HOST_2 : \HOST_3] --> HOST_2
      * - [/HOST_1 : \HOST_2 : \HOST_3] --> HOST_1
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverDefaultSettings() throws Exception {
         Properties props = new Properties();
         props.setProperty("retriesAllDown", "2");
 
-        Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props);
+        Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props);
         Statement testStmt1 = null, testStmt2 = null;
 
         try {
@@ -434,7 +419,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [/HOST_1 : /HOST_2 : /HOST_3]
      * - [/HOST_1 : /HOST_2 : \HOST_3] --> HOST_2
      * - [/HOST_1 : \HOST_2 : \HOST_3] --> HOST_1
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverCombinations() throws Exception {
@@ -442,7 +427,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
         props.setProperty("retriesAllDown", "2");
 
         for (int run = 1; run <= 3; run++) {
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props);
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props);
             Statement testStmt1 = null, testStmt2 = null;
 
             testConn.setAutoCommit(false);
@@ -586,7 +571,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [\HOST_1 : /HOST_2 : \HOST_3] --> HOST_2
      * - [/HOST_1 : \HOST_2 : \HOST_3] --> HOST_1
      * - [\HOST_1 : \HOST_2 : /HOST_3] --> HOST_3
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverReadOnly() throws Exception {
@@ -596,10 +581,10 @@ public class MultiHostConnectionTest extends BaseTestCase {
         Properties props = new Properties();
         props.setProperty("retriesAllDown", "2");
 
-        for (boolean foReadOnly : new boolean[] { true, false }) {
+        for (boolean foReadOnly : new boolean[]{true, false}) {
             props.setProperty("failOverReadOnly", Boolean.toString(foReadOnly));
 
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props, downedHosts);
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props, downedHosts);
             Statement testStmt = null;
 
             try {
@@ -688,21 +673,21 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [/HOST_1 : /HOST_2 : /HOST_3] --> HOST_1
      * - [\HOST_1 : \HOST_2 : /HOST_3] --> HOST_3
      * - [/HOST_1 : /HOST_2 : \HOST_3] --> HOST_1 vs HOST_2
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverQueriesBeforeRetryMaster() throws Exception {
         Properties props = new Properties();
         props.setProperty("retriesAllDown", "2");
 
-        for (boolean setQueriesBeforeRetryMaster : new boolean[] { true, false }) {
+        for (boolean setQueriesBeforeRetryMaster : new boolean[]{true, false}) {
             if (setQueriesBeforeRetryMaster) {
                 props.setProperty("queriesBeforeRetryMaster", "10");
             } else {
                 props.remove("queriesBeforeRetryMaster"); // default 50
             }
 
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props);
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props);
             Statement testStmt = null;
 
             try {
@@ -772,21 +757,21 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [/HOST_1 : /HOST_2 : /HOST_3] --> HOST_1
      * - [\HOST_1 : \HOST_2 : /HOST_3] --> HOST_3
      * - [/HOST_1 : /HOST_2 : \HOST_3] --> HOST_1 vs HOST_2
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverSecondsBeforeRetryMaster() throws Exception {
         Properties props = new Properties();
         props.setProperty("retriesAllDown", "2");
 
-        for (boolean setSecondsBeforeRetryMaster : new boolean[] { true, false }) {
+        for (boolean setSecondsBeforeRetryMaster : new boolean[]{true, false}) {
             if (setSecondsBeforeRetryMaster) {
                 props.setProperty("secondsBeforeRetryMaster", "1");
             } else {
                 props.remove("secondsBeforeRetryMaster"); // default 50
             }
 
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props);
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props);
             Statement testStmt = null;
 
             try {
@@ -868,7 +853,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [/HOST_1 : \HOST_2 : /HOST_3] --> HOST_3
      * - [/HOST_1 : /HOST_2 : \HOST_3] --> HOST_1
      * - /HOST_2 & \HOST_3
-     * 
+     * <p>
      * The automatic fall back only happens at transaction boundaries and at least 'queriesBeforeRetryMaster' or 'secondsBeforeRetryMaster' is greater than 0.
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
@@ -884,8 +869,8 @@ public class MultiHostConnectionTest extends BaseTestCase {
         props.setProperty("queriesBeforeRetryMaster", "10");
         props.setProperty("secondsBeforeRetryMaster", "1");
 
-        for (boolean autoCommit : new boolean[] { true, false }) {
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props, downedHosts);
+        for (boolean autoCommit : new boolean[]{true, false}) {
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props, downedHosts);
             Statement testStmt = null;
 
             try {
@@ -958,8 +943,8 @@ public class MultiHostConnectionTest extends BaseTestCase {
         props.setProperty("queriesBeforeRetryMaster", "0");
         props.setProperty("secondsBeforeRetryMaster", "0");
 
-        for (boolean autoCommit : new boolean[] { true, false }) {
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props, downedHosts);
+        for (boolean autoCommit : new boolean[]{true, false}) {
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props, downedHosts);
             Statement testStmt = null;
 
             try {
@@ -1028,7 +1013,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [/HOST_1 : \HOST_2 : \HOST_3] --> HOST_1
      * - [/HOST_1 : \HOST_2 : /HOST_3]
      * - [\HOST_1 : \HOST_2 : /HOST_3] --> HOST_3
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverAutoReconnect() throws Exception {
@@ -1041,10 +1026,10 @@ public class MultiHostConnectionTest extends BaseTestCase {
         props.setProperty("maxReconnects", "2");
         props.setProperty("initialTimeout", "1");
 
-        for (boolean foAutoReconnect : new boolean[] { true, false }) {
+        for (boolean foAutoReconnect : new boolean[]{true, false}) {
             props.setProperty("autoReconnect", Boolean.toString(foAutoReconnect));
 
-            Connection testConn = getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props, downedHosts);
+            Connection testConn = getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props, downedHosts);
             Statement testStmt1 = null, testStmt2 = null;
 
             try {
@@ -1158,7 +1143,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
      * - [\HOST_1 : /HOST_2 : \HOST_3] --> HOST_2
      * - [/HOST_1 : \HOST_2 : \HOST_3] --> HOST_1
      * - [\HOST_1 : \HOST_2 : /HOST_3] --> HOST_3
-     * 
+     * <p>
      * [Legend: "/HOST_n" --> HOST_n up; "\HOST_n" --> HOST_n down]
      */
     public void testFailoverConnectionSynchronization() throws Exception {
@@ -1170,7 +1155,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
         props.setProperty("retriesAllDown", "2");
         props.setProperty("failOverReadOnly", "false");
 
-        com.mysql.jdbc.Connection testConn = (com.mysql.jdbc.Connection) getUnreliableFailoverConnection(new String[] { HOST_1, HOST_2, HOST_3 }, props,
+        com.mysql.jdbc.Connection testConn = (com.mysql.jdbc.Connection) getUnreliableFailoverConnection(new String[]{HOST_1, HOST_2, HOST_3}, props,
                 downedHosts);
         Statement testStmt = null;
 
@@ -1284,7 +1269,7 @@ public class MultiHostConnectionTest extends BaseTestCase {
         final Properties connProps = getPropertiesFromTestsuiteUrl();
         final String port = connProps.getProperty(NonRegisteringDriver.PORT_PROPERTY_KEY, "3306");
 
-        final String[] hosts = new String[] { HOST_1, HOST_2, HOST_3, HOST_4, HOST_5 };
+        final String[] hosts = new String[]{HOST_1, HOST_2, HOST_3, HOST_4, HOST_5};
         final Properties props = new Properties();
         props.setProperty("loadBalanceStrategy", "serverAffinity");
         props.setProperty("retriesAllDown", "2");

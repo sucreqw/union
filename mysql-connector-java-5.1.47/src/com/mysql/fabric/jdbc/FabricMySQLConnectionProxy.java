@@ -78,7 +78,7 @@ import com.mysql.jdbc.profiler.ProfilerEventHandler;
 
 /**
  * A proxy to a set of MySQL servers managed by MySQL Fabric.
- * 
+ * <p>
  * Limitations:
  * <ul>
  * <li>One shard key can be specified</li>
@@ -456,11 +456,12 @@ public class FabricMySQLConnectionProxy extends ConnectionPropertiesImpl impleme
     //////////////////////////////////////////////////////
     // Methods dealing with state internal to the proxy //
     //////////////////////////////////////////////////////
+
     /**
      * Get the active connection as an object implementing the
      * internal MySQLConnection interface. This should not be used
      * unless a MySQLConnection is required.
-     * 
+     * <p>
      * {@link getActiveConnection()} is provided for the general case.
      * The returned object is not a {@link ReplicationConnection}, but
      * instead the {@link LoadBalancedConnectionProxy} for either the
@@ -890,13 +891,13 @@ public class FabricMySQLConnectionProxy extends ConnectionPropertiesImpl impleme
     }
 
     public ResultSetInternalMethods execSQL(StatementImpl callingStatement, String sql, int maxRows, Buffer packet, int resultSetType, int resultSetConcurrency,
-            boolean streamResults, String catalog, Field[] cachedMetadata) throws SQLException {
+                                            boolean streamResults, String catalog, Field[] cachedMetadata) throws SQLException {
         return getActiveMySQLConnectionChecked().execSQL(callingStatement, sql, maxRows, packet, resultSetType, resultSetConcurrency, streamResults, catalog,
                 cachedMetadata);
     }
 
     public ResultSetInternalMethods execSQL(StatementImpl callingStatement, String sql, int maxRows, Buffer packet, int resultSetType, int resultSetConcurrency,
-            boolean streamResults, String catalog, Field[] cachedMetadata, boolean isBatch) throws SQLException {
+                                            boolean streamResults, String catalog, Field[] cachedMetadata, boolean isBatch) throws SQLException {
         return getActiveMySQLConnectionChecked().execSQL(callingStatement, sql, maxRows, packet, resultSetType, resultSetConcurrency, streamResults, catalog,
                 cachedMetadata, isBatch);
     }
@@ -969,7 +970,7 @@ public class FabricMySQLConnectionProxy extends ConnectionPropertiesImpl impleme
 
     /**
      * Methods doing essentially nothing
-     * 
+     *
      * @param iface
      */
     public boolean isWrapperFor(Class<?> iface) {
@@ -2959,7 +2960,6 @@ public class FabricMySQLConnectionProxy extends ConnectionPropertiesImpl impleme
     }
 
     /**
-     * 
      * @param stmt
      */
     public void maxRowsChanged(com.mysql.jdbc.Statement stmt) {
@@ -3004,7 +3004,6 @@ public class FabricMySQLConnectionProxy extends ConnectionPropertiesImpl impleme
     }
 
     /**
-     * 
      * @param stmt
      * @throws SQLException
      */
@@ -3028,7 +3027,6 @@ public class FabricMySQLConnectionProxy extends ConnectionPropertiesImpl impleme
     }
 
     /**
-     * 
      * @param name
      * @return
      */

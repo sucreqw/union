@@ -31,9 +31,8 @@ import testsuite.BaseTestCase;
 public class SSLTest extends BaseTestCase {
     /**
      * Constructor for SSLTest.
-     * 
-     * @param name
-     *            the name of the test to run.
+     *
+     * @param name the name of the test to run.
      */
     public SSLTest(String name) {
         super(name);
@@ -53,7 +52,7 @@ public class SSLTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -62,9 +61,8 @@ public class SSLTest extends BaseTestCase {
 
     /**
      * Tests SSL Connection
-     * 
-     * @throws Exception
-     *             if an error occurs
+     *
+     * @throws Exception if an error occurs
      */
     public void testConnect() throws Exception {
         System.out.println("<<<<<<<<<<< Look for SSL debug output >>>>>>>>>>>");

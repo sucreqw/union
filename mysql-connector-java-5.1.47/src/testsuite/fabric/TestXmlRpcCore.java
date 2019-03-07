@@ -72,7 +72,7 @@ public class TestXmlRpcCore extends BaseFabricTestCase {
          * pms.addParam(new Param(new Value(-23.345D)));
          * pms.addParam(new Param(new Value((GregorianCalendar) GregorianCalendar.getInstance())));
          * // TODO base64
-         * 
+         *
          * Struct s2 = new Struct();
          * s2.addMember(new Member("mem 2.1", new Value("qq")));
          * s2.addMember(new Member("mem 2.2", new Value(22.22)));
@@ -81,7 +81,7 @@ public class TestXmlRpcCore extends BaseFabricTestCase {
          * s1.addMember(new Member("mem 1.2", new Value(22)));
          * s1.addMember(new Member("mem 1.3", new Value(s2)));
          * pms.addParam(new Param(new Value(s1)));
-         * 
+         *
          * Array a = new Array();
          * a.addValue(new Value(true));
          * a.addValue(new Value(s1));

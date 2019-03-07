@@ -58,7 +58,7 @@ public class AbandonedConnectionCleanupThread implements Runnable {
     }
 
     public void run() {
-        for (;;) {
+        for (; ; ) {
             try {
                 checkContextClassLoaders();
                 Reference<? extends ConnectionImpl> ref = NonRegisteringDriver.refQueue.remove(5000);
@@ -96,7 +96,7 @@ public class AbandonedConnectionCleanupThread implements Runnable {
 
     /**
      * Checks if the context ClassLoaders from this and the caller thread are the same.
-     * 
+     *
      * @return true if both threads share the same context ClassLoader, false otherwise
      */
     private static boolean consistentClassLoaders() {
@@ -122,9 +122,8 @@ public class AbandonedConnectionCleanupThread implements Runnable {
 
     /**
      * Shuts down this thread either checking or not the context ClassLoaders from the involved threads.
-     * 
-     * @param checked
-     *            does a checked shutdown if true, unchecked otherwise
+     *
+     * @param checked does a checked shutdown if true, unchecked otherwise
      */
     private static void shutdown(boolean checked) {
         if (checked && !consistentClassLoaders()) {
@@ -137,7 +136,7 @@ public class AbandonedConnectionCleanupThread implements Runnable {
 
     /**
      * Shuts down this thread.
-     * 
+     *
      * @deprecated use {@link #checkedShutdown()} instead.
      */
     @Deprecated

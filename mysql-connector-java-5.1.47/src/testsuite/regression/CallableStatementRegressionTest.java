@@ -54,9 +54,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
-     * @param args
-     *            ignored
+     *
+     * @param args ignored
      */
     public static void main(String[] args) {
         junit.textui.TestRunner.run(CallableStatementRegressionTest.class);
@@ -65,9 +64,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#3539 getProcedures() does not return any procedures in
      * result set
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     public void testBug3539() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -85,9 +83,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#3540 getProcedureColumns doesn't work with wildcards
      * for procedure name
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     public void testBug3540() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -112,9 +109,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#7026 - DBMD.getProcedures() doesn't respect catalog
      * parameter
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug7026() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -154,9 +150,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix for BUG#9319 -- Stored procedures with same name in different
      * databases confuse the driver when it tries to determine parameter
      * counts/types.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug9319() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -265,73 +260,73 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * public void testBug9319() throws Exception { boolean doASelect = false;
      * // SELECT currently causes the server to hang on the // last execution of
      * this testcase, filed as BUG#9405
-     * 
+     *
      * if (versionMeetsMinimum(5, 0, 2)) { if (isAdminConnectionConfigured()) {
      * Connection db2Connection = null; Connection db1Connection = null;
-     * 
+     *
      * try { db2Connection = getAdminConnection();
-     * 
+     *
      * db2Connection.createStatement().executeUpdate( "CREATE DATABASE IF NOT
      * EXISTS db_9319"); db2Connection.setCatalog("db_9319");
-     * 
+     *
      * db2Connection.createStatement().executeUpdate( "DROP PROCEDURE IF EXISTS
      * COMPROVAR_USUARI");
-     * 
+     *
      * db2Connection.createStatement().executeUpdate( "CREATE PROCEDURE
      * COMPROVAR_USUARI(IN p_CodiUsuari VARCHAR(10)," + "\nIN p_contrasenya
      * VARCHAR(10)," + "\nOUT p_userId INTEGER," + "\nOUT p_userName
      * VARCHAR(30)," + "\nOUT p_administrador VARCHAR(1)," + "\nOUT p_idioma
      * VARCHAR(2))" + "\nBEGIN" + (doASelect ? "\nselect 2;" : "\nSELECT 2 INTO
      * p_administrador;" ) + "\nEND");
-     * 
+     *
      * this.stmt .executeUpdate("DROP PROCEDURE IF EXISTS COMPROVAR_USUARI");
      * this.stmt .executeUpdate("CREATE PROCEDURE COMPROVAR_USUARI(IN
      * p_CodiUsuari VARCHAR(10)," + "\nIN p_contrasenya VARCHAR(10)," + "\nOUT
      * p_userId INTEGER," + "\nOUT p_userName VARCHAR(30)," + "\nOUT
      * p_administrador VARCHAR(1))" + "\nBEGIN" + (doASelect ? "\nselect 1;" :
      * "\nSELECT 1 INTO p_administrador;" ) + "\nEND");
-     * 
+     *
      * CallableStatement cstmt = db2Connection .prepareCall("{ call
      * COMPROVAR_USUARI(?, ?, ?, ?, ?, ?) }"); cstmt.setString(1, "abc");
      * cstmt.setString(2, "def"); cstmt.registerOutParameter(3,
      * java.sql.Types.INTEGER); cstmt.registerOutParameter(4,
      * java.sql.Types.VARCHAR); cstmt.registerOutParameter(5,
      * java.sql.Types.VARCHAR);
-     * 
+     *
      * cstmt.registerOutParameter(6, java.sql.Types.VARCHAR);
-     * 
+     *
      * cstmt.execute();
-     * 
+     *
      * if (doASelect) { this.rs = cstmt.getResultSet();
      * assertTrue(this.rs.next()); assertEquals(2, this.rs.getInt(1)); } else {
      * assertEquals(2, cstmt.getInt(5)); }
-     * 
+     *
      * cstmt = this.conn .prepareCall("{ call COMPROVAR_USUARI(?, ?, ?, ?, ?, ?)
      * }"); cstmt.setString(1, "abc"); cstmt.setString(2, "def");
      * cstmt.registerOutParameter(3, java.sql.Types.INTEGER);
      * cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
      * cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
-     * 
+     *
      * try { cstmt.registerOutParameter(6, java.sql.Types.VARCHAR);
      * fail("Should've thrown an exception"); } catch (SQLException sqlEx) {
      * assertEquals(SQLError.SQL_STATE_ILLEGAL_ARGUMENT, sqlEx .getSQLState());
      * }
-     * 
+     *
      * cstmt = this.conn .prepareCall("{ call COMPROVAR_USUARI(?, ?, ?, ?, ?)
      * }"); cstmt.setString(1, "abc"); cstmt.setString(2, "def");
      * cstmt.registerOutParameter(3, java.sql.Types.INTEGER);
      * cstmt.registerOutParameter(4, java.sql.Types.VARCHAR);
      * cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
-     * 
+     *
      * cstmt.execute();
-     * 
+     *
      * if (doASelect) { this.rs = cstmt.getResultSet();
      * assertTrue(this.rs.next()); assertEquals(1, this.rs.getInt(1)); } else {
      * assertEquals(1, cstmt.getInt(5)); }
-     * 
+     *
      * String quoteChar =
      * db2Connection.getMetaData().getIdentifierQuoteString();
-     * 
+     *
      * cstmt = db2Connection .prepareCall("{ call " + quoteChar +
      * this.conn.getCatalog() + quoteChar + "." + quoteChar + "COMPROVAR_USUARI"
      * + quoteChar + "(?, ?, ?, ?, ?) }"); cstmt.setString(1, "abc");
@@ -339,9 +334,9 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * java.sql.Types.INTEGER); cstmt.registerOutParameter(4,
      * java.sql.Types.VARCHAR); cstmt.registerOutParameter(5,
      * java.sql.Types.VARCHAR);
-     * 
+     *
      * cstmt.execute();
-     * 
+     *
      * if (doASelect) { this.rs = cstmt.getResultSet();
      * assertTrue(this.rs.next()); assertEquals(1, this.rs.getInt(1)); } else {
      * assertEquals(1, cstmt.getInt(5)); } } finally { if (db2Connection !=
@@ -349,7 +344,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * EXISTS COMPROVAR_USUARI"); //
      * db2Connection.createStatement().executeUpdate( // "DROP DATABASE IF
      * EXISTS db_9319"); }
-     * 
+     *
      * this.stmt .executeUpdate("DROP PROCEDURE IF EXISTS COMPROVAR_USUARI"); }
      * } } }
      */
@@ -357,9 +352,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#9682 - Stored procedures with DECIMAL parameters with
      * storage specifications that contained "," in them would fail.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug9682() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -385,9 +379,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix forBUG#10310 - Driver doesn't support {?=CALL(...)} for calling
      * stored functions. This involved adding support for function retrieval to
      * DatabaseMetaData.getProcedures() and getProcedureColumns() as well.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug10310() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -510,9 +503,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix for Bug#12417 - stored procedure catalog name is case-sensitive
      * on Windows (this is actually a server bug, but we have a workaround in
      * place for it now).
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug12417() throws Exception {
         if (serverSupportsStoredProcedures() && isServerRunningOnWindows()) {
@@ -565,9 +557,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#15464 - INOUT parameter does not store IN value.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
 
     public void testBug15464() throws Exception {
@@ -596,9 +587,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * parameters pre-populated. Still waiting for feedback from JDBC experts
      * group to determine what correct parameter count from getMetaData() should
      * be, however.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug17898() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -622,9 +612,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix for BUG#21462 - JDBC (and ODBC) specifications allow
      * no-parenthesis CALL statements for procedures with no arguments, MySQL
      * server does not.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug21462() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -649,9 +638,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#22024 - Newlines causing whitespace to span confuse
      * procedure parser when getting parameter metadata for stored procedures.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug22024() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -682,9 +670,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests workaround for server crash when calling stored procedures via a
      * server-side prepared statement (driver now detects prepare(stored
      * procedure) and substitutes client-side prepared statement).
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug22297() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -710,7 +697,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         this.pstmt.setInt(1, 1);
         this.rs = this.pstmt.executeQuery();
 
-        String[] ids = new String[] { "a", "b", "c", "d", "e" };
+        String[] ids = new String[]{"a", "b", "c", "d", "e"};
         int pos = 0;
 
         while (this.rs.next()) {
@@ -788,9 +775,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     /**
      * Tests fix for BUG#25379 - INOUT parameters in CallableStatements get
      * doubly-escaped.
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug25379() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -812,9 +798,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix for BUG#25715 - CallableStatements with OUT/INOUT parameters
      * that are "binary" have extra 7 bytes (which happens to be the _binary
      * introducer!)
-     * 
-     * @throws Exception
-     *             if the test fails.
+     *
+     * @throws Exception if the test fails.
      */
     public void testBug25715() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -833,7 +818,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
             }
             int il = buf.length;
 
-            int[] typesToTest = new int[] { Types.BIT, Types.BINARY, Types.BLOB, Types.JAVA_OBJECT, Types.LONGVARBINARY, Types.VARBINARY };
+            int[] typesToTest = new int[]{Types.BIT, Types.BINARY, Types.BLOB, Types.JAVA_OBJECT, Types.LONGVARBINARY, Types.VARBINARY};
 
             for (int i = 0; i < typesToTest.length; i++) {
 
@@ -893,9 +878,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#26959 - comments confuse procedure parser.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug26959() throws Exception {
         if (!serverSupportsStoredProcedures()) {
@@ -917,19 +901,19 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         this.conn.prepareCall("{call testBug26959(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}").close();
         this.rs = this.conn.getMetaData().getProcedureColumns(this.conn.getCatalog(), null, "testBug26959", "%");
 
-        String[] parameterNames = new String[] { "_ACTION", "/*dumb-identifier-1*/", "#dumb-identifier-2", "--dumb-identifier-3", "_CLIENT_ID", "_LOGIN_ID",
-                "_WHERE", "_SORT", "_SQL", "_SONG_ID", "_NOTES", "_RESULT" };
+        String[] parameterNames = new String[]{"_ACTION", "/*dumb-identifier-1*/", "#dumb-identifier-2", "--dumb-identifier-3", "_CLIENT_ID", "_LOGIN_ID",
+                "_WHERE", "_SORT", "_SQL", "_SONG_ID", "_NOTES", "_RESULT"};
 
-        int[] parameterTypes = new int[] { Types.VARCHAR, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.VARCHAR,
-                Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.VARCHAR, Types.VARCHAR };
+        int[] parameterTypes = new int[]{Types.VARCHAR, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.VARCHAR,
+                Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.VARCHAR, Types.VARCHAR};
 
-        int[] direction = new int[] { java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn,
+        int[] direction = new int[]{java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn,
                 java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn,
                 java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn,
                 java.sql.DatabaseMetaData.procedureColumnOut, java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnIn,
-                java.sql.DatabaseMetaData.procedureColumnOut };
+                java.sql.DatabaseMetaData.procedureColumnOut};
 
-        int[] precision = new int[] { 20, 10, 10, 10, 10, 10, 2000, 2000, 8000, 10, 2000, 10 };
+        int[] precision = new int[]{20, 10, 10, 10, 10, 10, 2000, 2000, 8000, 10, 2000, 10};
 
         int index = 0;
 
@@ -957,11 +941,11 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         this.rs.close();
 
         index = 0;
-        parameterNames = new String[] { "/*id*/", "result2" };
-        parameterTypes = new int[] { Types.VARCHAR, Types.DECIMAL };
-        precision = new int[] { 20, 10 };
-        direction = new int[] { java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnOut };
-        int[] scale = new int[] { 0, 2 };
+        parameterNames = new String[]{"/*id*/", "result2"};
+        parameterTypes = new int[]{Types.VARCHAR, Types.DECIMAL};
+        precision = new int[]{20, 10};
+        direction = new int[]{java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnOut};
+        int[] scale = new int[]{0, 2};
 
         this.conn.prepareCall("{call testBug26959_1(?, ?)}").close();
 
@@ -1004,8 +988,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         try {
             cStmt = this.conn.prepareCall("{CALL /* SOME COMMENT */ testBug27400( /* does this work too? */ ?, ?)} # and a commented ? here too");
             assertTrue(cStmt.toString().indexOf("/*") != -1); // we don't want
-                                                             // to strip the
-                                                             // comments
+            // to strip the
+            // comments
             cStmt.setInt(1, 1);
             cStmt.setString(2, "bleh");
             cStmt.execute();
@@ -1020,11 +1004,11 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix for BUG#28689 - CallableStatement.executeBatch() doesn't work
      * when connection property "noAccessToProcedureBodies" has been set to
      * "true".
-     * 
+     * <p>
      * The fix involves changing the behavior of "noAccessToProcedureBodies", in
      * that the driver will now report all paramters as "IN" paramters but allow
      * callers to call registerOutParameter() on them.
-     * 
+     *
      * @throws Exception
      */
     public void testBug28689() throws Exception {
@@ -1065,7 +1049,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * Tests fix for Bug#31823 - CallableStatement.setNull() on a stored
      * function would throw an ArrayIndexOutOfBounds when setting the last
      * parameter to null when calling setNull().
-     * 
+     *
      * @throws Exception
      */
     public void testBug31823() throws Exception {
@@ -1107,7 +1091,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                     if (args.length == 2 && args[0].equals(Integer.TYPE)) {
                         if (!args[1].isPrimitive()) {
                             try {
-                                setters[i].invoke(callable, new Object[] { new Integer(2), null });
+                                setters[i].invoke(callable, new Object[]{new Integer(2), null});
                             } catch (InvocationTargetException ive) {
                                 if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                         || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1117,7 +1101,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                         } else {
                             if (args[1].getName().equals("boolean")) {
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), Boolean.FALSE });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), Boolean.FALSE});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1129,7 +1113,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                             if (args[1].getName().equals("byte")) {
 
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), new Byte((byte) 0) });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), new Byte((byte) 0)});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1142,7 +1126,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                             if (args[1].getName().equals("double")) {
 
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), new Double(0) });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), new Double(0)});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1155,7 +1139,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                             if (args[1].getName().equals("float")) {
 
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), new Float(0) });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), new Float(0)});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1168,7 +1152,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                             if (args[1].getName().equals("int")) {
 
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), new Integer(0) });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), new Integer(0)});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1180,7 +1164,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
                             if (args[1].getName().equals("long")) {
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), new Long(0) });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), new Long(0)});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1191,7 +1175,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
                             if (args[1].getName().equals("short")) {
                                 try {
-                                    setters[i].invoke(callable, new Object[] { new Integer(2), new Short((short) 0) });
+                                    setters[i].invoke(callable, new Object[]{new Integer(2), new Short((short) 0)});
                                 } catch (InvocationTargetException ive) {
                                     if (!(ive.getCause() instanceof com.mysql.jdbc.NotImplemented
                                             || ive.getCause().getClass().getName().equals("java.sql.SQLFeatureNotSupportedException"))) {
@@ -1215,9 +1199,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * error message packets to the internal method which decodes them
      * correctly, so no exception is rasied, and the driver than hangs trying to
      * read rows that aren't there...
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
     public void testBug32246() throws Exception {
         if (!versionMeetsMinimum(5, 0)) {
@@ -1496,9 +1479,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      * determineParameterTypes() throws SQLException if (procName.indexOf(".")
      * == -1) { useCatalog = true; } The fix will be to "sanitize" db.sp call
      * just like in noAccessToProcedureBodies.
-     * 
-     * @throws Exception
-     *             if the test fails
+     *
+     * @throws Exception if the test fails
      */
 
     public void testBug57022() throws Exception {
@@ -1552,7 +1534,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#60816 - Cannot pass NULL to an INOUT procedure parameter
-     * 
+     *
      * @throws Exception
      */
     public void testBug60816() throws Exception {
@@ -1601,8 +1583,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         createProcedure("testBug79561", "(OUT o VARCHAR(100)) BEGIN SELECT 'testBug79561 data' INTO o; END");
 
         String dbName = this.conn.getCatalog();
-        String[] sql = new String[] { String.format("{CALL %s.testBug79561(?)}", dbName), String.format("{CALL `%s`.testBug79561(?)}", dbName),
-                String.format("{CALL %s.`testBug79561`(?)}", dbName), String.format("{CALL `%s`.`testBug79561`(?)}", dbName) };
+        String[] sql = new String[]{String.format("{CALL %s.testBug79561(?)}", dbName), String.format("{CALL `%s`.testBug79561(?)}", dbName),
+                String.format("{CALL %s.`testBug79561`(?)}", dbName), String.format("{CALL `%s`.`testBug79561`(?)}", dbName)};
 
         for (int i = 0; i < sql.length; i++) {
             for (int m = 0; m < 4; m++) { // Method call type: 0) by index; 1) by name; 2) by invalid index; 3) by invalid name;
@@ -1733,9 +1715,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
 
     /**
      * Tests fix for BUG#87704 (26771560) - THE STREAM GETS THE RESULT SET ?THE DRIVER SIDE GET WRONG ABOUT GETLONG().
-     * 
-     * @throws Exception
-     *             if an error occurs.
+     *
+     * @throws Exception if an error occurs.
      */
     public void testBug87704() throws Exception {
         if (!serverSupportsStoredProcedures()) {

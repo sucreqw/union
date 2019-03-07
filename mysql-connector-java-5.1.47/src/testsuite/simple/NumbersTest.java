@@ -32,7 +32,7 @@ public class NumbersTest extends BaseTestCase {
 
     /**
      * Creates a new NumbersTest object.
-     * 
+     *
      * @param name
      */
     public NumbersTest(String name) {
@@ -41,7 +41,7 @@ public class NumbersTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {

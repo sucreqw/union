@@ -34,7 +34,7 @@ public class TransactionTest extends BaseTestCase {
 
     /**
      * Creates a new TransactionTest object.
-     * 
+     *
      * @param name
      */
     public TransactionTest(String name) {
@@ -43,7 +43,7 @@ public class TransactionTest extends BaseTestCase {
 
     /**
      * Runs all test cases in this test suite
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
