@@ -48,7 +48,7 @@ public class WeiboTopic extends Weibo {
                             c.setVoteId(capchaId);
                             int counts = 0;
                             int rets = 0;
-                            while ((rets = c.Actions(index, "getpicD")) != 1) {
+                            while ((rets = c.Actions(index, "getpict")) != 1) {
                                 counts++;
                                 if (counts == 5) {
                                     break;
@@ -84,6 +84,7 @@ public class WeiboTopic extends Weibo {
                     MyUtil.print("正在签到话题.." + (index + 1), Factor.getGui());
                 }
                 ret = nets.goPost("huati.weibo.cn", 443, score(allCookie, "FOLLOW"));
+
                 break;
             case "checktopic":
 

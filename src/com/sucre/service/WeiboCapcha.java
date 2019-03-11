@@ -75,84 +75,112 @@ public class WeiboCapcha extends Weibo {
                     }
                 }
                 // return 1;
-                // 取拖动的验证码 并验证！
+            // 取拖动的验证码 并验证！
             case "getpicD":
-                try {
-                    MyUtil.print("开始取图url!", Factor.getGui());
-                    // super.setUid("6828954865");
-                    ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
-                    if (!MyUtil.isEmpty(ret)) {
-                        String picUrl = MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
-                        picId = MyUtil.midWord("id\":\"", "\",\"", ret);
-                        String Hash = MyUtil.midWord("x\":\"", "\",\"", ret);
-                        Base64.Decoder decoder = Base64.getDecoder();
-                        Hash = new String(decoder.decode(Hash));
-                        String indexP = MyUtil.midWord("seqo8,", "", Hash);
-                        String startP = MyUtil.midWord("pos", "end", Hash + "end").substring(1);
-                        String[] startPs = startP.split(",");
-                        MyUtil.print("开始取验证码背景图！", Factor.getGui());
-                        byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
-                        if (pic != null && indexP != null) {
-                            // MyUtil.outPutData("temp.jpg", pic);
-                            //还原图片
-                            byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
-                            //MyUtil.outPutData("temp.jpg", rets);
-                            MyUtil.print("图片还原成功，开始识别！", Factor.getGui());
-                            //2值化，然后识别。
-                            String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
-                            // MyUtil.outPutData(result + "a.jpg", rets);
-                            // System.out.println(result);
-                            if (!"".equals(result)) {
-                                MyUtil.outPutData(result + ".jpg", rets);
-                                MyUtil.print("识别结果：" + result, Factor.getGui());
-                                String[] p = result.split(",");
+                //调用拖动验证码功能。
+                int tmp=drowD("topic",net);
+                break;
 
-                                for (int i = 0; i < p.length; i++) {
-                                    if (!"".equals(p[i])) {
-                                        String hash = getjs(simulate(startPs[0], p[i]));
-                                        ret = net.goPost("captcha.weibo.com", 443, verifyD(picId, super.getUid(),
-                                                hash, "i00uAnVhd01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzEzXzYpIEFwcGxlV2ViS2l0LzYwNS4xLjE1IChLSFRNTCwgbGlrZSBHZWNrbykgVmVyc2lvbi8xMS4xLjIgU2FmYXJpLzYwNS4xLjE1BGxhbmcFZW4tVVMGc2NyZWVuCTE5MjAqMTA4MAh0aW1lem9uZQ1Bc2lhL1NoYW5naGFpBHBsYXQITWFjSW50ZWwCZnAgOThhMjM2YzcxNTcyODAxMmY3OGY1ODg2MjA3NjYwMmQFc2NhbGUBMQJsdA0xNTQzOTA4NDkyNDQ3AmN0DTE1NDM5MDg1MTUwNTECc3QNMTU0MzkwODUxMzQ3Nw=="));
-                                        if (!MyUtil.isEmpty(ret)) {
-                                            if (ret.indexOf("100000") != -1) {
-                                                // 识别成功！验证超级话话题
-                                                ret = net.goPost("huati.weibo.cn", 443,
-                                                        captchareverify(super.getCookie(), voteId, picId));
-                                                if (!MyUtil.isEmpty(ret)) {
-                                                    if (ret.indexOf("100000") != -1) {
-                                                        MyUtil.print("识别成功，话题验证成功" + super.getId() + "|" + super.getPass() + "|",
-                                                                Factor.getGui());
-                                                        return 1;
-                                                    } else {
-                                                        MyUtil.print("识别成功，话题验证失败！",
-                                                                Factor.getGui());
-                                                    }
-                                                }
-                                            }
-                                            //System.out.println(ret);
-                                            MyUtil.print("验证失败！" + MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "\"", ret)) + super.getId() + "|" + super.getPass() + "|",
-                                                    Factor.getGui());
-                                            //System.out.print(ret);
-                                        } else {
-                                            //网络错误，再来一次!
-                                            i--;
-                                        }
-                                    }
-                                }
-                            } else {
-                                MyUtil.print("识别失败！",
-                                        Factor.getGui());
-                            }//识别结果
-                        }
-                    }//end of if
-                } catch (Exception e) {
-                    MyUtil.print("识别验证码出错了！" + e.getMessage(), Factor.getGui());
-                    System.out.println(ret);
-                }
+            // 取拖动的验证码 并验证！
+            case "getpict":
+                //调用拖动验证码功能。
+                int tmps=drowD("topic_xiaoduan",net);
                 break;
 
         }
         return 0;
     }
+
+    //取拖动验证码并识别
+    private int drowD(String source,Nets net){
+        String ret="";
+
+        try {
+            MyUtil.print("开始取图url!", Factor.getGui());
+            // super.setUid("6828954865");
+            ret = net.goPost("captcha.weibo.com", 443, getPicD(super.getUid()));
+            if (!MyUtil.isEmpty(ret)) {
+
+                //取验证码图片，先把base64解码
+                String picUrl = MyUtil.midWord("backgroundPath\":\"", "\",\"", ret);
+                picId = MyUtil.midWord("id\":\"", "\",\"", ret);
+                String Hash = MyUtil.midWord("x\":\"", "\",\"", ret);
+                //Base64.Decoder decoder = Base64.getDecoder();
+                //Hash = new String(decoder.decode(Hash));
+
+                //String indexP = MyUtil.midWord("seqo8,", "", Hash);
+                //String startP = MyUtil.midWord("pos", "end", Hash + "end").substring(1);
+
+                String[] HashDecode=JsUtil.runJS("getpicIndex",Hash).split("/");
+                String indexP=HashDecode[1].replace("8,","");
+                String startP=HashDecode[0];
+
+                String[] startPs = startP.split(",");
+                MyUtil.print("开始取验证码背景图！", Factor.getGui());
+
+                //得到图片地址，去取图片。
+                byte[] pic = net.goPostByte("captcha.weibo.com", 443, getImage(picUrl));
+                if (pic != null && indexP != null) {
+                    //MyUtil.outPutData("temp.jpg", pic);
+                    //还原图片
+                    byte[] rets = SinaCapchaUtil.recombineShadow(indexP, pic);
+                    //MyUtil.outPutData("temp.jpg", rets);
+                    MyUtil.print("图片还原成功，开始识别！", Factor.getGui());
+                    //2值化，然后识别。
+                    String result = SinaCapchaUtil.grayImage2(rets, Integer.parseInt(startPs[1]));
+                    // MyUtil.outPutData(result + "a.jpg", rets);
+                    // System.out.println(result);
+                    if (!"".equals(result)) {
+                        //MyUtil.outPutData(result + ".jpg", rets);
+                        MyUtil.print("识别结果：" + result, Factor.getGui());
+                        String[] p = result.split(",");
+
+                        for (int i = 0; i < p.length; i++) {
+                            if (!"".equals(p[i])) {
+                                String[] hash = getjs(simulate(startPs[0], p[i])).split("\\\\");
+                                ret = net.goPost("captcha.weibo.com", 443, verifyD2(picId, super.getUid(),
+                                        hash[0], hash[1],source));
+                                if (!MyUtil.isEmpty(ret)) {
+                                    if (ret.indexOf("100000") != -1) {
+                                        // 识别成功！验证超级话话题
+                                        ret = net.goPost("huati.weibo.cn", 443,
+                                                captchareverify(super.getCookie(), voteId, picId));
+                                        if (!MyUtil.isEmpty(ret)) {
+                                            if (ret.indexOf("100000") != -1) {
+                                                MyUtil.print("识别成功，话题验证成功" + super.getId() + "|" + super.getPass() + "|",
+                                                        Factor.getGui());
+                                                return 1;
+                                            } else {
+                                                MyUtil.print("识别成功，话题验证失败！",
+                                                        Factor.getGui());
+                                            }
+                                        }
+                                    }
+                                    //System.out.println(ret);
+                                    MyUtil.print("验证失败！" + MyUtil.decodeUnicode(MyUtil.midWord("msg\":\"", "\"", ret)) + super.getId() + "|" + super.getPass() + "|",
+                                            Factor.getGui());
+                                    //System.out.print(ret);
+                                } else {
+                                    //网络错误，再来一次!
+                                    i--;
+                                }
+                            }
+                        }
+                    } else {
+                        MyUtil.print("识别失败！",
+                                Factor.getGui());
+                    }//识别结果
+                }
+            }//end of if
+        } catch (Exception e) {
+            MyUtil.print("识别验证码出错了！" + e.getMessage(), Factor.getGui());
+            System.out.println(ret);
+        }
+        return 0;
+    }
+
+
+
 
     public String getEnc() {
         return this.data_enc;
@@ -234,9 +262,37 @@ public class WeiboCapcha extends Weibo {
     }
 
     public static String getjs(String js) {
+        String t=MyUtil.getTime();
+
         String nJS = "function getit() {\r\n";
         nJS += js;
-        nJS += "return x10083c1154678cbf65f8ec60cfe136ce(trace);\r\n";
+
+        nJS+="var _0x118eca = {\n" +
+                "        ua: \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36\"," +
+                "        lang: \"en-US\",\n" +
+                "        screen: \"854*480\",\n" +
+                "        timezone: \"Asia/Shanghai\",\n" +
+                "        plat: \"MacIntel\",\n" +
+                "        fp: \"fdcb133cfec46bcac7d359bc459894c8\",\n" +
+
+
+
+                "        scale: \"1\",\n" +
+                "        lt: \""+ (Long.valueOf(t)-440915) + "\",\n" +
+                "        ct: \""+ t +"\",\n" +
+                "        st: \""+ (Long.valueOf(t)+586) +"\"\n" +
+
+
+
+
+
+
+                "\n" +
+                "    };";
+        nJS+="var p= x10083c1154678cbf65f8ec60cfe136ce(trace);\n" +
+             "var s= xf63baf2d4c2f706052b8345c3dfe1f6f(x84a0f3455dcca894ace136be62efa292(_0x118eca));";
+
+        nJS += "return p + '\\\\' + s ;\r\n";
         nJS += "}";
 
         JsUtil.AddJs(nJS);
@@ -288,7 +344,7 @@ public class WeiboCapcha extends Weibo {
     // 取拖动的图片
     private byte[] getPicD(String uid) {
         StringBuilder data = new StringBuilder(900);
-        data.append("GET //api/jigsaw/get?ver=1.0.0&source=topic&usrname=" + uid + "&_rnd=0." + MyUtil.makeNumber(16)
+        data.append("GET //api/jigsaw/get?ver=2.2.7&source=topic&usrname=" + uid + "&_rnd=0." + MyUtil.makeNumber(16)
                 + "&callback=pl_cb HTTP/1.1\r\n");
         data.append("Host: captcha.weibo.com\r\n");
         data.append("Connection: keep-alive\r\n");
@@ -307,8 +363,8 @@ public class WeiboCapcha extends Weibo {
     private byte[] verifyD(String vid, String uid, String p, String s) {
         StringBuilder data = new StringBuilder(900);
 
-        data.append("GET //api/jigsaw/verify?ver=1.0.0&id=" + vid + "&usrname=" + uid + "&source=topic&p=" + p + "&s="
-                + s + "&callback=pl_cb HTTP/1.1\r\n");
+        data.append("GET //api/jigsaw/verify?ver=2.2.7&id=" + vid + "&usrname=" + uid + "&source=topic&p=" + p + "&s="
+                + s + "&callback=pl_cb"+ MyUtil.getTime() +" HTTP/1.1\r\n");
         data.append("Host: captcha.weibo.com\r\n");
         data.append("Connection: keep-alive\r\n");
         data.append(
@@ -319,6 +375,24 @@ public class WeiboCapcha extends Weibo {
         data.append("\r\n");
         return data.toString().getBytes();
     }
+    // 验证拖动图片  第二代 ，因为签到也加了码，每个验证的source不一样，所以要求传过来。(topic_xiaoduan,topic)
+    private byte[] verifyD2(String vid ,String uid, String p,String s ,String source ) {
+        StringBuilder data = new StringBuilder(900);
+        String temp = "";
+        data.append("GET /api/jigsaw/verify?ver=2.2.7&id="+ vid +"&usrname="+ uid +"&source="+ source +"&p="+p +"&s="+ s +"&callback=pl_cb"+ MyUtil.getTime()+" HTTP/1.1\r\n");
+        data.append("Host: captcha.weibo.com\r\n");
+        data.append("Connection: keep-alive\r\n");
+        data.append("User-Agent: Mozilla/5.0 (Linux; Android 6.0.1; MuMu Build/V417IR; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.100 Mobile Safari/537.36 Weibo (Netease-MuMu__weibo__9.0.0__android__android6.0.1)\r\n");
+        data.append("Accept: */*\r\n");
+        data.append("Referer: https://huati.weibo.cn/super/captcha/?ua=Netease-MuMu__weibo__9.0.0__android__android6.0.1&from=1090095010&type=pick&page_id=1008086de98a1a1a398df9761c706bfaac6b00\r\n");
+        data.append("Accept-Language: zh-CN,en-US;q=0.8\r\n");
+        data.append("X-Requested-With: com.sina.weibo\r\n");
+        data.append("\r\n");
+        data.append("\r\n");
+        data.append("\r\n");
+        return data.toString().getBytes();
+    }
+
 
     // 取拖动的图片byte[]
     private byte[] getImage(String url) {

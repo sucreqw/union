@@ -68,7 +68,7 @@ public class Gui extends JFrame implements Printer {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}*/
-		
+
 	/*	try {
 			InputStream inputStream=new FileInputStream(new File("t3142.gif"));
 			InputStream inputStream1=new FileInputStream(new File("3124.gif"));
