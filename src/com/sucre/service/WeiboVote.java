@@ -338,6 +338,10 @@ public class WeiboVote extends Weibo {
                         }
                     }
                     break;
+                case "搜狗":
+                    SouGo souGo=new SouGo();
+                    souGo.getpic(vid);
+                    break;
             }// end of switch
 
         }

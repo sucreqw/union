@@ -43,7 +43,10 @@ public class About extends JFrame{
 				+"高危号可以投，每个每天5票，cookie不需要s参数\r\n"
 				+"版本1.8\r\n"
 				+"利用秒拍漏洞新增秒拍关注与取消关注功能。cookie为原来刷秒拍红心的cookie,格式为：cookie|id\r\n"
-				+"uid格式为：6llRdRoWfDXMHT4K 目前uid只能通过手机版抓包的形式取得。"
+				+"uid格式为：6llRdRoWfDXMHT4K 目前uid只能通过手机版抓包的形式取得。\r\n"
+				+"版本1.8.1\r\n"
+                +"增加了搜狗投票功能，vid格式：吴磊\r\n"
+                +"内置了验证码为12，默认分享投5次，人气投5次。\r\n"
 
 
 

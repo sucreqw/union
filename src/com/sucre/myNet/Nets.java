@@ -21,33 +21,52 @@ public class Nets {
      * @return 成功后返回服务器返回的数�?,不成功返回错误码.
      */
     public String goPost(String host, int port, byte[] data) {
-        StringBuilder ret = new StringBuilder(data.length);
+        //StringBuilder ret = new StringBuilder(data.length);
+        String rets="";
         // 创建sslsocket工厂
         SocketFactory factory = SSLSocketFactory.getDefault();
+        int timeout=3000;
         try (
                 // 括号内的对象自动释放.
                 // 创建socker对象
+
                 Socket sslsocket = factory.createSocket(host, port);
                 // 创建要写入的数据对象,直接用bufferedoutputstream 更灵�?.必要时可传文件之�?.
                 BufferedOutputStream out = new BufferedOutputStream(sslsocket.getOutputStream());
 
         ) {
+            sslsocket.setSoTimeout(3000);
             // 写入要发送的数据并刷�?!
             out.write(data);
             out.flush();
             // 接收数据,为了解决乱码的情�?,要用inputstreamreader,用bufferedreader 包装后会更高效些.
-            BufferedReader in = new BufferedReader(new InputStreamReader(sslsocket.getInputStream(), "UTF-8"));
-            // String str = null;
-            char[] rev = new char[1024];
+			/*BufferedReader in = new BufferedReader(new InputStreamReader(sslsocket.getInputStream(), "UTF-8"));
+			// String str = null;
+			char[] rev = new char[1024];
+			int len = -1;
+			while ((len = in.read(rev)) != -1) {
+				ret.append(new String(rev, 0, len));
+				// 由于socket会阻�?,当装不满缓冲区时,当作是结�?,
+				if (len < 1024) {
+					break;
+				}
+			}*/
+            InputStream in = new DataInputStream(sslsocket.getInputStream());
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] rev = new byte[1024];
             int len = -1;
+            int start = 0;
             while ((len = in.read(rev)) != -1) {
-                ret.append(new String(rev, 0, len));
-                // 由于socket会阻�?,当装不满缓冲区时,当作是结�?,
-                if (len < 1024) {
+
+                output.write(rev, 0, len);
+
+				/*if (len < 1024) {
                     break;
-                }
+                }*/
             }
 
+            rets = new String(output.toByteArray(), "utf-8");
+            //ret.append(rets);
             // 安全起见还是关闭�?下资�?.
             in.close();
             sslsocket.close();
@@ -58,7 +77,7 @@ public class Nets {
             System.err.println("网络错误：" + e.getMessage());
         }
 
-        return ret.toString();
+        return rets;
     }
 
     /**
