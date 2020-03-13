@@ -4,7 +4,10 @@ import com.sucre.controller.Controller;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
+import com.sucre.myNet.OkHttp;
 import com.sucre.utils.MyUtil;
+
+import java.util.HashMap;
 
 public class weiboGuess extends Weibo {
 
@@ -27,18 +30,34 @@ public class weiboGuess extends Weibo {
 
     public int Guess(int index) {
         int rets = 0;
-        Nets net = new Nets();
+        //Nets net = new Nets();
+        OkHttp okHttp = new OkHttp();
+        HashMap<String, String> header = new HashMap<>();
+        HashMap<String, String> body = new HashMap<>();
         int sIndex = 0;
         MyUtil.print("开始穷举S参数：" + gets(sIndex) + "<>" + (index + 1), Factor.getGui());
 //		if (MyUtil.listCookie.getSize() != 0) {
 //			String[] temp = MyUtil.listCookie.get(index).split("\\|");
         String cookie = super.getCookie();//temp[0];
+        cookie = getcookieIndex(cookie, 2);
+        cookie = MyUtil.midWord("SUB=", ";", cookie);
+
         String uid = super.getUid();//temp[1];
         String id = super.getId();//temp[2];
         String pass = super.getPass();//temp[3];
         String ret;
         while (true) {
-            ret = net.goPost("api.weibo.cn", 443, checkIn(cookie, gets(sIndex), uid));
+            //ret = net.goPost("api.weibo.cn", 443, checkIn(cookie, gets(sIndex), uid));
+            header=new HashMap<>();
+            header.put("X-Log-Uid" , uid );
+            header.put("User-Agent" ,"Che2-TL00_4.4.2_weibo_8.6.3_android");
+            //body=new HashMap<>();
+            ret = okHttp.goGet("https://api.weibo.cn/2/page/button?request_url=http%3A%2F%2Fi.huati.weibo.com%2Fmobile%2Fsuper%2Factive_checkin%3Fpageid%3D10080817c0fee819b9c79696a382f9634dbd87&networktype=wifi&extparam=tabbar_follow%234296204685089364&accuracy_level=0&uicode=10000011&moduleID=700&wb_version=3654&c=android&i=f842b7a&s="
+                     + gets(sIndex)
+                     + "&ft=0&ua=HUAWEI-Che2-TL00__weibo__8.6.3__android__android4.4.2&wm=9006_2001&aid=01Anlv2XwdpcqURzkYptXmiLgF3XZdgmTqaHowQEvwWF5xAFc.&fid=10080817c0fee819b9c79696a382f9634dbd87&v_f=2&v_p=62&from=1086395010&gsid="
+                     + cookie
+                    + "&lang=zh_CN&lfid=100803_-_recentvisit&skin=default&oldwm=9006_2001&sflag=1&cum=E0214B2C", header);
+
             //穷举成功
             if (ret.indexOf("签到") > 0 || ret.indexOf("帐号异常") > 0) {
                 super.setS(gets(sIndex));
@@ -53,7 +72,7 @@ public class weiboGuess extends Weibo {
                 return 1;
                 //不成功，继续试
             } else {
-                sIndex++;
+                if(!MyUtil.isEmpty(ret)){sIndex++;}else{MyUtil.sleeps(500);};
                 MyUtil.print("继续穷举S参数：" + gets(sIndex) + "<>" + (index + 1), Factor.getGui());
                 if (sIndex >= 15) {
                     return 0;
@@ -92,6 +111,7 @@ public class weiboGuess extends Weibo {
      * @return
      */
     private byte[] checkIn(String cookie, String s, String uid) {
+        cookie = getcookieIndex(cookie, 2);
         cookie = MyUtil.midWord("SUB=", ";", cookie);
         StringBuilder data = new StringBuilder(900);
         data.append(
@@ -107,5 +127,17 @@ public class weiboGuess extends Weibo {
         data.append("\r\n");
         data.append("\r\n");
         return data.toString().getBytes();
+    }
+
+    //取指定的cookie
+    public String getcookieIndex(String cookies, int index) {
+        String[] cookiess = cookies.split("\\^");
+        String cookie = "";
+        if (cookiess.length > 2) {
+            cookie = cookiess[index];
+        } else {
+            cookie = cookies;
+        }
+        return cookie;
     }
 }

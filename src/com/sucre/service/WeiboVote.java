@@ -5,9 +5,12 @@ import com.sucre.entity.Vid;
 import com.sucre.entity.Weibo;
 import com.sucre.factor.Factor;
 import com.sucre.myNet.Nets;
+import com.sucre.myNet.OkHttp;
 import com.sucre.utils.MyUtil;
+import com.sucre.utils.SinaUtils;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 public class WeiboVote extends Weibo {
     private String picId = "";
@@ -24,6 +27,9 @@ public class WeiboVote extends Weibo {
         for (int i = 0; i < Controller.getInstance().getVidImpl().getSize(); i++) {
             v = Controller.getInstance().getVidImpl().getVid(i, v);
             vid = v.getVids();
+            OkHttp okHttp = new OkHttp();
+            HashMap<String, String> header = new HashMap<>();
+            HashMap<String, String> body = new HashMap<>();
             // 取到vid之后，判断任务
             switch (mission) {
                 case "加油":
@@ -59,7 +65,8 @@ public class WeiboVote extends Weibo {
                                         MyUtil.print("打榜成功！" + super.getId() + "|" + super.getPass() + "|" + name + "|"
                                                 + userScore + "|", Factor.getGui());
 
-                                        return 1;                                    } else if (ret.indexOf("382023") != -1) {
+                                        return 1;
+                                    } else if (ret.indexOf("382023") != -1) {
                                         // 要拖码
                                         MyUtil.print("要拖码" + super.getId() + "|" + super.getPass() + "|" + userScore,
                                                 Factor.getGui());
@@ -90,18 +97,40 @@ public class WeiboVote extends Weibo {
                     break;
 
                 case "阅读":
-                    String s = super.getS();
+                    int sicip = 0;//should i change ip?
                     String uid = super.getUid();
-                    cookie = super.getCookie();
+                    String s = SinaUtils.CaculateS(uid);//super.getS();
 
-                    ret = nets.goPost("api.weibo.cn", 443, cardlist(uid, cookie, s, vid));
+                    cookie = getcookieIndex(super.getCookie(), 2);
+                    cookie = MyUtil.midWord("SUB=", ";", cookie);
+
+                    //ret = nets.goPost("api.weibo.cn", 443, cardlist(uid, cookie, s, vid));
+                    header = new HashMap<>();
+                    //header.put("X-Log-Uid" , uid );
+                    header.put("Cache-Control", "max-age=0");
+                    header.put("x-log-uid", uid);
+                    header.put("User-Agent", "Xiaomi-MI 4LTE_weibo_7.2.0_android_android6.0.1");
+                    //body=new HashMap<>();
+                    String url = "https://api.weibo.cn/2/cardlist?networktype=wifi&uicode=10000198&moduleID=708&checktoken=null&wb_version=3332&lcardid=4083046808752770&c=android&i=null&s="
+                            + s
+                            + "&ua=Xiaomi-MI%204LTE_weibo_7.2.0_android_android6.0.1&wm=4209_8001&aid=01Anull.&did=null&fid=107603"
+                            + vid + "_-_WEIBO_SECOND_PROFILE_WEIBO&uid=" + uid + "&v_f=2&v_p=44&from=1072095010&gsid="
+                            + cookie
+                            + "&imsi=null&lang=zh_CN&lfid=230584&page=1&skin=default&count=20&oldwn=4209_8001&sflag=1&containerid=107603"
+                            + vid + "_-_WEIBO_SECOND-PROFILE_WEIBO&luicode=10000228&need_head_cards=0";
+                    ret = okHttp.goGet(url, header);
                     if (!MyUtil.isEmpty(ret)) {
                         if (ret.indexOf("cardlistInfo") != -1) {
                             MyUtil.print("成功！" + index, Factor.getGui());
 
                         } else {
-                            if (Thread.currentThread().getName().equals("ip")) {
-                                MyUtil.changIp();
+                            sicip++;
+                            MyUtil.print("失败！" + index, Factor.getGui());
+                            if (sicip > 1) {
+                                MyUtil.print("换ip！" + index, Factor.getGui());
+                                if (Thread.currentThread().getName().equals("ip")) {
+                                    MyUtil.changIp();
+                                }
                             }
                         }
                     }
@@ -316,31 +345,40 @@ public class WeiboVote extends Weibo {
 
                 case "秒拍关注":
                     //因为秒拍cookie只有两项，以前代码设计直接当成id导入 ，为了兼容，这里直接取id就是cookie.
-                    ret=nets.GoHttp("b-api.ins.miaopai.com",80,miaopaiFollow(super.getId(),vid));
-                    if(!MyUtil.isEmpty(ret)){
-                        String msg=MyUtil.midWord("msg\":\"","\",\"",ret);
-                        if(msg!=null && !"".equals(msg)){
-                            MyUtil.print("关注失败："+ MyUtil.decodeUnicode(msg) +"<>" +(index-1) ,Factor.getGui());
-                        }else{
-                            MyUtil.print("关注成功："+ (index-1) ,Factor.getGui());
+                    ret = nets.GoHttp("b-api.ins.miaopai.com", 80, miaopaiFollow(super.getId(), vid));
+                    if (!MyUtil.isEmpty(ret)) {
+                        String msg = MyUtil.midWord("msg\":\"", "\",\"", ret);
+                        if (msg != null && !"".equals(msg)) {
+                            MyUtil.print("关注失败：" + MyUtil.decodeUnicode(msg) + "<>" + (index - 1), Factor.getGui());
+                        } else {
+                            MyUtil.print("关注成功：" + (index - 1), Factor.getGui());
                         }
                     }
                     break;
                 case "秒拍取消关注":
                     //因为秒拍cookie只有两项，以前代码设计直接当成id导入 ，为了兼容，这里直接取id就是cookie.
-                    ret=nets.GoHttp("b-api.ins.miaopai.com",80,miaopaiUnFollow(super.getId(),vid));
-                    if(!MyUtil.isEmpty(ret)){
-                        String msg=MyUtil.midWord("msg\":\"","\",\"",ret);
-                        if(msg!=null && !"".equals(msg)){
-                            MyUtil.print("取消关注失败："+ MyUtil.decodeUnicode(msg) +"<>" +(index-1) ,Factor.getGui());
-                        }else{
-                            MyUtil.print("取消关注成功："+ (index-1) ,Factor.getGui());
+                    ret = nets.GoHttp("b-api.ins.miaopai.com", 80, miaopaiUnFollow(super.getId(), vid));
+                    if (!MyUtil.isEmpty(ret)) {
+                        String msg = MyUtil.midWord("msg\":\"", "\",\"", ret);
+                        if (msg != null && !"".equals(msg)) {
+                            MyUtil.print("取消关注失败：" + MyUtil.decodeUnicode(msg) + "<>" + (index - 1), Factor.getGui());
+                        } else {
+                            MyUtil.print("取消关注成功：" + (index - 1), Factor.getGui());
                         }
                     }
                     break;
                 case "搜狗":
-                    SouGo souGo=new SouGo();
+                    SouGo souGo = new SouGo();
                     souGo.getpic(vid);
+                    break;
+                case "监控微博":
+                    MonitorWeibo monitorWeibo = new MonitorWeibo();
+                    monitorWeibo.start(vid, super.getCookie());
+                    MyUtil.sleeps(300000);
+                    break;
+                case "发微博":
+                    PublishWeibo publishWeibo=new PublishWeibo();
+                    publishWeibo.start(getcookieIndex(super.getCookie(),2),vid,"","0");
                     break;
             }// end of switch
 
@@ -938,7 +976,7 @@ public class WeiboVote extends Weibo {
     //miaopai follow......
     private byte[] miaopaiFollow(String cookies, String uid) {
         StringBuilder data = new StringBuilder(900);
-        String temp = "suid="+ uid +"\r\n";
+        String temp = "suid=" + uid + "\r\n";
 
         data.append("POST http://b-api.ins.miaopai.com/1/relation/follow.json HTTP/1.1\r\n");
         data.append("cp_vend: miaopai\r\n");
@@ -952,12 +990,12 @@ public class WeiboVote extends Weibo {
         data.append("cp_uuid: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
         data.append("cp_appid: 424\r\n");
         data.append("cp_ver: 7.1.92\r\n");
-        data.append("cp_token: "+ cookies +"\r\n");
+        data.append("cp_token: " + cookies + "\r\n");
         data.append("Content-Type: application/x-www-form-urlencoded;charset=utf-8\r\n");
         data.append("Host: b-api.ins.miaopai.com\r\n");
         data.append("Connection: Keep-Alive\r\n");
         data.append("User-Agent: okhttp/3.3.1\r\n");
-        data.append("Content-Length: "+ temp.length() +"\r\n");
+        data.append("Content-Length: " + temp.length() + "\r\n");
         data.append("X-Requested-With: com.baidu.searchbox\r\n");
         data.append("\r\n");
         data.append(temp);
@@ -965,10 +1003,11 @@ public class WeiboVote extends Weibo {
         data.append("\r\n");
         return data.toString().getBytes();
     }
+
     //miaopai Unfollow......
     private byte[] miaopaiUnFollow(String cookies, String uid) {
         StringBuilder data = new StringBuilder(900);
-        String temp = "suid="+ uid +"\r\n";
+        String temp = "suid=" + uid + "\r\n";
 
         data.append("POST http://b-api.ins.miaopai.com/1/relation/unfollow.json HTTP/1.1\r\n");
         data.append("cp_vend: miaopai\r\n");
@@ -982,12 +1021,12 @@ public class WeiboVote extends Weibo {
         data.append("cp_uuid: cacb31a4-572a-3685-9fc8-eec43313129f\r\n");
         data.append("cp_appid: 424\r\n");
         data.append("cp_ver: 7.1.92\r\n");
-        data.append("cp_token: "+ cookies +"\r\n");
+        data.append("cp_token: " + cookies + "\r\n");
         data.append("Content-Type: application/x-www-form-urlencoded;charset=utf-8\r\n");
         data.append("Host: b-api.ins.miaopai.com\r\n");
         data.append("Connection: Keep-Alive\r\n");
         data.append("User-Agent: okhttp/3.3.1\r\n");
-        data.append("Content-Length: "+ temp.length() +"\r\n");
+        data.append("Content-Length: " + temp.length() + "\r\n");
         data.append("X-Requested-With: com.baidu.searchbox\r\n");
         data.append("\r\n");
         data.append(temp);

@@ -298,10 +298,10 @@ public class Gui extends JFrame implements Printer {
 
         mission = new JComboBox();
         mission.setBounds(560, 46, 103, 27);
-        mission.setModel(new DefaultComboBoxModel(new String[]{"login", "guess", "checkin", "打榜", "查分",
+        mission.setModel(new DefaultComboBoxModel(new String[]{/*"login", "guess", "checkin", "打榜", "查分",
                 "加油", "搜索s.com", "游客", "阅读", "播放",
 
-                "定时换ip", "通用", "读书", "跑步", "春节", "LPL战队","搜狗"}));
+                "定时换ip", "通用", "读书", "跑步", "春节", "LPL战队","搜狗",*/"监控微博","发微博"}));
         panel.add(mission);
 
         resume = new JButton("暂停");

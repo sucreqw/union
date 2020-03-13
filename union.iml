@@ -27,5 +27,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="commons-collections4-4.2" level="project" />
+    <orderEntry type="library" name="fastjson-1.2.66" level="project" />
   </component>
 </module>
