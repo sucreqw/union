@@ -26,13 +26,30 @@ public class MonitorWeibo {
         String url = "https://m.weibo.cn/api/container/getIndex?type=uid&value=" + uid + "&containerid=107603" + uid;
         String ret = okHttp.goGet(url, header);
         if (!MyUtil.isEmpty(ret)) {
-            String fristW = MyUtil.midWord("\"card_type\":9", "\"card_type\":9", ret);
+            String fristW = "";//MyUtil.midWordAll("\"card_type\":9", "\"card_type\":9", ret);
+            ArrayList<String> weibo=MyUtil.midWordAll("\"card_type\":9", "\"card_type\":9", ret);
+            for(int i=0;i<weibo.size();i++){
+                if(weibo.get(i).indexOf("\"isTop\":1")<1){
+                    fristW=weibo.get(i);
+                    break;
+                }
+            }
+
             //先找第一条微博ID
             String mid = MyUtil.midWord("\"mid\":\"", "\",\"", fristW);
             MyUtil.print(mid, Factor.getGui());
             if (!checkMid(mid)) {
                 String text = MyUtil.midWord("\"text\":\"", "\",\"", fristW);
-                text = MyUtil.decodeUnicode(cleanData(text));
+                if(MyUtil.decodeUnicode(text).indexOf("\">全文")!=-1){
+                    url = "https://m.weibo.cn/status/"+ mid;
+                    ret = okHttp.goGet(url, header);
+                    if(!MyUtil.isEmpty(ret)){
+                        text=MyUtil.midWord("\"text\": \"","\",",ret);
+                        text = cleanData2(text);
+                    }
+                }else{
+                    text = MyUtil.decodeUnicode(cleanData(text));
+                }
                 String pics = MyUtil.midWord("\"pics\":", "},\"", fristW);
                 String retweeted = MyUtil.midWord("\"retweeted_status\"", "]},\"", fristW);
                 if (null != retweeted) {
@@ -119,6 +136,54 @@ public class MonitorWeibo {
 
             }
         }
+        result=result.replace("<br \\/>"," ");
+        return result;
+    }
+
+    //清洗得到的数据
+    private String cleanData2(String text) {
+        String result = text;
+        //先清A标签
+        ArrayList<String> ret = new ArrayList<>();
+        ret = MyUtil.midWordAll("<a", "</a>", result);
+        if (!MyUtil.isEmpty(ret)) {
+            for (int i = 0;
+                 i < ret.size(); i++) {
+                String href = MyUtil.midWord("href=\\\"", "\\\" ", ret.get(i));
+                String A = MyUtil.midWord(">", "</a>", "<a" + ret.get(i) + "</a>");
+                if (href != null && href.indexOf("video") != -1) {
+                    //href=href.replace("\\","");
+                    String urls=MyUtil.midWord("data-url=\\\"","\\\" ",ret.get(i));
+                    urls=urls.replace("\\","");
+                    A += urls ;
+                }
+                result = result.replace("<a" + ret.get(i) + "</a>", A);
+            }
+        }
+        //清理SPAN
+        ret = MyUtil.midWordAll("<span", "</span>", result);
+        if (!MyUtil.isEmpty(ret)) {
+            for (int i = 0;
+                 i < ret.size(); i++) {
+                String span = MyUtil.midWord(">", "</span>", "<span" + ret.get(i) + "</span>");
+                result = result.replace("<span" + ret.get(i) + "</span>", span);
+            }
+        }
+        //清理IMAGE
+        ret = MyUtil.midWordAll("<img", ">", result);
+        if (!MyUtil.isEmpty(ret)) {
+            for (int i = 0;
+                 i < ret.size(); i++) {
+                String span = MyUtil.midWord("alt=", " ", "<img" + ret.get(i) + ">");
+                if (MyUtil.isEmpty(span)) {
+                    result = result.replace("<img" + ret.get(i) + ">", "");
+                } else {
+                    result = result.replace("<img" + ret.get(i) + ">", span);
+                }
+
+            }
+        }
+        result=result.replace("<br />"," ");
         return result;
     }
 
