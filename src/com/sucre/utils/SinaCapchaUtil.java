@@ -387,7 +387,7 @@ public class SinaCapchaUtil {
     }
 
     public static String compareAll(byte[] image) {
-        /*if (null == image) {
+        if (null == image) {
             return "";
         }
         maps.put("1234",
@@ -446,7 +446,7 @@ public class SinaCapchaUtil {
             if (compareImage(pid, image)) {
                 return temp;
             }
-        }*/
+        }
 
         return "";
     }

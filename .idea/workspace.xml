@@ -8,10 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8fb65716-58d0-444f-83a9-40ec65f18a14" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/sucre/utils/SinaUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/utils/SinaUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/service/MonitorWeibo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/MonitorWeibo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/sucre/utils/SinaCapchaUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/utils/SinaCapchaUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/sucre/utils/SinaUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/utils/SinaUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +96,7 @@
       <workItem from="1584371157803" duration="46000" />
       <workItem from="1584771416164" duration="204000" />
       <workItem from="1584779237975" duration="560000" />
-      <workItem from="1584797255857" duration="647000" />
+      <workItem from="1584797255857" duration="5146000" />
     </task>
     <task id="LOCAL-00001" summary="增加监控微博和微博功能。">
       <created>1584108132200</created>
@@ -103,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584108132200</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="增加监控微博和微博功能。">
+      <created>1584853199084</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1584853199084</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
