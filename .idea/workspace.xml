@@ -8,12 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8fb65716-58d0-444f-83a9-40ec65f18a14" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/sucre/service/weiboLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/gui/Gui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/service/weiboLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/utils/SinaCapchaUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/utils/SinaCapchaUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sucre/utils/SinaUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sucre/utils/SinaUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +33,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554219809630" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../baidu" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -96,7 +91,12 @@
       <workItem from="1584371157803" duration="46000" />
       <workItem from="1584771416164" duration="204000" />
       <workItem from="1584779237975" duration="560000" />
-      <workItem from="1584797255857" duration="5146000" />
+      <workItem from="1584797255857" duration="6360000" />
+      <workItem from="1584876673703" duration="225000" />
+      <workItem from="1585211358892" duration="585000" />
+      <workItem from="1586160614542" duration="3326000" />
+      <workItem from="1586186708422" duration="1137000" />
+      <workItem from="1586305283485" duration="845000" />
     </task>
     <task id="LOCAL-00001" summary="增加监控微博和微博功能。">
       <created>1584108132200</created>
@@ -112,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584853199084</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="登录模块转到okhttp,解除卖出版本的注释">
+      <created>1584860217716</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1584860217716</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -127,9 +134,44 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/Volumes/coolsdisk/javaProject/union/src/com/sucre" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -139,29 +181,20 @@
         </entry>
       </map>
     </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="增加监控微博和微博功能。" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加监控微博和微博功能。" />
+    <MESSAGE value="登录模块转到okhttp,解除卖出版本的注释" />
+    <option name="LAST_COMMIT_MESSAGE" value="登录模块转到okhttp,解除卖出版本的注释" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/sucre/service/WeiboCapcha.java</url>
-          <line>183</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/sucre/service/WeiboCapcha.java</url>
-          <line>187</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/sucre/service/WeiboCapcha.java</url>
-          <line>297</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/sucre/service/SouGo.java</url>
           <line>65</line>

@@ -88,7 +88,7 @@ public class weiboLogin extends Weibo {
                         //不识别验证码，直接记录
 //						MyUtil.outPutData("cookie.txt", super.toString());
 //						rets=1;
-                        //不识别验证码，直接记录
+                        //返回识别流程
                         rets = -1;
                         MyUtil.print("登录需要验证码。" + (index + 1), Factor.getGui());
                     } else if (ret.indexOf("50060000") != -1) {
